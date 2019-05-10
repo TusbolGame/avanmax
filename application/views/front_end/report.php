@@ -1,10 +1,13 @@
-<?php 
+<?php
   $movie_report_enable                  =   $this->db->get_where('config' , array('title' =>'movie_report_enable'))->row()->value;
   if($movie_report_enable == '1'):
     $movie_report_note                  =   $this->db->get_where('config' , array('title' =>'movie_report_note'))->row()->value;
  ?>
 
 <div class="pull-right">
+
+    <?php echo '#0'; //. $this->session->userdata('user_id') ?>
+
     <a data-toggle="modal" id="menu" class="btn" data-target="#report-modal" data-id="<?php echo base_url('home/view_modal/report/'.$watch_videos->videos_id) ?>" style="text-transform: lowercase;font-size: 13px;color: yellow;" href="#"><i class="fa fa-warning"></i>&nbsp;report</a>
 </div>
 
@@ -19,7 +22,7 @@
           </div>
           <div class="modal-body">
             <div id="modal-loader" style="display: none; text-align: center;"> <img src="<?php echo base_url(); ?>assets/images/preloader.gif" /> </div>
-            
+
             <?php echo form_open(base_url() . 'user/report_movie/'.$watch_videos->videos_id , array('class' => 'form-horizontal group-border-dashed', 'enctype' => 'multipart/form-data', 'id' =>'report_form'));?>
               <?php echo $movie_report_note; ?>
               <div class="form-group">

@@ -44,13 +44,13 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="sidebar">
                         <div class="ad_300x250 m-b-10">
-                             <?php echo $this->common_model->get_ads('sidebar'); ?>    
+                             <?php echo $this->common_model->get_ads('sidebar'); ?>
                         </div>
                     </div>
                 </div>
                 <!-- End sidebar ads -->
             <?php endif; ?>
-        </div>        
+        </div>
         <!-- End row1 player -->
 
         <!-- row2 movie info -->
@@ -85,9 +85,9 @@
                                             </h1>
                                             <button class="btn btn-sm btn-default" onclick="wish_list_add('fav','<?php echo $watch_videos->videos_id;?>')"><i class="fa fa-heart-o"></i></button>
                                             <button class="btn btn-sm btn-default" onclick="wish_list_add('wl','<?php echo $watch_videos->videos_id;?>')"><i class="fa fa-clock-o"></i></button>
-                                            
+
                                             <?php  if($this->db->get_where('config' , array('title' =>'social_share_enable'))->row()->value =='1'):?>
-                                            
+
                                             <!-- Go to www.addthis.com/dashboard to customize your tools -->
                                             <div class="addthis_inline_share_toolbox_yl99 m-t-30 m-b-10" data-url="<?php echo base_url().'watch/'.$watch_videos->slug.'.html';?>" data-title="Watch & Download <?php echo $watch_videos->title;?>"></div>
                                             <!-- Addthis Social tool -->
@@ -102,7 +102,7 @@
                                             <p> <strong>Genre: </strong>
                                                 <?php if($watch_videos->genre !='' && $watch_videos->genre !=NULL):
                                                     $i = 0;
-                                                    $genres =explode(',', $watch_videos->genre);                                                
+                                                    $genres =explode(',', $watch_videos->genre);
                                                     foreach ($genres as $genre_id):
                                                     if($i>0){ echo ',';} $i++;                                           ?>
                                                 <a href="<?php echo $this->genre_model->get_genre_url_by_id($genre_id);?>"><?php echo $this->genre_model->get_genre_name_by_id($genre_id);?></a>
@@ -111,7 +111,7 @@
                                             <p> <strong>Actor: </strong>
                                                 <?php if($watch_videos->stars !='' && $watch_videos->stars !=NULL):
                                                     $i = 0;
-                                                    $stars =explode(',', $watch_videos->stars);                                                
+                                                    $stars =explode(',', $watch_videos->stars);
                                                     foreach ($stars as $star_id):
                                                     if($i>0){ echo ',';} $i++;                                           ?>
                                                 <a href="<?php echo base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id);?>"><?php echo $this->common_model->get_star_name_by_id($star_id);?></a>
@@ -121,7 +121,7 @@
                                             <p> <strong>Director: </strong>
                                                 <?php if($watch_videos->director !='' && $watch_videos->director !=NULL):
                                                     $i = 0;
-                                                    $stars =explode(',', $watch_videos->director);                                                
+                                                    $stars =explode(',', $watch_videos->director);
                                                     foreach ($stars as $star_id):
                                                     if($i>0){ echo ',';} $i++;                                           ?>
                                                 <a href="<?php echo base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id);?>"><?php echo $this->common_model->get_star_name_by_id($star_id);?></a>
@@ -131,7 +131,7 @@
                                             <p> <strong>Writer: </strong>
                                                 <?php if($watch_videos->writer !='' && $watch_videos->writer !=NULL):
                                                     $i = 0;
-                                                    $stars =explode(',', $watch_videos->writer);                                                
+                                                    $stars =explode(',', $watch_videos->writer);
                                                     foreach ($stars as $star_id):
                                                     if($i>0){ echo ',';} $i++;                                           ?>
                                                 <a href="<?php echo base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id);?>"><?php echo $this->common_model->get_star_name_by_id($star_id);?></a>
@@ -140,7 +140,7 @@
                                             <p> <strong>Country: </strong>
                                                 <?php if($watch_videos->country !='' && $watch_videos->country !=NULL):
                                                     $i = 0;
-                                                    $countries =explode(',', $watch_videos->country);                                                
+                                                    $countries =explode(',', $watch_videos->country);
                                                     foreach ($countries as $country_id):
                                                     if($i>0){ echo ',';} $i++;
                                                     ?>
@@ -179,7 +179,7 @@
                                                 <label for='rating_5'> <span>Rate 5 Stars</span> </label>
                                                 <br>
                                             </div><br>
-                                            
+
                                         </div>
                                     </div>
                                     <!-- tags -->
@@ -217,7 +217,7 @@
                     <?php if($show_star_image =='1'): ?>
                         <div id="actor_tab" class="tab-pane fade m-t-10">
                             <?php if($watch_videos->stars !='' && $watch_videos->stars !=NULL):
-                                    $stars =explode(',', $watch_videos->stars);                                                
+                                    $stars =explode(',', $watch_videos->stars);
                                     foreach ($stars as $star_id):
                                                                                ?>
                                 <a href="<?php echo base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id);?>">
@@ -228,7 +228,7 @@
                         <div id="director_tab" class="tab-pane fade m-t-10">
 
                             <?php if($watch_videos->director !='' && $watch_videos->director !=NULL):
-                                    $stars =explode(',', $watch_videos->director);                                                
+                                    $stars =explode(',', $watch_videos->director);
                                     foreach ($stars as $star_id):
                                                                                ?>
                                 <a href="<?php echo base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id);?>">
@@ -238,7 +238,7 @@
                         </div>
                         <div id="writer_tab" class="tab-pane fade m-t-10">
                             <?php if($watch_videos->writer !='' && $watch_videos->writer !=NULL):
-                                    $stars =explode(',', $watch_videos->writer);                                                
+                                    $stars =explode(',', $watch_videos->writer);
                                     foreach ($stars as $star_id):
                                                                                ?>
                                 <a href="<?php echo base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id);?>">
@@ -257,7 +257,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="sidebar">
                         <div class="ad_300x250 m-b-10">
-                             <?php echo $this->common_model->get_ads('sidebar'); ?>    
+                             <?php echo $this->common_model->get_ads('sidebar'); ?>
                         </div>
                     </div>
                 </div>
@@ -265,7 +265,7 @@
             <?php endif; ?>
         </div>
         <!-- End row2 movie info -->
-        <?php $this->load->view('front_end/related_movies'); ?>
+        <?php //$this->load->view('front_end/related_movies'); ?>
         <?php $this->load->view('front_end/comments'); ?>
     </div>
 </div>
@@ -320,7 +320,7 @@
                     if (post_status == "success") {
                         $('#rated').html('Rating(' + total_rating + ')');
                     } else {
-                        alert('Fail to submit rating'); 
+                        alert('Fail to submit rating');
                     }
                 }
             });
@@ -328,5 +328,3 @@
     });
 </script>
 <!-- End ajax Rating -->
-
-

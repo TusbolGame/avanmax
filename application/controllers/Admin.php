@@ -916,10 +916,12 @@ class Admin extends CI_Controller {
             $this->db->where('videos_id', $video_id);
             $this->db->delete('video_file');
             for($i=0;$i<sizeof($video_file_type);$i++){
-                $file_data['videos_id']     = $video_id;
-                $file_data['file_source']   = $video_file_type[$i];
-                $file_data['source_type']   = 'link';
-                if($video_file_type[$i]     == 'upload'){
+                $file_data['videos_id']      = $video_id;
+                $file_data['video_file_name']= $video_file_name;
+                $file_data['file_source']    = $video_file_type[$i];
+                $file_data['video_type']     = $video_type;
+                $file_data['source_type']    = 'link';
+                if($video_file_type[$i]      == 'upload'){
                    $file_data['source_type'] = $this->common_model->get_extension($video_file[$i]);
                    copy('uploads/temp/'.$video_file[$i], 'uploads/videos/'.$video_file[$i]);
                 }
@@ -3093,7 +3095,9 @@ class Admin extends CI_Controller {
     function video_file(){
         $response = array();
         $file_data['videos_id']         = $_POST["videos_id"];
+        $file_data['video_file_name']   = $_POST["video_file_name"];
         $file_data['file_source']       = $_POST["type"];
+        $file_data['video_type']        = $_POST["video_type"];
         $file_data['file_url']          = $_POST["url"];
         $file_data['source_type']       = 'link';
         $file_data['stream_key']        = $this->generate_random_string();

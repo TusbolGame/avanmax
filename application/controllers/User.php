@@ -295,7 +295,7 @@ class User extends CI_Controller{
             endif;
             if($row->role =='crew'):
               $this->session->set_userdata('user_is_login', '1');
-              $this->session->set_userdata('login_type', 'crew');
+              $this->session->set_userdata('login_type', 'suscriber');
             endif;
               return 'success';
         endif;

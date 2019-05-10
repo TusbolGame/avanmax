@@ -11,15 +11,15 @@ if (!defined('BASEPATH'))
  * @package     OVOO-Movie & Video Stremaing CMS Pro
  * @author      Abdul Mannan/Spa Green Creative
  * @copyright   Copyright (c) 2014 - 2017 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
+ * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/
  * @link        http://www.spagreen.net
  * @link        support@spagreen.net
  *
  **/
- 
+
 class Login extends CI_Controller{
-    
-    
+
+
     function __construct(){
         parent::__construct();
         $this->load->model('common_model');
@@ -30,22 +30,22 @@ class Login extends CI_Controller{
         $this->output->set_header('Pragma: no-cache');
         $this->output->set_header("Expires: Mon, 26 Jul 2010 05:00:00 GMT");
     }
-	
+
     //Default function, redirects to logged in user area
     public function index(){
         redirect(base_url() . 'user/login', 'refresh');
-        
+
     }
-    
-	
+
+
 	function ajax_login(){
 		$response = array();
-		
+
 		//Ajax username and password request
 		$username 						= $_POST["username"];
 		$password 						= md5($_POST["password"]);
-		$response['submitted_data'] 	= $_POST;		
-		
+		$response['submitted_data'] 	= $_POST;
+
 		//Validating login
 		$login_status 					= $this->validate_login( $username ,  $password);
 		$response['login_status'] 		= $login_status;
@@ -55,62 +55,72 @@ class Login extends CI_Controller{
             }else{
                 $response['redirect_url']   = base_url('user/profile');
             }
-			
-		}		
+
+		}
 		//Replying ajax request with validation response
 		echo json_encode($response);
 	}
 
     function do_login($param1='', $param2=''){
-        
+
         //Ajax username and password request
         $username                       = $this->input->post('username');
-        $password                       = $this->input->post('password');              
-        
+        $password                       = $this->input->post('password');
+
         //Validating login
-        $login_status                   = $this->validate_login( $username ,  $password);        
+        $login_status                   = $this->validate_login( $username ,  $password);
         if ($login_status == 'success') {
             if($this->session->userdata('login_type') == 'admin'){
                 $response['redirect_url']   = base_url().'admin';
             }else{
                 $response['redirect_url']   = base_url();
             }
-            
+
         }
     }
 
-    
+
     //Validating login from ajax request
     function validate_login($username	=	'' , $password	 =  ''){
 		 $credential	=	array(	'username' => $username , 'password' => $password );
-		 
-		 
+
+
 		 // Checking login credential for admin
         $query = $this->db->get_where('user' , $credential);
         if ($query->num_rows() > 0) {
             $this->session->set_userdata('login_status', '1');
             $row = $query->row();
-            // Replace the company name                     
+            // Replace the company name
             $this->db->where('user_id', $row->user_id);
             $this->db->update('user', array(
                 'last_login' => date('Y-m-d H:i:s')
-            )); 
+            ));
             if($row->role=='admin'){
-			  $this->session->set_userdata('admin_is_login', '1');			  	
+			  $this->session->set_userdata('admin_is_login', '1');
 			  $this->session->set_userdata('user_id', $row->user_id);
+              $this->session->set_userdata('user_is_crew', 'true');
 			  $this->session->set_userdata('name', $row->name);
 			  $this->session->set_userdata('username', $row->username);
 			  $this->session->set_userdata('login_type', 'admin');
 			}
 			if($row->role=='subscriber'){
-			  $this->session->set_userdata('user_is_login', '1');			  	
+			  $this->session->set_userdata('user_is_login', '1');
+              $this->session->set_userdata('user_is_crew', 'false');
+			  $this->session->set_userdata('user_id', $row->user_id);
+			  $this->session->set_userdata('name', $row->name);
+			  $this->session->set_userdata('username', $row->username);
+			  $this->session->set_userdata('login_type', 'subscriber');
+			}
+            if($row->role=='crew'){
+			  $this->session->set_userdata('user_is_login', '1');
+              $this->session->set_userdata('user_is_crew', 'true');
 			  $this->session->set_userdata('user_id', $row->user_id);
 			  $this->session->set_userdata('name', $row->name);
 			  $this->session->set_userdata('username', $row->username);
 			  $this->session->set_userdata('login_type', 'subscriber');
 			}
 			if($row->role=='gate_man'){
-			  $this->session->set_userdata('gate_man_is_login', '1');			  	
+			  $this->session->set_userdata('gate_man_is_login', '1');
 			  $this->session->set_userdata('user_id', $row->user_id);
 			  $this->session->set_userdata('name', $row->name);
 			  $this->session->set_userdata('username', $row->username);
@@ -118,8 +128,8 @@ class Login extends CI_Controller{
 			}
 			  return 'success';
 		}
-		
-		return 'invalid';		
+
+		return 'invalid';
     }
 
 
@@ -144,7 +154,7 @@ class Login extends CI_Controller{
             $user_exist             = $this->common_model->check_email_username($username,$email);
             if($user_exist){
                 $this->session->set_flashdata('error', 'Signup fail.username or email is already exist on system');
-                
+
             }else{
                 $data['join_date']       = date('Y-m-d H:i:s');
                 $data['last_login']       = date('Y-m-d H:i:s');
@@ -154,20 +164,20 @@ class Login extends CI_Controller{
                 $this->session->set_flashdata('success', 'Signup successfully.now you can login to system');
                 $response['login_status']       = $login_status;
                 redirect(base_url() . 'login', 'refresh');
-            }     
-            
-            
-        }      
-        
+            }
+
+
+        }
+
             $data['page_name']      = 'signup';
-            $data['page_title']     = 'Join with us ';            
+            $data['page_title']     = 'Join with us ';
             $this->load->view('signup', $data);
 
     }
 
     function ajax_signup()  {
         $response = array();
-        
+
         //Ajax username and password request
         $username                       = $_POST["username"];
         $email                          = $_POST["email"];
@@ -183,7 +193,7 @@ class Login extends CI_Controller{
         {
             $user_exist                     = $this->common_model->check_email_username($username,$email);
             if($user_exist){
-                $response['signup_status']  = 'user_exist';            
+                $response['signup_status']  = 'user_exist';
             }else{
                 $data['join_date']          = date('Y-m-d H:i:s');
                 $data['last_login']         = date('Y-m-d H:i:s');
@@ -204,22 +214,22 @@ class Login extends CI_Controller{
 
 
     function forget_password($param1='', $param2='') {
-        if ($param1 == 'do_reset') {           
-            $email                  = $this->input->post('email');            
+        if ($param1 == 'do_reset') {
+            $email                  = $this->input->post('email');
             $user_exist             = $this->common_model->check_email($email);
             //var_dump($user_exist , $email);
-            if($user_exist){                
+            if($user_exist){
                 $data['token'] = bin2hex(openssl_random_pseudo_bytes(16));
                 $this->db->where('email',$email);
                 $this->db->update('user',$data);
                 $this->session->set_flashdata('success', 'Please Check Your Email to Complete Password Reset.');
-                redirect(base_url() . 'login', 'refresh');                
+                redirect(base_url() . 'login', 'refresh');
             }else{
-            $this->session->set_flashdata('error', 'Email not found on our system');            
+            $this->session->set_flashdata('error', 'Email not found on our system');
             redirect(base_url() . 'login', 'refresh');
-            }    
-            
-            
+            }
+
+
         }
         redirect(base_url() . 'login', 'refresh');
 
@@ -243,9 +253,9 @@ class Login extends CI_Controller{
             $token                  = $this->input->get('token');
             if(isset($token) && $token !=''){
                 $token_exist             = $this->common_model->check_token($token);
-                if($token_exist){                               
+                if($token_exist){
                 $data['token'] = $token;
-                $data['page_title']     = 'New Password';            
+                $data['page_title']     = 'New Password';
                 $this->load->view('new_password', $data);
                 }else{
                 $this->session->set_flashdata('error', 'Invalid token..');
@@ -257,20 +267,18 @@ class Login extends CI_Controller{
             }
             //$this->session->set_flashdata('error', 'Invalid token..');
             //redirect(base_url() . 'login/forget_password', 'refresh');
-            
+
         }
 
-
-
     function subscribe(){
-        $response = array();        
+        $response = array();
         //Ajax database name,username and password request
         $email                   = $_POST["email"];
-        $name                   = $_POST["name"];       
+        $name                   = $_POST["name"];
         $response['submitted_data'] = $_POST;
         $subscribe_status = $this->add_subscriber($name,$email);
-        $response['subscribe_status'] = $subscribe_status; 
-        
+        $response['subscribe_status'] = $subscribe_status;
+
         //Replying ajax request with validation response
         echo json_encode($response);
     }
@@ -280,13 +288,13 @@ class Login extends CI_Controller{
         if ($query->num_rows() < 1) {
             $data['name']    = $name;
             $data['email']    = $email;
-            $data['subscribe_at']    = date('Y-m-d H:i:s');            
+            $data['subscribe_at']    = date('Y-m-d H:i:s');
             $this->db->insert('subscriber', $data);
             $this->load->model('email_model');
             if($this->email_model->send_confirmation_to_subscriber($email)){
             return 'success';
             }else{
-               return 'error'; 
+               return 'error';
             }
         }
         else if ($query->num_rows() > 0) {
@@ -296,8 +304,5 @@ class Login extends CI_Controller{
             return 'error';
         }
     }
-
-    
-
 
 }

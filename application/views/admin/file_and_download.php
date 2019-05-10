@@ -106,7 +106,7 @@
              ?>
             <tr id="row_<?php echo $video_file['video_file_id']; ?>">
               <td><?php echo $sl; ?></td>
-              <td><?php echo urldecode($video_file['video_file_name']); ?></td>
+              <td><?php echo $video_file['video_file_name']; ?></td>
               <td><a href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'.html?key='.$video_file['stream_key']; ?>"><?php echo 'Server-'.$sl.'('.$video_file['file_source'].')'; ?></a></td>
               <td><?php echo urldecode($video_file['file_url']); ?></td>
               <td>
@@ -122,7 +122,7 @@
                 <?php endif; ?>
               </td>
 
-              <td><?php echo urldecode($video_file['video_type']); ?></td>
+              <td><?php echo $video_file['video_type']; ?></td>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-white btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
@@ -153,7 +153,7 @@
               <label class="control-label" >Link Title</label>&nbsp;&nbsp;<input id="link_title" type="url" name="link_title[]" class="form-control" placeholder="Download from Openload" required="">
           </div>
             <div class="form-group" id="_source2">
-              <label class="control-label" >Download URL</label>&nbsp;&nbsp;<input id="download_url" type="url" name="download_url[]" class="form-control" placeholder="http://server-2.com/movies/titalic.mp4" required=""><br>
+              <label class="control-label" >Download URL</label>&nbsp;&nbsp;<input id="download_url" type="url" name="download_url[]" class="form-control" placeholder="Download URL" required=""><br>
             <button class="btn btn-sm btn-primary waves-effect" id="add-download-link"> <span class="btn-label"><i class="fa fa-plus"></i></span>Add to List </button>
           </div>
       </div>
@@ -307,11 +307,13 @@
         var  base_url = "<?php echo base_url(); ?>";
         var  url  = $("#video_url").val();
         var  videos_id  = "<?php echo $param1; ?>";
+        var  videos_name  = $("#video_file_name").val();
+        var  videos_type  = $("#video_type").val();
         if (isUrl(url)==true && url !='' && type!='') {
             $.ajax({
                 type: 'POST',
                 url: "<?php echo base_url().'admin/video_file/';?>",
-                data: "videos_id="+videos_id+"&type=" + type + "&url=" + encodeURIComponent(url),
+                data: "videos_id=" + videos_id + "&video_file_name=" + videos_name + "&video_type="+ videos_type + "&type=" + type + "&url=" + encodeURIComponent(url),
                 dataType: 'json',
                 success: function(response) {
                     var post_status = response.post_status;
