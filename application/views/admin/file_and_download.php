@@ -5,7 +5,7 @@
      <a class="btn btn-sm btn-primary waves-effect" href="<?php echo base_url('watch/').$slug; ?>" target="_blank"> <span class="btn-label"><i class="fa fa-eye"></i></span>Preview</a>
     </div>
   </div>
-  <div class="row">         
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-border panel-primary">
           <div class="panel-heading">
@@ -27,11 +27,11 @@
               <div class="form-group">
                 <label class="control-label"><?php echo tr_wd('select_file'); ?></label>
                 <input name="FileInput" id="FileInput" type="file" />
-              </div>               
+              </div>
               <button type="submit" class="btn btn-sm btn-primary waves-effect"> <span class="btn-label"><i class="fa fa-plus"></i></span><?php echo tr_wd('upload_video') ?> </button><br><br></form>
               <div id="progressbox">
                 <div class="progress progress-striped active">
-                  <div id="progressbar" class="progress-bar" style="width: 0%;"></div>                    
+                  <div id="progressbar" class="progress-bar" style="width: 0%;"></div>
                 </div>
                 <center>
                 <div id="statustxt">0%</div>
@@ -39,10 +39,18 @@
               </div>
               <div id="output" class="text-danger"></div>
             </div>
-              <div id="link_section" style="display: none;">
+
+
+             <div id="link_section" style="display: none;">
+
+                 <div class="form-group">
+                     <label class="control-label">Name</label>
+                     <input id="video_file_name" type="text" name="video_file_name" class="form-control" placeholder="Title" required="">
+                </div>
+
                 <div class="form-group">
                   <label class="control-label"><?php echo tr_wd('source'); ?></label>
-                  <select class="form-control" name="source" id="selected-source">                      
+                  <select class="form-control" name="source" id="selected-source">
                     <option value="youtube">Youtube</option>
                     <option value="vimeo">Vimeo</option>
                     <option value="embed">Google Drive</option>
@@ -53,11 +61,23 @@
                     <option value="embed">Embed URL</option>
                   </select>
                 </div>
+
+
+                <div class="form-group">
+                  <label class="control-label">Type</label>
+                  <select class="form-control" name="video_type" id="video_type">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                  </select>
+                </div>
+
+
                 <div class="form-group" id="_source1">
-                  <label class="control-label" >URL</label>&nbsp;&nbsp;<input id="video_url" type="url" name="embed_link[]" class="form-control" placeholder="http://server-2.com/movies/titalic.mp4" required=""><br>
+                  <label class="control-label" >URL</label>&nbsp;&nbsp;<input id="video_url" type="url" name="embed_link[]" class="form-control" placeholder="Video URL" required=""><br>
                 <button class="btn btn-sm btn-primary waves-effect" id="add-link"> <span class="btn-label"><i class="fa fa-plus"></i></span><?php echo tr_wd('add') ?> </button>
               </div>
-            </div>             
+            </div>
+
         </div>
     </div>
     <?php echo form_open(base_url() . 'admin/file_and_download/update_video_file/'.$param1 , array('class' => 'form-horizontal group-border-dashed', 'enctype' => 'multipart/form-data'));?>
@@ -65,18 +85,20 @@
         <div class="panel-heading">
           <h3 class="panel-title"><?php echo tr_wd('video_list') ?></h3>
         </div>
-        <div class="panel-body">                 
+        <div class="panel-body">
           <table class="table table-bordered" id="video-list">
             <thead>
               <tr>
                 <th>#</th>
+                <th>Name</th>
                 <th>URL(Source)</th>
                 <th>URL</th>
                 <th>Subtitle</th>
+                <th>Type</th>
                 <th>Action</th>
               </tr>
             </thead>
-            <?php 
+            <?php
               $sl = 0;
               $video_files = $this->db->get_where('video_file', array('videos_id'=> $param1))->result_array();
               foreach($video_files as $video_file):
@@ -84,13 +106,14 @@
              ?>
             <tr id="row_<?php echo $video_file['video_file_id']; ?>">
               <td><?php echo $sl; ?></td>
+              <td><?php echo urldecode($video_file['video_file_name']); ?></td>
               <td><a href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'.html?key='.$video_file['stream_key']; ?>"><?php echo 'Server-'.$sl.'('.$video_file['file_source'].')'; ?></a></td>
               <td><?php echo urldecode($video_file['file_url']); ?></td>
               <td>
                 <?php if($video_file['file_source'] == 'youtube' || $video_file['file_source'] == 'vimeo'):?>
                   <p>Unsupported</p>
                 <?php else: ?>
-                <?php 
+                <?php
                   $subtitles = $this->db->get_where('subtitle', array('video_file_id'=>$video_file['video_file_id']))->result_array();
                   foreach ($subtitles as $subtitle):
                  ?>
@@ -98,6 +121,8 @@
                 <?php endforeach; ?>
                 <?php endif; ?>
               </td>
+
+              <td><?php echo urldecode($video_file['video_type']); ?></td>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-white btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
@@ -110,10 +135,10 @@
                   </ul>
                 </div>
               </td>
-            </tr>             
+            </tr>
           <?php endforeach; ?>
           </table>
-          <?php echo form_close(); ?>          
+          <?php echo form_close(); ?>
       </div>
     </div>
   </div>
@@ -122,7 +147,7 @@
         <div class="panel-heading">
           <h3 class="panel-title"><?php echo tr_wd('download_url') ?></h3>
         </div>
-        <div class="panel-body">          
+        <div class="panel-body">
           <div id="download_link_section">
             <div class="form-group" id="_source2">
               <label class="control-label" >Link Title</label>&nbsp;&nbsp;<input id="link_title" type="url" name="link_title[]" class="form-control" placeholder="Download from Openload" required="">
@@ -130,7 +155,7 @@
             <div class="form-group" id="_source2">
               <label class="control-label" >Download URL</label>&nbsp;&nbsp;<input id="download_url" type="url" name="download_url[]" class="form-control" placeholder="http://server-2.com/movies/titalic.mp4" required=""><br>
             <button class="btn btn-sm btn-primary waves-effect" id="add-download-link"> <span class="btn-label"><i class="fa fa-plus"></i></span>Add to List </button>
-          </div>              
+          </div>
       </div>
     </div>
   </div>
@@ -138,7 +163,7 @@
         <div class="panel-heading">
           <h3 class="panel-title"><?php echo tr_wd('download_link_list') ?></h3>
         </div>
-        <div class="panel-body">                
+        <div class="panel-body">
           <table class="table table-bordered" id="download-link-list">
             <?php $download_links = $this->db->get_where('download_link', array('videos_id'=> $param1))->result_array();
                   foreach($download_links as $download_link):
@@ -149,7 +174,7 @@
               <td><a title="<?php echo tr_wd('delete'); ?>" class="btn btn-icon" onclick="delete_row(<?php echo " 'download_link' ".','.$download_link['download_link_id'];?>)" class="delete"><i class="fa fa-remove"></i></a></td>
             </tr>
           <?php endforeach; ?>
-          </table>       
+          </table>
       </div>
     </div>
   </div>
@@ -160,16 +185,16 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var options = {
-            //target:   '#output',   // target element(s) to be updated with server response 
-            beforeSubmit: beforeSubmit, // pre-submit callback 
-            success: afterSuccess, // post-submit callback 
-            uploadProgress: OnProgress, //upload progress callback 
-            resetForm: true // reset the form after successful submit 
+            //target:   '#output',   // target element(s) to be updated with server response
+            beforeSubmit: beforeSubmit, // pre-submit callback
+            success: afterSuccess, // post-submit callback
+            uploadProgress: OnProgress, //upload progress callback
+            resetForm: true // reset the form after successful submit
         };
 
         $('#MyUploadForm').submit(function() {
             $(this).ajaxSubmit(options);
-            // always return false to prevent standard browser submit and page navigation 
+            // always return false to prevent standard browser submit and page navigation
             return false;
         });
 
@@ -204,7 +229,7 @@
 
                 var fsize = $('#FileInput')[0].files[0].size; //get file size
                 var ftype = $('#FileInput')[0].files[0].type; // get file type
-                //allow file types 
+                //allow file types
                 switch (ftype) {
                     case 'video/webm':
                     case 'video/avi':
@@ -217,7 +242,7 @@
                     case 'video/mkv':
                     case 'application/x-mpegurl':
                     case 'video/x-flv':
-                    case 'video/flv':                   
+                    case 'video/flv':
                         break;
                     default:
                         swal('OPPS!',"<b>" + ftype + "</b> Unsupported file type/format/extention!" ,'error');
@@ -234,7 +259,7 @@
                 $('#loading-img').show(); //hide submit button
                 $("#output").html("");
                 $('#progressbar').width('0%') //update progressbar percent complete
-                $('#statustxt').html('0%'); //update status text  
+                $('#statustxt').html('0%'); //update status text
             } else {
                 //Output error to older unsupported browsers that doesn't support HTML5 File API
                 $("#output").html("Please upgrade your browser, because your current browser lacks some new features we need!");
@@ -275,7 +300,7 @@
         $("#upload_section").hide();
         $("#link_section").show();
       });
-       
+
        $("#add-link").click(function(){
         $(this).html('<span class="btn-label"><i class="fa fa-plus"></i></span>Adding..');
         var  type = $("#selected-source").val();
@@ -292,8 +317,8 @@
                     var post_status = response.post_status;
                     var row_id = response.row_id;
                     var type = response.type;
-                    var url = response.url;                    
-                    var watch_url = response.watch_url;                    
+                    var url = response.url;
+                    var watch_url = response.watch_url;
                     if (post_status == "success") {
                       var html_text = '<tr id="row_'+row_id+'"><td>#</td><td><a href="'+watch_url+'">Server('+type+')</a></td><td>'+url+'</td><td></td><td><div class="btn-group"><button type="button" class="btn btn-white btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button><ul class="dropdown-menu" role="menu"><li><a class="dropdown-item" target="_blank" href="'+watch_url+'">Watch Now</a></li><li><a class="dropdown-item" title="Delete" href="#" onclick="delete_row('+"'video_file',"+row_id+')" class="delete">Delete</a> </li></ul></div></td></tr>';
 
@@ -308,7 +333,7 @@
                     } else {
                       $("#add-link").html('<span class="btn-label"><i class="fa fa-plus"></i></span>Add');
                       swal('OPPS!',post_status ,'error');
-                        //alert(post_status); 
+                        //alert(post_status);
                     }
 
                 }
@@ -334,7 +359,7 @@
                     var post_status = response.post_status;
                     var row_id = response.row_id;
                     var link_title = response.link_title;
-                    var download_url = response.download_url;                    
+                    var download_url = response.download_url;
                     if (post_status == "success") {
                       var html_text ='<tr id="row_'+row_id+'"><td><a class="dropdown-item" href="'+download_url+'"><strong>'+link_title+'</strong></a></td><td><a href="'+download_url+'">'+download_url+'</a></td><td><a title="delete" class="btn btn-icon" onclick="delete_row('+"'download_link',"+row_id+')" class="delete"><i class="fa fa-remove"></i></a></td></tr>';
                       $('#download-link-list').append(html_text);
@@ -345,7 +370,7 @@
                       swal('Good job!','Download link added successfully ','success');
                     } else {
                       $("#add-download-link").html('<span class="btn-label"><i class="fa fa-plus"></i></span>Add to List');
-                        swal('OPPS!',post_status ,'error'); 
+                        swal('OPPS!',post_status ,'error');
                     }
                 }
             });
@@ -364,4 +389,3 @@ function isUrl(s) {
 </script>
 <script src="<?php echo base_url() ?>assets/plugins/select2/select2.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/plugins/parsleyjs/dist/parsley.min.js"></script>
-

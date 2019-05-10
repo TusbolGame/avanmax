@@ -10,15 +10,15 @@ if (!defined('BASEPATH'))
  * @package     OVOO-Movie & Video Stremaing CMS Pro
  * @author      Abdul Mannan/Spa Green Creative
  * @copyright   Copyright (c) 2014 - 2018 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
+ * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/
  * @link        http://www.spagreen.net
  * @link        support@spagreen.net
  *
  **/
 
 
-class Admin extends CI_Controller {   
-    
+class Admin extends CI_Controller {
+
     function __construct() {
         parent::__construct();
         $this->load->model('common_model');
@@ -28,17 +28,17 @@ class Admin extends CI_Controller {
         $this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
         $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        
+
     }
-    
-    //default index function, redirects to login/dashboard 
+
+    //default index function, redirects to login/dashboard
     public function index(){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url() . 'login', 'refresh');
         if ($this->session->userdata('admin_is_login') == 1)
             redirect(base_url() . 'admin/dashboard', 'refresh');
     }
-    
+
     //dashboard
     function dashboard(){
         if ($this->session->userdata('admin_is_login') != 1)
@@ -49,8 +49,8 @@ class Admin extends CI_Controller {
         /* end menu active/inactive section*/
         $data['page_name']             = 'dashboard';
         $data['page_title']            = 'Admin Dashboard';
-        $this->load->view('admin/index', $data);		
-			
+        $this->load->view('admin/index', $data);
+
     }
 
 
@@ -62,18 +62,18 @@ class Admin extends CI_Controller {
         $this->session->unset_userdata('active_menu');
         $this->session->set_userdata('active_menu', '2');
         // end menu active/inactive section
-        
+
         if ($param1 == 'add') {
             $data['name']           = $this->input->post('name');
             $data['description']    = $this->input->post('description');
             $data['slug']           = url_title($this->input->post('name'), 'dash', TRUE);
-            $data['publication']    = $this->input->post('publication');          
-            
+            $data['publication']    = $this->input->post('publication');
+
             $this->db->insert('country', $data);
             $this->session->set_flashdata('success', 'Country added successed');
             redirect(base_url() . 'admin/country/', 'refresh');
         }
-            
+
         if ($param1 == 'update') {
             $data['name']           = $this->input->post('name');
             $data['description']    = $this->input->post('description');
@@ -84,10 +84,10 @@ class Admin extends CI_Controller {
             $this->db->update('country', $data);
             $this->session->set_flashdata('success', 'Country update successed.');
             redirect(base_url() . 'admin/country/', 'refresh');
-        }        
+        }
         $data['page_name']      = 'country_manage';
         $data['page_title']     = 'Country Management';
-        $data['countries']    = $this->db->get('country')->result_array(); 
+        $data['countries']    = $this->db->get('country')->result_array();
         $this->load->view('admin/index', $data);
     }
 
@@ -110,7 +110,7 @@ class Admin extends CI_Controller {
                  $this->db->update('config' , $data);
             endif;
             $this->session->set_flashdata('success', 'Setting update successed.');
-            redirect(base_url() . 'admin/country_setting/', 'refresh');                       
+            redirect(base_url() . 'admin/country_setting/', 'refresh');
         }
         $data['page_name']      = 'country_setting';
         $data['page_title']     = 'Country Setting';
@@ -124,20 +124,20 @@ class Admin extends CI_Controller {
         /* start menu active/inactive section*/
         $this->session->unset_userdata('active_menu');
         $this->session->set_userdata('active_menu', '3');
-        /* end menu active/inactive section*/ 
-        
+        /* end menu active/inactive section*/
+
         if ($param1 == 'add') {
             $data['name']           = $this->input->post('name');
             $data['description']    = $this->input->post('description');
             $data['slug']           = url_title($this->input->post('name'), 'dash', TRUE);
-            $data['featured']       = $this->input->post('featured');          
-            $data['publication']    = $this->input->post('publication');          
-            
+            $data['featured']       = $this->input->post('featured');
+            $data['publication']    = $this->input->post('publication');
+
             $this->db->insert('genre', $data);
             $this->session->set_flashdata('success', 'Genre added successed');
             redirect(base_url() . 'admin/genre/', 'refresh');
         }
-            
+
         if ($param1 == 'update') {
             $data['name']           = $this->input->post('name');
             $data['description']    = $this->input->post('description');
@@ -149,10 +149,10 @@ class Admin extends CI_Controller {
             $this->db->update('genre', $data);
             $this->session->set_flashdata('success', 'Genre update successed.');
             redirect(base_url() . 'admin/genre/', 'refresh');
-        }        
+        }
         $data['page_name']          = 'genre_manage';
         $data['page_title']         = 'Genre Management';
-        $data['genres']             = $this->db->get('genre')->result_array(); 
+        $data['genres']             = $this->db->get('genre')->result_array();
         $this->load->view('admin/index', $data);
     }
 
@@ -175,7 +175,7 @@ class Admin extends CI_Controller {
                  $this->db->update('config' , $data);
             endif;
             $this->session->set_flashdata('success', 'Setting update successed.');
-            redirect(base_url() . 'admin/genre_setting/', 'refresh');                       
+            redirect(base_url() . 'admin/genre_setting/', 'refresh');
         }
         $data['page_name']      = 'genre_setting';
         $data['page_title']     = 'Genre Setting';
@@ -198,7 +198,7 @@ class Admin extends CI_Controller {
                 $data['value'] =   $this->input->post('total_movie_in_slider');
                 $this->db->where('title' , 'total_movie_in_slider');
                 $this->db->update('config' , $data);
-                
+
                 $data['value'] =   $this->input->post('slide_per_page');
                 $this->db->where('title' , 'slide_per_page');
                 $this->db->update('config' , $data);
@@ -216,7 +216,7 @@ class Admin extends CI_Controller {
                 $this->db->update('config' , $data);
                 $this->session->set_flashdata('success', 'Slider setting update successed');
                 redirect(base_url() . 'admin/slider_setting/', 'refresh');
-            }            
+            }
         }
         $data['page_name']      = 'slider_setting';
         $data['page_title']     = 'Slider Setting';
@@ -230,21 +230,21 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '4');
-            /* end menu active/inactive section*/ 
-        
+            /* end menu active/inactive section*/
+
         if ($param1 == 'add') {
             $data['title']              =   $this->input->post('title');
             $data['description']        =   $this->input->post('description');
             $data['video_link']         =   $this->input->post('video_link');
             $data['image_link']         =   base_url().'uploads/no_image.jpg';
-            
-            if($this->input->post('image_link')!=''){                
+
+            if($this->input->post('image_link')!=''){
                 $data['image_link']     =   $this->input->post('image_link');
-            } 
+            }
 
             $data['slug']               =   url_title($this->input->post('title'), 'dash', TRUE);
-            $data['publication']        =   $this->input->post('publication');          
-            
+            $data['publication']        =   $this->input->post('publication');
+
             $this->db->insert('slider', $data);
             $insert_id = $this->db->insert_id();
             if(isset($_FILES['image']) && $_FILES['image']['name']!=''){
@@ -253,18 +253,18 @@ class Admin extends CI_Controller {
             }
             $this->db->where('slider_id', $insert_id);
             $this->db->update('slider', $data);
-            
+
             $this->session->set_flashdata('success', 'Slider added successed');
             redirect(base_url() . 'admin/slider/', 'refresh');
         }
-           
+
         if ($param1 == 'update') {
             $data['title']              =   $this->input->post('title');
             $data['description']        =   $this->input->post('description');
             $data['video_link']         =   $this->input->post('video_link');
             //$data['image_link']         =   base_url().'uploads/no_image.jpg';
-            
-            if($this->input->post('image_link')!=''){                
+
+            if($this->input->post('image_link')!=''){
                 $data['image_link']  = $this->input->post('image_link');
             }
 
@@ -279,13 +279,13 @@ class Admin extends CI_Controller {
             $this->db->update('slider', $data);
             $this->session->set_flashdata('success', 'Slider update successed.');
             redirect(base_url() . 'admin/slider/', 'refresh');
-        }        
+        }
         $data['page_name']      = 'slider_manage';
         $data['page_title']     = 'Slider Management';
-        $data['sliders']        = $this->db->get('slider')->result_array(); 
+        $data['sliders']        = $this->db->get('slider')->result_array();
         $this->load->view('admin/index', $data);
     }
-    // add videos or movies 
+    // add videos or movies
     function videos_add(){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url(), 'refresh');
@@ -294,11 +294,11 @@ class Admin extends CI_Controller {
         $this->session->set_userdata('active_menu', '6');
         // end menu active/inactive section
         $data['page_name']      = 'videos_add';
-        $data['page_title']     = 'Videos Add'; 
+        $data['page_title']     = 'Videos Add';
         $this->load->view('admin/index', $data);
     }
 
-    // edit videos or movies 
+    // edit videos or movies
     function videos_edit($param1='',$param2=''){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url(), 'refresh');
@@ -313,22 +313,22 @@ class Admin extends CI_Controller {
             $this->load->view('admin/index', $data);
     }
 
-    // add,edit videos or movies 
+    // add,edit videos or movies
     function videos($param1 = '', $param2 = ''){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url(), 'refresh');
         // active menu session
         $this->session->unset_userdata('active_menu');
-        $this->session->set_userdata('active_menu', '8'); 
+        $this->session->set_userdata('active_menu', '8');
         if ($param1 == 'add') {
-            $data['imdbid']                 = $this->input->post('imdbid');          
+            $data['imdbid']                 = $this->input->post('imdbid');
             $data['title']                  = $this->input->post('title');
             $data['seo_title']              = $this->input->post('seo_title');
-            $data['description']            = $this->input->post('description');            
-            $actors                         = $this->input->post('actor');            
-            $directors                      = $this->input->post('director');            
-            $writers                        = $this->input->post('writer');            
-            $countries                      = $this->input->post('country');            
+            $data['description']            = $this->input->post('description');
+            $actors                         = $this->input->post('actor');
+            $directors                      = $this->input->post('director');
+            $writers                        = $this->input->post('writer');
+            $countries                      = $this->input->post('country');
             $genres                         = $this->input->post('genre');
             $video_types                    = $this->input->post('video_type');
             if($actors !='' && $actors !=NULL){
@@ -349,24 +349,24 @@ class Admin extends CI_Controller {
 
             $data['imdb_rating']        = $this->input->post('rating');
             $data['release']            = $this->input->post('release');
-            
-            
+
+
             $data['runtime']            = $this->input->post('runtime');
             $data['video_quality']      = $this->input->post('video_quality');
             $data['publication']        = '0';
             if(isset($_POST['publication'])) {
                 $data['publication']    = '1';
             }
-            
+
             $data['enable_download']    = '0';
             if(isset($_POST['enable_download'])) {
                 $data['enable_download']    = '1';
-            }            
-            
+            }
+
             $data['focus_keyword']      = $this->input->post('focus_keyword');
             $data['meta_description']   = $this->input->post('meta_description');
-            $data['tags']               = $this->input->post('tags');       
-                        
+            $data['tags']               = $this->input->post('tags');
+
             $this->db->insert('videos', $data);
             $insert_id = $this->db->insert_id();
             $slug                       = url_title($this->input->post('slug'), 'dash', TRUE);
@@ -374,30 +374,30 @@ class Admin extends CI_Controller {
             if($slug_num > 0){
                 $slug= $slug.'-'.$insert_id;
             }
-            $data_update['slug']        = $slug;            
+            $data_update['slug']        = $slug;
             if(isset($_FILES['thumbnail']) && $_FILES['thumbnail']['name']!=''){
-                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$insert_id.'.jpg');                
+                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$insert_id.'.jpg');
             }
 
             if(isset($_FILES['poster_file']) && $_FILES['poster_file']['name']!=''){
-                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$insert_id.'.jpg');                                
+                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$insert_id.'.jpg');
             }
 
-            if($this->input->post('thumb_link')!=''){ 
+            if($this->input->post('thumb_link')!=''){
                 $image_source           =   $this->input->post('thumb_link');
-                $save_to                =   'uploads/video_thumb/'.$insert_id.'.jpg';           
+                $save_to                =   'uploads/video_thumb/'.$insert_id.'.jpg';
                 $this->common_model->grab_image($image_source,$save_to);
             }
 
-            if($this->input->post('poster_link')!=''){ 
+            if($this->input->post('poster_link')!=''){
                 $image_source       =   $this->input->post('poster_link');
-                $save_to            =   'uploads/poster_image/'.$insert_id.'.jpg';           
+                $save_to            =   'uploads/poster_image/'.$insert_id.'.jpg';
                 $this->common_model->grab_image($image_source,$save_to);
             }
 
             $this->db->where('videos_id', $insert_id);
             $this->db->update('videos', $data_update);
-            
+
             // email newslater
             if(isset($_POST['email_notify'])) {
                 $this->load->model('email_model');
@@ -407,19 +407,19 @@ class Admin extends CI_Controller {
             if(isset($_POST['push_notify'])) {
                 $this->load->model('notify_model');
                 $this->notify_model->send_push_notification($insert_id);
-            }           
+            }
             $this->session->set_flashdata('success', 'Video added successed');
             redirect(base_url() . 'admin/file_and_download/'.$insert_id, 'refresh');
         }
         else if ($param1 == 'update') {
-            $data['imdbid']                 = $this->input->post('imdbid');          
+            $data['imdbid']                 = $this->input->post('imdbid');
             $data['title']                  = $this->input->post('title');
             $data['seo_title']              = $this->input->post('seo_title');
-            $data['description']            = $this->input->post('description');            
-            $actors                         = $this->input->post('actor');            
-            $directors                      = $this->input->post('director');            
-            $writers                        = $this->input->post('writer');            
-            $countries                      = $this->input->post('country');            
+            $data['description']            = $this->input->post('description');
+            $actors                         = $this->input->post('actor');
+            $directors                      = $this->input->post('director');
+            $writers                        = $this->input->post('writer');
+            $countries                      = $this->input->post('country');
             $genres                         = $this->input->post('genre');
             $video_types                    = $this->input->post('video_type');
             if($actors !='' && $actors !=NULL){
@@ -436,10 +436,10 @@ class Admin extends CI_Controller {
             }
             if($genres !='' && $genres !=NULL){
                 $data['genre']              = implode(',',$genres);
-            }            
-            
+            }
+
             $data['imdb_rating']        = $this->input->post('rating');
-            $data['release']            = $this->input->post('release');            
+            $data['release']            = $this->input->post('release');
             $data['runtime']            = $this->input->post('runtime');
             $data['video_quality']      = $this->input->post('video_quality');
             $publication                = $this->input->post('publication');
@@ -468,24 +468,24 @@ class Admin extends CI_Controller {
             if($slug_num > 1){
                 $slug= $slug.'-'.$param2;
             }
-            $data_update['slug']               = $slug;            
+            $data_update['slug']               = $slug;
             if(isset($_FILES['thumbnail']) && $_FILES['thumbnail']['name']!=''){
-                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$param2.'.jpg');                
+                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$param2.'.jpg');
             }
 
             if(isset($_FILES['poster_file']) && $_FILES['poster_file']['name']!=''){
-                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$param2.'.jpg');                                
+                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$param2.'.jpg');
             }
 
-            if($this->input->post('thumb_link')!=''){ 
+            if($this->input->post('thumb_link')!=''){
                 $image_source =$this->input->post('thumb_link');
-                $save_to = 'uploads/video_thumb/'.$param2.'.jpg';           
+                $save_to = 'uploads/video_thumb/'.$param2.'.jpg';
                 $this->common_model->grab_image($image_source,$save_to);
             }
 
-            if($this->input->post('poster_link')!=''){ 
+            if($this->input->post('poster_link')!=''){
                 $image_source =$this->input->post('poster_link');
-                $save_to = 'uploads/poster_image/'.$param2.'.jpg';           
+                $save_to = 'uploads/poster_image/'.$param2.'.jpg';
                 $this->common_model->grab_image($image_source,$save_to);
             }
 
@@ -525,7 +525,7 @@ class Admin extends CI_Controller {
         if($publication !="" && $publication !=NULL){
             $filter['publication'] = $publication;
             $search_string.= '&&publication='.$publication;
-            $data['publication'] = $publication;            
+            $data['publication'] = $publication;
 
         }
         $total_rows = $this->common_model->get_videos_num_rows($filter);
@@ -534,23 +534,23 @@ class Admin extends CI_Controller {
         $config["base_url"]         = base_url() . "admin/videos?".$search_string;
         $config["total_rows"]       = $total_rows;
         $config["per_page"]         = 10;
-        $config["uri_segment"]      = 3;          
+        $config["uri_segment"]      = 3;
         //$config['use_page_numbers'] = TRUE;
-        $config['page_query_string'] = TRUE; 
+        $config['page_query_string'] = TRUE;
         $this->pagination->initialize($config);
         $data['last_row_num']=$this->uri->segment(3);
-        $page = $this->input->get('per_page');//($this->uri->segment(3)) ? $this->uri->segment(3) : 0;   
+        $page = $this->input->get('per_page');//($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $data["videos"] = $this->common_model->get_videos($filter,$config["per_page"], $page);
         $data["links"] = $this->pagination->create_links();
         $data['total_rows']=$config["total_rows"];
         $data['page_name']      = 'videos_manage';
-        $data['page_title']     = 'Videos Management';             
+        $data['page_title']     = 'Videos Management';
         $this->load->view('admin/index', $data);
     }
 
 
 
-    // add videos or movies 
+    // add videos or movies
     function tvseries_add(){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url(), 'refresh');
@@ -559,11 +559,11 @@ class Admin extends CI_Controller {
         $this->session->set_userdata('active_menu', '29');
         // end menu active/inactive section
         $data['page_name']      = 'tvseries_add';
-        $data['page_title']     = 'TV-series Add'; 
+        $data['page_title']     = 'TV-series Add';
         $this->load->view('admin/index', $data);
     }
 
-    // edit videos or movies 
+    // edit videos or movies
     function tvseries_edit($param1='',$param2=''){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url(), 'refresh');
@@ -580,23 +580,23 @@ class Admin extends CI_Controller {
             $this->load->view('admin/index', $data);
     }
 
-     // add,edit videos or movies 
+     // add,edit videos or movies
     function tvseries($param1 = '', $param2 = ''){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url(), 'refresh');
         // active menu session
         $this->session->unset_userdata('active_menu');
-        $this->session->set_userdata('active_menu', '30');            
-        
+        $this->session->set_userdata('active_menu', '30');
+
         if ($param1 == 'add') {
-            $data['imdbid']             = $this->input->post('imdbid');          
+            $data['imdbid']             = $this->input->post('imdbid');
             $data['title']              = $this->input->post('title');
             $data['seo_title']          = $this->input->post('seo_title');
             $data['description']        = $this->input->post('description');
-            $actors                     = $this->input->post('actor');            
-            $directors                  = $this->input->post('director');            
-            $writers                    = $this->input->post('writer');            
-            $countries                  = $this->input->post('country');            
+            $actors                     = $this->input->post('actor');
+            $directors                  = $this->input->post('director');
+            $writers                    = $this->input->post('writer');
+            $countries                  = $this->input->post('country');
             $genres                     = $this->input->post('genre');
             $video_types                = $this->input->post('video_type');
             if($actors !='' && $actors !=NULL){
@@ -613,7 +613,7 @@ class Admin extends CI_Controller {
             }
             if($genres !='' && $genres !=NULL){
                 $data['genre']              = implode(',',$genres);
-            }  
+            }
             $data['imdb_rating']        = $this->input->post('rating');
             $data['release']            = $this->input->post('release');
             $data['is_tvseries']        = '1';
@@ -623,15 +623,15 @@ class Admin extends CI_Controller {
             if(isset($_POST['publication'])) {
                 $data['publication']    = '1';
             }
-            
+
             $data['enable_download']    = '0';
             if(isset($_POST['enable_download'])) {
                 $data['enable_download']    = '1';
             }
             $data['focus_keyword']      = $this->input->post('focus_keyword');
             $data['meta_description']   = $this->input->post('meta_description');
-            $data['tags']               = $this->input->post('tags');       
-                        
+            $data['tags']               = $this->input->post('tags');
+
             $this->db->insert('videos', $data);
             $insert_id = $this->db->insert_id();
             $slug                       = url_title($this->input->post('slug'), 'dash', TRUE);
@@ -639,33 +639,33 @@ class Admin extends CI_Controller {
             if($slug_num > 0){
                 $slug= $slug.'-'.$insert_id;
             }
-            $data_update['slug']               = $slug;            
+            $data_update['slug']               = $slug;
             if(isset($_FILES['thumbnail']) && $_FILES['thumbnail']['name']!=''){
-                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$insert_id.'.jpg');                
+                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$insert_id.'.jpg');
             }
 
             if(isset($_FILES['poster_file']) && $_FILES['poster_file']['name']!=''){
-                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$insert_id.'.jpg');                                
+                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$insert_id.'.jpg');
             }
 
-            if($this->input->post('thumb_link')!=''){ 
+            if($this->input->post('thumb_link')!=''){
                 $image_source =$this->input->post('thumb_link');
-                $save_to = 'uploads/video_thumb/'.$insert_id.'.jpg';           
+                $save_to = 'uploads/video_thumb/'.$insert_id.'.jpg';
                 $this->common_model->grab_image($image_source,$save_to);
-                // $cron_data['type']       = "image";       
-                // $cron_data['action']     = "download";       
-                // $cron_data['image_url']  = $image_source;       
+                // $cron_data['type']       = "image";
+                // $cron_data['action']     = "download";
+                // $cron_data['image_url']  = $image_source;
                 // $cron_data['save_to']    = $save_to;
                 // $this->db->insert('cron',$cron_data);
             }
 
-            if($this->input->post('poster_link')!=''){ 
+            if($this->input->post('poster_link')!=''){
                 $image_source =$this->input->post('poster_link');
-                $save_to = 'uploads/poster_image/'.$insert_id.'.jpg';           
+                $save_to = 'uploads/poster_image/'.$insert_id.'.jpg';
                 $this->common_model->grab_image($image_source,$save_to);
-                // $cron_data['type']       = "image";       
-                // $cron_data['action']     = "download";       
-                // $cron_data['image_url']  = $image_source;       
+                // $cron_data['type']       = "image";
+                // $cron_data['action']     = "download";
+                // $cron_data['image_url']  = $image_source;
                 // $cron_data['save_to']    = $save_to;
                 // $this->db->insert('cron',$cron_data);
             }
@@ -686,14 +686,14 @@ class Admin extends CI_Controller {
             redirect(base_url() . 'admin/seasons_manage/'.$insert_id, 'refresh');
         }
         else if ($param1 == 'update') {
-            $data['imdbid']             = $this->input->post('imdbid');          
+            $data['imdbid']             = $this->input->post('imdbid');
             $data['title']              = $this->input->post('title');
             $data['seo_title']          = $this->input->post('seo_title');
             $data['description']        = $this->input->post('description');
-            $actors                     = $this->input->post('actor');            
-            $directors                  = $this->input->post('director');            
-            $writers                    = $this->input->post('writer');            
-            $countries                  = $this->input->post('country');            
+            $actors                     = $this->input->post('actor');
+            $directors                  = $this->input->post('director');
+            $writers                    = $this->input->post('writer');
+            $countries                  = $this->input->post('country');
             $genres                     = $this->input->post('genre');
             $video_types                = $this->input->post('video_type');
             if($actors !='' && $actors !=NULL){
@@ -727,7 +727,7 @@ class Admin extends CI_Controller {
                 $data['enable_download'] = '1';
             }else{
                 $data['enable_download'] = '0';
-            }            
+            }
             $data['focus_keyword']      = $this->input->post('focus_keyword');
             $data['meta_description']   = $this->input->post('meta_description');
             $data['tags']               = $this->input->post('tags');
@@ -741,33 +741,33 @@ class Admin extends CI_Controller {
             if($slug_num > 1){
                 $slug= $slug.'-'.$param2;
             }
-            $data_update['slug']               = $slug;            
+            $data_update['slug']               = $slug;
             if(isset($_FILES['thumbnail']) && $_FILES['thumbnail']['name']!=''){
-                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$param2.'.jpg');                
+                move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'uploads/video_thumb/'.$param2.'.jpg');
             }
 
             if(isset($_FILES['poster_file']) && $_FILES['poster_file']['name']!=''){
-                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$param2.'.jpg');                                
+                move_uploaded_file($_FILES['poster_file']['tmp_name'], 'uploads/poster_image/'.$param2.'.jpg');
             }
 
-            if($this->input->post('thumb_link')!=''){ 
+            if($this->input->post('thumb_link')!=''){
                 $image_source =$this->input->post('thumb_link');
-                $save_to = 'uploads/video_thumb/'.$param2.'.jpg';           
+                $save_to = 'uploads/video_thumb/'.$param2.'.jpg';
                 //$this->common_model->grab_image($image_source,$save_to);
-                $cron_data['type']       = "image";       
-                $cron_data['action']     = "download";       
-                $cron_data['image_url']  = $image_source;       
+                $cron_data['type']       = "image";
+                $cron_data['action']     = "download";
+                $cron_data['image_url']  = $image_source;
                 $cron_data['save_to']    = $save_to;
                 $this->db->insert('cron',$cron_data);
             }
 
-            if($this->input->post('poster_link')!=''){ 
+            if($this->input->post('poster_link')!=''){
                 $image_source =$this->input->post('poster_link');
-                $save_to = 'uploads/poster_image/'.$param2.'.jpg';           
+                $save_to = 'uploads/poster_image/'.$param2.'.jpg';
                 $this->common_model->grab_image($image_source,$save_to);
-                // $cron_data['type']       = "image";       
-                // $cron_data['action']     = "download";       
-                // $cron_data['image_url']  = $image_source;       
+                // $cron_data['type']       = "image";
+                // $cron_data['action']     = "download";
+                // $cron_data['image_url']  = $image_source;
                 // $cron_data['save_to']    = $save_to;
                 // $this->db->insert('cron',$cron_data);
             }
@@ -809,7 +809,7 @@ class Admin extends CI_Controller {
         if($publication !="" && $publication !=NULL){
             $filter['publication'] = $publication;
             $search_string.= '&&publication='.$publication;
-            $data['publication'] = $publication;            
+            $data['publication'] = $publication;
 
         }
         $total_rows = $this->common_model->get_videos_num_rows($filter);
@@ -821,19 +821,19 @@ class Admin extends CI_Controller {
         $config["total_rows"]           =   $total_rows;
         $config["per_page"]             =   10;
         $config["uri_segment"]          =   3;
-         
+
         //$config['use_page_numbers'] = TRUE;
-        $config['page_query_string']    =  TRUE;      
+        $config['page_query_string']    =  TRUE;
 
         $this->pagination->initialize($config);
         $data['last_row_num']           =   $this->uri->segment(3);
-        $page                           =   $this->input->get('per_page');//($this->uri->segment(3)) ? $this->uri->segment(3) : 0;   
+        $page                           =   $this->input->get('per_page');//($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $data["videos"]                 =   $this->common_model->get_videos($filter,10, $page);
         $data["links"]                  =   $this->pagination->create_links();
         //var_dump($data["links"]);
         $data['total_rows']             =   $total_rows;
         $data['page_name']              =   'tvseries_manage';
-        $data['page_title']             =   'Videos Management';             
+        $data['page_title']             =   'Videos Management';
         $this->load->view('admin/index', $data);
     }
 
@@ -850,20 +850,20 @@ class Admin extends CI_Controller {
                 redirect(base_url() . 'error', 'refresh');
             }*/
             //var_dump($param1,$param2);
-            if ($param1 == 'add') {            
+            if ($param1 == 'add') {
             $data['videos_id']             = $this->input->post('videos_id');
-            $data['seasons_name']        = $this->input->post('seasons_name');            
-            
+            $data['seasons_name']        = $this->input->post('seasons_name');
+
             $this->db->insert('seasons', $data);
             $this->session->set_flashdata('success', 'Seasons added successed');
             redirect(base_url() . 'admin/seasons_manage/'.$data['videos_id'], 'refresh');
         }
         if ($param1 == 'update') {
-            
-            
+
+
             $data['videos_id']             = $this->input->post('videos_id');
             $data['seasons_name']        = $this->input->post('seasons_name');
-            
+
             $this->db->where('seasons_id', $param2);
             $this->db->update('seasons', $data);
             $this->session->set_flashdata('success', 'Seasons update successed.');
@@ -912,10 +912,10 @@ class Admin extends CI_Controller {
             $video_file_type    = $this->input->post('video_file_type');
             $video_file         = $this->input->post('video_file');
             $link_name          = $this->input->post('link_name');
-            $link               = $this->input->post('link');            
+            $link               = $this->input->post('link');
             $this->db->where('videos_id', $video_id);
             $this->db->delete('video_file');
-            for($i=0;$i<sizeof($video_file_type);$i++){                
+            for($i=0;$i<sizeof($video_file_type);$i++){
                 $file_data['videos_id']     = $video_id;
                 $file_data['file_source']   = $video_file_type[$i];
                 $file_data['source_type']   = 'link';
@@ -939,7 +939,7 @@ class Admin extends CI_Controller {
         $data['param2']         = $param2;
         $data['slug']           = $this->common_model->get_slug_by_videos_id($param1);
         $data['page_name']      = 'file_and_download';
-        $data['page_title']     = 'Video upload & Download => <strong>'.$this->common_model->get_title_by_videos_id($param1).'</strong>';            
+        $data['page_title']     = 'Video upload & Download => <strong>'.$this->common_model->get_title_by_videos_id($param1).'</strong>';
         $this->load->view('admin/index', $data);
     }
     // subtitles
@@ -962,12 +962,12 @@ class Admin extends CI_Controller {
                 $is_subtitle        = TRUE;
             $subtitle_path = 'uploads/subtitles/'.$videos_id.'_'.$video_file_id.'_'.$this->generate_random_string().'.vtt';
             move_uploaded_file($_FILES['vtt_file']['tmp_name'], $subtitle_path);
-            $data['src'] = base_url().$subtitle_path;                               
+            $data['src'] = base_url().$subtitle_path;
         }else if(isset($vtt_url) && $vtt_url !=''){
             $data['src'] = $vtt_url;
             $is_subtitle        = TRUE;
         }
-        if($is_subtitle){          
+        if($is_subtitle){
             $data['video_file_id']      = $video_file_id;
             $data['videos_id']          = $videos_id;
             $data['language']           = $language;
@@ -975,10 +975,10 @@ class Admin extends CI_Controller {
             $data['srclang']            = $srclang;
             $this->db->insert('subtitle', $data);
             $this->session->set_flashdata('success', 'Subtitle Added Successfully.');
-            redirect(base_url() . 'admin/file_and_download/'.$videos_id, 'refresh'); 
+            redirect(base_url() . 'admin/file_and_download/'.$videos_id, 'refresh');
         }else{
             $this->session->set_flashdata('error', 'Fail.Only .vtt is supported.');
-            redirect(base_url() . 'admin/file_and_download/'.$videos_id, 'refresh'); 
+            redirect(base_url() . 'admin/file_and_download/'.$videos_id, 'refresh');
         }
     }
 
@@ -1003,12 +1003,12 @@ class Admin extends CI_Controller {
                 $is_subtitle        = TRUE;
             $subtitle_path = 'uploads/subtitles/'.$videos_id.'_'.$episodes_id.'_'.$this->generate_random_string().'.vtt';
             move_uploaded_file($_FILES['vtt_file']['tmp_name'], $subtitle_path);
-            $data['src'] = base_url().$subtitle_path;                               
+            $data['src'] = base_url().$subtitle_path;
         }else if(isset($vtt_url) && $vtt_url !=''){
             $data['src'] = $vtt_url;
             $is_subtitle        = TRUE;
         }
-        if($is_subtitle){          
+        if($is_subtitle){
             $data['episodes_id']        = $episodes_id;
             $data['videos_id']          = $videos_id;
             $data['language']           = $language;
@@ -1016,10 +1016,10 @@ class Admin extends CI_Controller {
             $data['srclang']            = $srclang;
             $this->db->insert('tvseries_subtitle', $data);
             $this->session->set_flashdata('success', 'Subtitle Added Successfully.');
-            redirect(base_url() . 'admin/episodes_manage/'.$videos_id.'/'.$seasons_id, 'refresh'); 
+            redirect(base_url() . 'admin/episodes_manage/'.$videos_id.'/'.$seasons_id, 'refresh');
         }else{
             $this->session->set_flashdata('error', 'Fail.Only .vtt is supported.');
-            redirect(base_url() . 'admin/episodes_manage/'.$videos_id.'/'.$seasons_id, 'refresh'); 
+            redirect(base_url() . 'admin/episodes_manage/'.$videos_id.'/'.$seasons_id, 'refresh');
         }
     }
 
@@ -1030,15 +1030,15 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '9');
-            /* end menu active/inactive section*/ 
-        
+            /* end menu active/inactive section*/
+
         if ($param1 == 'add') {
-            
+
             $data['video_type']             = $this->input->post('video_type');
             $data['video_type_desc']        = $this->input->post('video_type_desc');
             $data['primary_menu']           = $this->input->post('primary_menu');
-            $data['footer_menu']            = $this->input->post('footer_menu');           
-            
+            $data['footer_menu']            = $this->input->post('footer_menu');
+
             $this->db->insert('video_type', $data);
 
             $insert_id                      = $this->db->insert_id();
@@ -1054,21 +1054,21 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('success', 'Video type added successed');
             redirect(base_url() . 'admin/video_type/', 'refresh');
         }
-        if ($param1 == 'update') {         
-            
+        if ($param1 == 'update') {
+
             $data['video_type']             = $this->input->post('video_type');
             $data['video_type_desc']        = $this->input->post('video_type_desc');
             $data['primary_menu']           = $this->input->post('primary_menu');
-            $data['footer_menu']            = $this->input->post('footer_menu');            
+            $data['footer_menu']            = $this->input->post('footer_menu');
             $this->db->where('video_type_id', $param2);
             $this->db->update('video_type', $data);
             $this->session->set_flashdata('success', 'Video type update successed.');
             redirect(base_url() . 'admin/video_type/', 'refresh');
-        }      
-        
+        }
+
             $data['page_name']      = 'video_type_manage';
             $data['page_title']     = 'Videos Type Management';
-            $data['video_types']    = $this->db->get('video_type')->result_array();             
+            $data['video_types']    = $this->db->get('video_type')->result_array();
             $this->load->view('admin/index', $data);
 
 
@@ -1080,23 +1080,23 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '24');
-            /* end menu active/inactive section*/ 
-        
+            /* end menu active/inactive section*/
+
         if ($param1 == 'add') {
-            
+
             $data['quality']                = $this->input->post('quality');
-            $data['description']            = $this->input->post('description');            
-            
+            $data['description']            = $this->input->post('description');
+
             $this->db->insert('quality', $data);
             $this->session->set_flashdata('success', 'Video quality added successed');
             redirect(base_url() . 'admin/video_quality/', 'refresh');
         }
         if ($param1 == 'update') {
-            
-            
+
+
             $data['quality']                = $this->input->post('quality');
-            $data['description']            = $this->input->post('description'); 
-            
+            $data['description']            = $this->input->post('description');
+
             $this->db->where('quality_id', $param2);
             $this->db->update('quality', $data);
             $this->session->set_flashdata('success', 'Video quality update successed.');
@@ -1104,7 +1104,7 @@ class Admin extends CI_Controller {
         }
         $data['page_name']      = 'video_quality_manage';
         $data['page_title']     = 'Videos quality Management';
-        $data['quality']        = $this->db->get('quality')->result_array();             
+        $data['quality']        = $this->db->get('quality')->result_array();
         $this->load->view('admin/index', $data);
     }
 
@@ -1115,7 +1115,7 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '26');
-            /* end menu active/inactive section*/ 
+            /* end menu active/inactive section*/
 
         if ($param1 == 'new') {
             /* start menu active/inactive section*/
@@ -1126,24 +1126,24 @@ class Admin extends CI_Controller {
             $data['page_name']      = 'live_tv_add';
             $data['page_title']     = 'Add New TV Channel';
             $this->load->view('admin/index', $data);
-        }        
+        }
         else if ($param1 == 'edit') {
             $data['page_name']      =   'live_tv_edit';
             $data['page_title']     =   'Edit TV Channel';
             $data['param2']         =   $param2;
-            $data['live_tvs']       = $this->db->get_where('live_tv' , array('live_tv_id' => $param2) )->result_array(); 
+            $data['live_tvs']       = $this->db->get_where('live_tv' , array('live_tv_id' => $param2) )->result_array();
             $this->load->view('admin/index', $data);
-        }        
+        }
         else if ($param1 == 'add') {
             $data['tv_name']            = $this->input->post('tv_name');
             $data['seo_title']          = $this->input->post('seo_title');
             $data['slug']               = $this->common_model->generate_slug('live_tv',$this->input->post('tv_name'));
             $data['stream_from']        = $this->input->post('stream_from');
             $data['stream_label']       = $this->input->post('stream_label');
-            $data['stream_url']         = $this->input->post('stream_url');   
-            $data['description']        = $this->input->post('description');   
-            $data['focus_keyword']      = $this->input->post('focus_keyword');   
-            $data['meta_description']   = $this->input->post('meta_description');   
+            $data['stream_url']         = $this->input->post('stream_url');
+            $data['description']        = $this->input->post('description');
+            $data['focus_keyword']      = $this->input->post('focus_keyword');
+            $data['meta_description']   = $this->input->post('meta_description');
             $data['tags']               = $this->input->post('tags');
             $data['live_tv_category_id']= $this->input->post('live_tv_category_id');
             $publish = $this->input->post('publish');
@@ -1165,7 +1165,7 @@ class Admin extends CI_Controller {
             if(isset($_FILES['thumbnail']) && $_FILES['thumbnail']['name']!=''){
                 $extention = '.'.$this->common_model->get_extension($_FILES['poster']['name']);
                 $file_name = $data['slug'].$extention;
-                $file_path = 'uploads/tv_image/sm/'.$file_name;                
+                $file_path = 'uploads/tv_image/sm/'.$file_name;
                 move_uploaded_file($_FILES['thumbnail']['tmp_name'], $file_path);
                 $data_update['thumbnail'] = $file_name;
                 $this->db->where('live_tv_id', $insert_id);
@@ -1175,7 +1175,7 @@ class Admin extends CI_Controller {
             if(isset($_FILES['poster']) && $_FILES['poster']['name']!=''){
                 $extention = '.'.$this->common_model->get_extension($_FILES['poster']['name']);
                 $file_name = $data['slug'].$extention;
-                $file_path = 'uploads/tv_image/'.$file_name;                
+                $file_path = 'uploads/tv_image/'.$file_name;
                 move_uploaded_file($_FILES['poster']['tmp_name'], $file_path);
                 $data_update['poster'] = $file_name;
                 $this->db->where('live_tv_id', $insert_id);
@@ -1208,10 +1208,10 @@ class Admin extends CI_Controller {
             $data['slug']               = $this->common_model->regenerate_slug('live_tv',$param2,$this->input->post('tv_name'));
             $data['stream_from']        = $this->input->post('stream_from');
             $data['stream_label']       = $this->input->post('stream_label');
-            $data['stream_url']         = $this->input->post('stream_url');   
-            $data['description']        = $this->input->post('description');   
-            $data['focus_keyword']      = $this->input->post('focus_keyword');   
-            $data['meta_description']   = $this->input->post('meta_description');   
+            $data['stream_url']         = $this->input->post('stream_url');
+            $data['description']        = $this->input->post('description');
+            $data['focus_keyword']      = $this->input->post('focus_keyword');
+            $data['meta_description']   = $this->input->post('meta_description');
             $data['tags']               = $this->input->post('tags');
             $data['live_tv_category_id']= $this->input->post('live_tv_category_id');
             $publish = $this->input->post('publish');
@@ -1233,7 +1233,7 @@ class Admin extends CI_Controller {
             if(isset($_FILES['thumbnail']) && $_FILES['thumbnail']['name']!=''){
                 $extention = '.'.$this->common_model->get_extension($_FILES['poster']['name']);
                 $file_name = $data['slug'].$extention;
-                $file_path = 'uploads/tv_image/sm/'.$file_name;                
+                $file_path = 'uploads/tv_image/sm/'.$file_name;
                 move_uploaded_file($_FILES['thumbnail']['tmp_name'], $file_path);
                 $data_update['thumbnail'] = $file_name;
                 $this->db->where('live_tv_id', $param2);
@@ -1243,13 +1243,13 @@ class Admin extends CI_Controller {
             if(isset($_FILES['poster']) && $_FILES['poster']['name']!=''){
                 $extention = '.'.$this->common_model->get_extension($_FILES['poster']['name']);
                 $file_name = $data['slug'].$extention;
-                $file_path = 'uploads/tv_image/'.$file_name;                
+                $file_path = 'uploads/tv_image/'.$file_name;
                 move_uploaded_file($_FILES['poster']['tmp_name'], $file_path);
                 $data_update['poster'] = $file_name;
                 $this->db->where('live_tv_id', $param2);
                 $this->db->update('live_tv', $data_update);
             }
-            
+
             $this->db->where('live_tv_id', $param2);
             $this->db->delete('live_tv_url');
             $data1['source']        = $this->input->post('stream_from1');
@@ -1279,18 +1279,18 @@ class Admin extends CI_Controller {
             $config["base_url"]     = base_url() . "admin/manage_live_tv/";
             $config["total_rows"]   = $total_rows;
             $config["per_page"]     = 10;
-            $config["uri_segment"]  = 3;  
+            $config["uri_segment"]  = 3;
             //$config['use_page_numbers'] = TRUE;
-            $config['page_query_string'] = TRUE;    
+            $config['page_query_string'] = TRUE;
 
             $this->pagination->initialize($config);
             $data['last_row_num']   =   $this->uri->segment(3);
-            $page                   =   $this->input->get('per_page');//($this->uri->segment(3)) ? $this->uri->segment(3) : 0;   
+            $page                   =   $this->input->get('per_page');//($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
             $data["tvs"]            =   $this->live_tv_model->get_live_tvs($config["per_page"], $page);
             $data["links"]          =   $this->pagination->create_links();
             $data['total_rows']     =   $config["total_rows"];
             $data['page_name']      =   'live_tv_manage';
-            $data['page_title']     =   'Live TV Management';             
+            $data['page_title']     =   'Live TV Management';
             $this->load->view('admin/index', $data);
         }
     }
@@ -1302,30 +1302,30 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '39');
-            /* end menu active/inactive section*/ 
-        
-        if ($param1 == 'add') {            
+            /* end menu active/inactive section*/
+
+        if ($param1 == 'add') {
             $data['live_tv_category']             = $this->input->post('live_tv_category');
-            $data['live_tv_category_desc']        = $this->input->post('live_tv_category_desc');      
-            
+            $data['live_tv_category_desc']        = $this->input->post('live_tv_category_desc');
+
             $this->db->insert('live_tv_category', $data);
 
             $this->session->set_flashdata('success', 'Category added successed');
             redirect(base_url() . 'admin/live_tv_category/', 'refresh');
         }
-        if ($param1 == 'update') {         
-            
+        if ($param1 == 'update') {
+
             $data['live_tv_category']             = $this->input->post('live_tv_category');
-            $data['live_tv_category_desc']        = $this->input->post('live_tv_category_desc');           
+            $data['live_tv_category_desc']        = $this->input->post('live_tv_category_desc');
             $this->db->where('live_tv_category_id', $param2);
             $this->db->update('live_tv_category', $data);
             $this->session->set_flashdata('success', 'Category update successed.');
             redirect(base_url() . 'admin/live_tv_category/', 'refresh');
         }
-        
+
         $data['page_name']      = 'live_tv_category_manage';
         $data['page_title']     = 'Category Management';
-        $data['live_tv_categories']    = $this->db->get('live_tv_category')->result_array();             
+        $data['live_tv_categories']    = $this->db->get('live_tv_category')->result_array();
         $this->load->view('admin/index', $data);
     }
     function live_tv_setting($param1 = '', $param2 = ''){
@@ -1367,13 +1367,13 @@ class Admin extends CI_Controller {
                 $data['value'] = '0';
                  $this->db->where('title' , 'live_tv_pin_footer_menu');
                  $this->db->update('config' , $data);
-             } 
-             $this->session->set_flashdata('success', 'Setting update successed.');           
+             }
+             $this->session->set_flashdata('success', 'Setting update successed.');
              redirect(base_url() . 'admin/live_tv_setting/', 'refresh');
-        } 
+        }
 
         $data['page_name']      = 'live_tv_setting';
-        $data['page_title']     = 'Live TV Setting'; 
+        $data['page_title']     = 'Live TV Setting';
         $this->load->view('admin/index', $data);
     }
 
@@ -1384,17 +1384,17 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '31');
-            /* end menu active/inactive section*/ 
+            /* end menu active/inactive section*/
         if ($param1 == 'update_movie') {
             $data['comment']             = $this->input->post('comment');
-            $data['publication']        = $this->input->post('publication');                        
+            $data['publication']        = $this->input->post('publication');
             $this->db->where('comments_id', $param2);
             $this->db->update('comments', $data);
             $this->session->set_flashdata('success', 'Comments update successed.');
             redirect(base_url() . 'admin/comments/', 'refresh');
         }else if ($param1 == 'update_post') {
             $data['comment']             = $this->input->post('comment');
-            $data['publication']        = $this->input->post('publication');                        
+            $data['publication']        = $this->input->post('publication');
             $this->db->where('post_comments_id', $param2);
             $this->db->update('post_comments', $data);
             $this->session->set_flashdata('success', 'Comments update successed.');
@@ -1407,10 +1407,10 @@ class Admin extends CI_Controller {
             }
             else{
                 $data['type']      = '';
-            }     
-        
+            }
+
             $data['page_name']      = 'post_comments_manage';
-            $data['page_title']     = 'Post Comments Management';             
+            $data['page_title']     = 'Post Comments Management';
             $this->load->view('admin/index', $data);
         }else{
             if($param1 != '' && $param1!=NULL ){
@@ -1418,10 +1418,10 @@ class Admin extends CI_Controller {
             }
             else{
                 $data['type']      = '';
-            }     
-        
+            }
+
             $data['page_name']      = 'comments_manage';
-            $data['page_title']     = 'Movie/TV-Series Comments Management';             
+            $data['page_title']     = 'Movie/TV-Series Comments Management';
             $this->load->view('admin/index', $data);
         }
     }
@@ -1448,7 +1448,7 @@ class Admin extends CI_Controller {
 
             $this->session->set_flashdata('success', 'Comments setting update successed');
             redirect(base_url() . 'admin/comments_setting/', 'refresh');
-                       
+
         }
             $data['page_name']      = 'comments_setting';
             $data['page_title']     = 'Comments Setting';
@@ -1468,7 +1468,7 @@ class Admin extends CI_Controller {
 
 
             $data['page_name']      = 'pages_add';
-            $data['page_title']     = 'Page Add'; 
+            $data['page_title']     = 'Page Add';
             $this->load->view('admin/index', $data);
     }
     // edit custom page
@@ -1494,9 +1494,9 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '11');
-            /* end menu active/inactive section*/          
-        
-        if ($param1 == 'add') {            
+            /* end menu active/inactive section*/
+
+        if ($param1 == 'add') {
             $data['page_title']         = $this->input->post('page_title');
             $data['seo_title']          = $this->input->post('seo_title');
             $data['content']            = $this->input->post('content');
@@ -1505,7 +1505,7 @@ class Admin extends CI_Controller {
             $data['focus_keyword']      = $this->input->post('focus_keyword');
             $data['meta_description']   = $this->input->post('meta_description');
             $data['publication']        = $this->input->post('publication');
-            
+
             $this->db->insert('page', $data);
             $insert_id = $this->db->insert_id();
 
@@ -1522,16 +1522,16 @@ class Admin extends CI_Controller {
             redirect(base_url() . 'admin/pages/', 'refresh');
         }
         else if ($param1 == 'update') {
-            $slug                       = url_title($this->input->post('slug'), 'dash', TRUE);           
+            $slug                       = url_title($this->input->post('slug'), 'dash', TRUE);
             $data['page_title']         = $this->input->post('page_title');
             $data['seo_title']          = $this->input->post('seo_title');
             $data['content']            = $this->input->post('content');
             $data['primary_menu']       = $this->input->post('primary_menu');
             $data['footer_menu']        = $this->input->post('footer_menu');
             $data['focus_keyword']      = $this->input->post('focus_keyword');
-            $data['meta_description']   = $this->input->post('meta_description');                      
+            $data['meta_description']   = $this->input->post('meta_description');
             $data['slug']               = $slug;
-            $data['publication']        = $this->input->post('publication');      
+            $data['publication']        = $this->input->post('publication');
 
 
             $this->db->where('page_id', $param2);
@@ -1555,9 +1555,9 @@ class Admin extends CI_Controller {
             else{
                 $data['type']      = '';
             }
-        }        
+        }
         $data['page_name']      = 'pages_manage';
-        $data['page_title']     = 'Post Management';          
+        $data['page_title']     = 'Post Management';
         $this->load->view('admin/index', $data);
     }
 
@@ -1573,7 +1573,7 @@ class Admin extends CI_Controller {
 
 
             $data['page_name']      = 'posts_add';
-            $data['page_title']     = 'Posts Add'; 
+            $data['page_title']     = 'Posts Add';
             $this->load->view('admin/index', $data);
     }
     // edit blog post
@@ -1600,9 +1600,9 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '13');
-            /* end menu active/inactive section*/   
-        
-        if ($param1 == 'add') {            
+            /* end menu active/inactive section*/
+
+        if ($param1 == 'add') {
             $data['post_title']                 = $this->input->post('post_title');
             $data['seo_title']                  = $this->input->post('seo_title');
             $data['content']                    = $this->input->post('content');
@@ -1610,13 +1610,13 @@ class Admin extends CI_Controller {
             $data['meta_description']           = $this->input->post('meta_description');
             $data['category_id']                = implode(',',$this->input->post('category_id'));
             $data['publication']                = $this->input->post('publication');
-            if($this->input->post('thumb_link')!=''){                
+            if($this->input->post('thumb_link')!=''){
                 $data['image_link']     = $this->input->post('thumb_link');
-            }     
+            }
 
-            
+
             $this->db->insert('posts', $data);
-            $insert_id = $this->db->insert_id();          
+            $insert_id = $this->db->insert_id();
 
             $slug                       = url_title($this->input->post('slug'), 'dash', TRUE);
             $slug_num                   = $this->common_model->slug_num('videos',$slug);
@@ -1636,8 +1636,8 @@ class Admin extends CI_Controller {
             $this->db->update('posts', $data);
 
 
-            
-            
+
+
             $this->session->set_flashdata('success', 'Post added successed');
             redirect(base_url() . 'admin/posts/', 'refresh');
         }
@@ -1649,7 +1649,7 @@ class Admin extends CI_Controller {
             $data['meta_description']           = $this->input->post('meta_description');
             $data['category_id']                = implode(',',$this->input->post('category_id'));
             $data['publication']                = $this->input->post('publication');
-            if($this->input->post('thumb_link')!=''){                
+            if($this->input->post('thumb_link')!=''){
                 $data['image_link']     = $this->input->post('thumb_link');
             }
             $this->db->where('posts_id', $param2);
@@ -1681,9 +1681,9 @@ class Admin extends CI_Controller {
             else{
                 $data['type']      = '';
             }
-        }        
+        }
         $data['page_name']      = 'posts_manage';
-        $data['page_title']     = 'Post Management';          
+        $data['page_title']     = 'Post Management';
         $this->load->view('admin/index', $data);
 
 
@@ -1695,19 +1695,19 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '14');
-            /* end menu active/inactive section*/   
-        
+            /* end menu active/inactive section*/
+
         if ($param1 == 'add') {
-            
+
             $data['category']             = $this->input->post('category');
-            $data['category_desc']        = $this->input->post('category_desc'); 
+            $data['category_desc']        = $this->input->post('category_desc');
             $slug                         = url_title($this->input->post('category'), 'dash', TRUE);
             $slug_num                     = $this->common_model->slug_num('post_category',$slug);
             if($slug_num > 0){
                 $slug= $slug.'-'.$param2;
             }
-            $data_update['slug']               = $slug;          
-            
+            $data_update['slug']               = $slug;
+
             $this->db->insert('post_category', $data);
             $insert_id                    = $this->db->insert_id();
             $slug                         = url_title($this->input->post('category'), 'dash', TRUE);
@@ -1722,8 +1722,8 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('success', 'Post Category added successed');
             redirect(base_url() . 'admin/post_category/', 'refresh');
         }
-        if ($param1 == 'update') {           
-            
+        if ($param1 == 'update') {
+
             $data['category']             = $this->input->post('category');
             $data['category_desc']        = $this->input->post('category_desc');
             $slug                         = url_title($this->input->post('category'), 'dash', TRUE);
@@ -1732,16 +1732,16 @@ class Admin extends CI_Controller {
                 $slug= $slug.'-'.$param2;
             }
             $data['slug']                 = $slug;
-            
+
             $this->db->where('post_category_id', $param2);
             $this->db->update('post_category', $data);
             $this->session->set_flashdata('success', 'Post category update successed.');
             redirect(base_url() . 'admin/post_category/', 'refresh');
-        }  
-        
+        }
+
             $data['page_name']      = 'post_category_manage';
             $data['page_title']     = 'Post Category Management';
-            $data['post_categories']    = $this->db->get('post_category')->result_array();             
+            $data['post_categories']    = $this->db->get('post_category')->result_array();
             $this->load->view('admin/index', $data);
     }
 
@@ -1752,17 +1752,17 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '15');
-            /* end menu active/inactive section*/ 
+            /* end menu active/inactive section*/
 
-            /* add new access */   
-        
+            /* add new access */
+
         if ($param1 == 'add') {
             $data['name']           = $this->input->post('name');
             // $data['username']       = $this->input->post('username');
             $data['password']       = md5($this->input->post('password'));
             $data['email']          = $this->input->post('email');
-            $data['role']           = $this->input->post('role');           
-            
+            $data['role']           = $this->input->post('role');
+
             $this->db->insert('user', $data);
             $this->session->set_flashdata('success', 'User added successed');
             redirect(base_url() . 'admin/manage_user/', 'refresh');
@@ -1773,7 +1773,7 @@ class Admin extends CI_Controller {
             if($this->input->post('password')!='' || $this->input->post('password')!=NULL){
                 $data['password']   = md5($this->input->post('password'));
             }
-            
+
             $data['email']          = $this->input->post('email');
             $data['role']           = $this->input->post('role');
 
@@ -1781,7 +1781,7 @@ class Admin extends CI_Controller {
             $this->db->update('user', $data);
             $this->session->set_flashdata('success', 'User update successed.');
             redirect(base_url() . 'admin/manage_user/', 'refresh');
-        }       
+        }
 
         if ($param1 == 'delete') {
             $response = array();
@@ -1798,10 +1798,10 @@ class Admin extends CI_Controller {
 			}
 				echo json_encode($response);
         }
-        
+
             $data['page_name']      = 'user_manage';
             $data['page_title']     = 'User Management';
-            $data['users']    = $this->db->get('user')->result_array(); 
+            $data['users']    = $this->db->get('user')->result_array();
             $this->load->view('admin/index', $data);
     }
 
@@ -1812,8 +1812,8 @@ class Admin extends CI_Controller {
         /* start menu active/inactive section*/
         $this->session->unset_userdata('active_menu');
         $this->session->set_userdata('active_menu', '25');
-        /* end menu active/inactive section*/  
-        
+        /* end menu active/inactive section*/
+
         if ($param1 == 'add') {
             $star_name                      = trim($this->input->post('star_name'));
             if($this->db->get_where('star',array('star_name'=>$star_name))->num_rows() > 0){
@@ -1823,14 +1823,14 @@ class Admin extends CI_Controller {
                 $data['star_name']              = $star_name;
                 $data['slug']                   = $this->common_model->get_seo_url($star_name);
                 $data['star_type']              = $this->input->post('star_type');
-                $data['star_desc']              = $this->input->post('star_desc');   
+                $data['star_desc']              = $this->input->post('star_desc');
                 $this->db->insert('star', $data);
                 $insert_id = $this->db->insert_id();
                 if(isset($_FILES['photo']) && $_FILES['photo']['name']!=''){
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/star_image/'.$insert_id.'.jpg');
                 }
             }
-            $this->session->set_flashdata('success', 'Star add successed.'); 
+            $this->session->set_flashdata('success', 'Star add successed.');
             redirect(base_url() . 'admin/manage_star/', 'refresh');
         }
         if ($param1 == 'update') {
@@ -1848,19 +1848,19 @@ class Admin extends CI_Controller {
                 if(isset($_FILES['photo']) && $_FILES['photo']['name']!=''){
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/star_image/'.$param2.'.jpg');
                 }
-                $this->session->set_flashdata('success', 'Star update successed.'); 
+                $this->session->set_flashdata('success', 'Star update successed.');
                 redirect(base_url() . 'admin/manage_star/', 'refresh');
-            }            
+            }
         }
         $config = $this->common_model->pagination();
         $config["base_url"] = base_url() . "admin/manage_star";
         $config["total_rows"] = $this->db->get_where('star', array('status'=>'1'))->num_rows();
         $config["per_page"] = 20;
-        $config["uri_segment"] = 3;     
+        $config["uri_segment"] = 3;
 
         $this->pagination->initialize($config);
         $data['last_row_num']=$this->uri->segment(3);
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;   
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $data["stars"] = $this->common_model->get_stars($config["per_page"], $page);
         $data["links"] = $this->pagination->create_links();
         $data['total_rows']=$config["total_rows"];
@@ -1909,12 +1909,12 @@ class Admin extends CI_Controller {
                  $this->db->where('title' , 'tv_series_pin_footer_menu');
                  $this->db->update('config' , $data);
              }
-             $this->session->set_flashdata('success', 'Setting update successed.');           
+             $this->session->set_flashdata('success', 'Setting update successed.');
              redirect(base_url() . 'admin/tv_series_setting/', 'refresh');
-        } 
+        }
 
         $data['page_name']      = 'tv_series_setting';
-        $data['page_title']     = 'Live TV Setting'; 
+        $data['page_title']     = 'Live TV Setting';
         $this->load->view('admin/index', $data);
     }
 
@@ -1942,15 +1942,15 @@ class Admin extends CI_Controller {
              $data['value'] = $this->input->post('site_name');
              $this->db->where('title' , 'site_name');
              $this->db->update('config' , $data);
-             
+
              $data['value'] = $this->input->post('site_url');
              $this->db->where('title' , 'site_url');
              $this->db->update('config' , $data);
-             
+
              $data['value'] = $this->input->post('system_email');
              $this->db->where('title' , 'system_email');
              $this->db->update('config' , $data);
-             
+
              $data['value'] = $this->input->post('business_address');
              $this->db->where('title' , 'business_address');
              $this->db->update('config' , $data);
@@ -1969,7 +1969,7 @@ class Admin extends CI_Controller {
 
              $data['value'] = $this->input->post('frontend_login_enable');
              $this->db->where('title' , 'frontend_login_enable');
-             $this->db->update('config' , $data); 
+             $this->db->update('config' , $data);
 
              $data['value'] = $this->input->post('blog_enable');
              $this->db->where('title' , 'blog_enable');
@@ -2081,7 +2081,7 @@ class Admin extends CI_Controller {
              $this->db->update('config' , $data);
 
 
-             $this->session->set_flashdata('success', 'Setting update successed.');           
+             $this->session->set_flashdata('success', 'Setting update successed.');
              redirect(base_url() . 'admin/system_setting/', 'refresh');
         }
         $data['page_name']      = 'system_setting';
@@ -2132,7 +2132,7 @@ class Admin extends CI_Controller {
 
              $data['value'] = $this->input->post('landing_page_enable');
              $this->db->where('title' , 'landing_page_enable');
-             $this->db->update('config' , $data);                         
+             $this->db->update('config' , $data);
 
              $data['value'] = $this->input->post('dark_theme');
              $this->db->where('title' , 'dark_theme');
@@ -2145,7 +2145,7 @@ class Admin extends CI_Controller {
              $data['value'] = $this->input->post('footer_templete');
              $this->db->where('title' , 'footer_templete');
              $this->db->update('config' , $data);
-             
+
              // langing page background image
             if($_FILES['landing_page_image']['tmp_name'] !='' && $_FILES['landing_page_image']['tmp_name'] !=NULL) :
                  $landing_page_image_path = 'uploads/landing_page/bg.jpg';
@@ -2154,8 +2154,8 @@ class Admin extends CI_Controller {
                  $data['value'] = base_url().$landing_page_image_path;
                  $this->db->where('title' , 'landing_page_image_url');
                  $this->db->update('config' , $data);
-             endif; 
-             $this->session->set_flashdata('success', 'Setting update successed.');           
+             endif;
+             $this->session->set_flashdata('success', 'Setting update successed.');
              redirect(base_url() . 'admin/theme_options/', 'refresh');
         }
         $data['page_name']      = 'theme_options';
@@ -2170,7 +2170,7 @@ class Admin extends CI_Controller {
         $this->db->where('title' , 'mobile_apps_api_secret_key');
         $this->db->update('config' , $data);
 
-        $this->session->set_flashdata('success', 'Setting update successed.');           
+        $this->session->set_flashdata('success', 'Setting update successed.');
         redirect(base_url() . 'admin/system_setting/', 'refresh');
     }
     function regenerate_cron_key(){
@@ -2179,7 +2179,7 @@ class Admin extends CI_Controller {
         $data['value'] = $this->generate_random_string(24);
         $this->db->where('title' , 'cron_key');
         $this->db->update('config' , $data);
-        $this->session->set_flashdata('success', 'Setting update successed.');           
+        $this->session->set_flashdata('success', 'Setting update successed.');
         redirect(base_url() . 'admin/cron_setting/', 'refresh');
     }
 
@@ -2192,8 +2192,8 @@ class Admin extends CI_Controller {
             $this->session->set_userdata('active_menu', '34');
             /* end menu active/inactive section*/
 
-            if ($param1 == 'update') {     
-             
+            if ($param1 == 'update') {
+
 
              $data['value'] = $this->input->post('player_color_skin');
              $this->db->where('title' , 'player_color_skin');
@@ -2202,7 +2202,7 @@ class Admin extends CI_Controller {
              $data['value'] = '0';
              if(!empty($this->input->post('player_volume_remember')) && $this->input->post('player_volume_remember') !='' && $this->input->post('player_volume_remember') !=NULL){
                 $data['value'] = $this->input->post('player_volume_remember');
-             }                
+             }
              $this->db->where('title' , 'player_volume_remember');
              $this->db->update('config' , $data);
 
@@ -2219,11 +2219,11 @@ class Admin extends CI_Controller {
                 $this->db->where('title' , 'player_watermark_logo');
                 $this->db->update('config' , $data);
             }
-             
+
              $data['value'] = $this->input->post('player_watermark_url');
              $this->db->where('title' , 'player_watermark_url');
              $this->db->update('config' , $data);
-             
+
              $data['value'] = $this->input->post('player_share');
              $this->db->where('title' , 'player_share');
              $this->db->update('config' , $data);
@@ -2246,8 +2246,8 @@ class Admin extends CI_Controller {
              $data['value'] = $this->input->post('player_seek_back');
              $this->db->where('title' , 'player_seek_back');
              $this->db->update('config' , $data);
-             
-             $this->session->set_flashdata('success', 'Setting update successed.');           
+
+             $this->session->set_flashdata('success', 'Setting update successed.');
              //redirect(base_url() . 'admin/player_setting/', 'refresh');
         }
             $data['page_name']      = 'player_setting';
@@ -2265,7 +2265,7 @@ class Admin extends CI_Controller {
             /* end menu active/inactive section*/
 
         if ($param1 == 'update') {
-            $protocol = $this->input->post('protocol');            
+            $protocol = $this->input->post('protocol');
             if($protocol=='smtp')
             {
                 $data['value'] = $this->input->post('protocol');
@@ -2291,7 +2291,7 @@ class Admin extends CI_Controller {
 
                 $data['value'] = $this->input->post('smtp_crypto');
                 $this->db->where('title' , 'smtp_crypto');
-                $this->db->update('config' , $data); 
+                $this->db->update('config' , $data);
             }
             else if($protocol=='sendmail')
             {
@@ -2308,7 +2308,7 @@ class Admin extends CI_Controller {
              $this->db->where('title' , 'contact_email');
              $this->db->update('config' , $data);
 
-             $this->session->set_flashdata('success', 'Setting update successed.');           
+             $this->session->set_flashdata('success', 'Setting update successed.');
              redirect(base_url() . 'admin/email_setting/', 'refresh');
         }
             $data['page_name']      = 'email_setting';
@@ -2327,7 +2327,7 @@ class Admin extends CI_Controller {
             /* end menu active/inactive section*/
 
         if ($param1 == 'update') {
-            move_uploaded_file($_FILES['website_logo']['tmp_name'], 'uploads/system_logo/logo.png');            
+            move_uploaded_file($_FILES['website_logo']['tmp_name'], 'uploads/system_logo/logo.png');
             move_uploaded_file($_FILES['website_favicon']['tmp_name'], 'uploads/system_logo/favicon.ico');
 
             $this->session->set_flashdata('success', 'Logo update successed');
@@ -2449,7 +2449,7 @@ class Admin extends CI_Controller {
 
             $data['value'] = $this->input->post('social_share_enable');
             $this->db->where('title' , 'social_share_enable');
-            $this->db->update('config' , $data);            
+            $this->db->update('config' , $data);
 
             $data['value'] = $this->input->post('facebook_url');
             $this->db->where('title' , 'facebook_url');
@@ -2475,7 +2475,7 @@ class Admin extends CI_Controller {
             $data['value'] = $this->input->post('tv_series_title');
              $this->db->where('title' , 'tv_series_title');
              $this->db->update('config' , $data);
-             
+
              $data['value'] = $this->input->post('tv_series_keyword');
              $this->db->where('title' , 'tv_series_keyword');
              $this->db->update('config' , $data);
@@ -2492,7 +2492,7 @@ class Admin extends CI_Controller {
              $data['value'] = $this->input->post('live_tv_meta_description');
              $this->db->where('title' , 'live_tv_meta_description');
              $this->db->update('config' , $data);
-             
+
              $data['value'] = $this->input->post('live_tv_keyword');
              $this->db->where('title' , 'live_tv_keyword');
              $this->db->update('config' , $data);
@@ -2587,7 +2587,7 @@ class Admin extends CI_Controller {
             $this->db->where('title' , 'disclaimer_text');
             $this->db->update('config' , $data);
 
-            
+
 
             $this->session->set_flashdata('success', 'Copyright and privacy setting update successed');
             redirect(base_url() . 'admin/copyright_privacy/', 'refresh');
@@ -2650,7 +2650,7 @@ class Admin extends CI_Controller {
             $data['message']            = $this->input->post("message");
             $data['url']                = $this->input->post("url");
             $data['headings']           = $this->input->post("headings");
-            $data['icon']               = $this->input->post("icon");         
+            $data['icon']               = $this->input->post("icon");
             $data['img']                = $this->input->post("img");
             $this->load->model('notify_model');
             $this->notify_model->send_notification($data);
@@ -2785,10 +2785,10 @@ class Admin extends CI_Controller {
                         move_uploaded_file($_FILES['ads_image']['tmp_name'], 'uploads/ads/'.$param2.'.jpg');
                         $data['ads_image_url']     = base_url().'uploads/ads/'.$param2.'.jpg';
                     }
-                    if($this->input->post('ads_image_url')!=''){                
+                    if($this->input->post('ads_image_url')!=''){
                         $data['ads_image_url']  = $this->input->post('ads_image_url');
                     }
-                    if($this->input->post('ads_url')!=''){                
+                    if($this->input->post('ads_url')!=''){
                         $data['ads_url']  = $this->input->post('ads_url');
                     }
                     $data['enable']     = '1';
@@ -2797,7 +2797,7 @@ class Admin extends CI_Controller {
                     $this->db->update('ads' , $data);
                 }else if ($ads_type=='code') {
                     $data['enable']     = '1';
-                    $data['ads_type']   = 'code';                   
+                    $data['ads_type']   = 'code';
                     $data['ads_code']   = $this->input->post('ads_code');
                     $this->db->where('ads_id' , $param2);
                     $this->db->update('ads' , $data);
@@ -2820,7 +2820,7 @@ class Admin extends CI_Controller {
             $data['page_name']     = 'ad_setting';
             $data['page_title']     = 'Ads Management';
             $this->load->view('admin/index', $data);
-        }        
+        }
 	}
 
     function test_mail(){
@@ -2834,12 +2834,12 @@ class Admin extends CI_Controller {
             }else{
                 $this->session->set_flashdata('send_error', 'Mail Configuration is perfect');
                 redirect(base_url() . 'admin/email_setting/', 'refresh');
-            }            
+            }
         }
-        
+
         $this->session->set_flashdata('error', 'Please enter a valid email.');
         redirect(base_url() . 'admin/email_setting/', 'refresh');
-        
+
     }
 
 	// database backup and restore management
@@ -2850,9 +2850,9 @@ class Admin extends CI_Controller {
             /* start menu active/inactive section*/
             $this->session->unset_userdata('active_menu');
             $this->session->set_userdata('active_menu', '23');
-            /* end menu active/inactive section*/   
-        
-        if ($operation == 'create') {            
+            /* end menu active/inactive section*/
+
+        if ($operation == 'create') {
             $this->common_model->create_backup();
             $this->session->set_flashdata('success', 'Backup created..');
             redirect(base_url() . 'admin/backup_restore/', 'refresh');
@@ -2879,7 +2879,7 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('backup_message', 'Backup Restored');
             redirect(base_url() . 'admin/backup_restore/', 'refresh');
         }
-        
+
             $data['page_info']  = 'Create backup / restore from backup';
             $data['page_name']  = 'backup_restore';
             $data['page_title'] = 'Manage Backup and Restore';
@@ -2891,8 +2891,8 @@ class Admin extends CI_Controller {
             $data['param2']     =   $param2;
             $data['param3']     =   $param3;
             $data['param4']     =   $param4;
-            $this->load->view('admin/'.$page_name.'.php' ,$data);        
-        
+            $this->load->view('admin/'.$page_name.'.php' ,$data);
+
     }
 
     //profile
@@ -2922,7 +2922,7 @@ class Admin extends CI_Controller {
         if ($param1 == 'update') {
             $data['name']  = $this->input->post('name');
             $data['email'] = $this->input->post('email');
-            
+
             $this->db->where('user_id', $user_id);
             $this->db->update('user', $data);
             $this->common_model->clear_cache();
@@ -2935,11 +2935,11 @@ class Admin extends CI_Controller {
             $password               = md5($this->input->post('password'));
             $new_password           = md5($this->input->post('new_password'));
             $retype_new_password    = md5($this->input->post('retype_new_password'));
-            
+
             $current_password       = $this->db->get_where('user', array(
                 'user_id' => $this->session->userdata('user_id')
             ))->row()->password;
-            
+
             if ($current_password == $password && $new_password == $retype_new_password) {
                 $this->db->where('user_id', $this->session->userdata('user_id'));
                 $this->db->update('user', array(
@@ -2984,14 +2984,14 @@ class Admin extends CI_Controller {
             else{
             $response['status']  = 'error';
             $response['message'] = 'Unable to delete record ...';
-            }        
+            }
             echo json_encode($response);
-        
+
     }
 
     //complete import function
     function complete_import(){
-        $response                   = array();        
+        $response                   = array();
         $id                         =   trim($_POST["tmdb_id"]);
         $from                       =   $_POST["to"];
         $this->load->model('tmdb_model');
@@ -3005,14 +3005,14 @@ class Admin extends CI_Controller {
             $response['message']        = 'Imported Successfully.';
         else:
             $response['error']         = 'success';
-            $response['message']        = 'Imported failed.'; 
-            endif;      
-        echo json_encode($response);        
-    }  
+            $response['message']        = 'Imported failed.';
+            endif;
+        echo json_encode($response);
+    }
 
     //imdb import
     function import_movie(){
-        $response                   = array();        
+        $response                   = array();
         $id                         = trim($_POST["id"]);
         $from                       = $_POST["from"];
         // $id = 31910;
@@ -3021,12 +3021,12 @@ class Admin extends CI_Controller {
         $this->load->model('tmdb_model');
         if($from=='tv'){
             //$data = $this->tmdb_model->get_tvshow_actor_info($id);
-            $data = $this->tmdb_model->get_tvseries_info($id);            
+            $data = $this->tmdb_model->get_tvseries_info($id);
         }else{
             //$data = $this->tmdb_model->get_movie_actor_info($id);
-            $data = $this->tmdb_model->get_movie_info($id);            
+            $data = $this->tmdb_model->get_movie_info($id);
         }
-        //var_dump($data);      
+        //var_dump($data);
         if(isset($data['status']) && $data['status']=='success'){
             $response['imdb_status']    = 'success';
             $response['imdbid']         = $data['imdbid'];
@@ -3064,7 +3064,7 @@ class Admin extends CI_Controller {
     }
 
     function fetch_actor_from_tmdb(){
-        $response                   = array();        
+        $response                   = array();
         $id                         =   trim($_POST["id"]);
         $from                       =   $_POST["from"];
         $response['submitted_data'] = $_POST;
@@ -3080,19 +3080,19 @@ class Admin extends CI_Controller {
 
     function download_link(){
         $response = array();
-        $data['videos_id']          = $_POST["videos_id"];            
+        $data['videos_id']          = $_POST["videos_id"];
         $data['link_title']         = $_POST["link_title"];
         $data['download_url']       = str_replace('"','',$_POST["download_url"]);
         $this->db->insert('download_link', $data);
         $response['row_id']         = $this->db->insert_id();
         $response['post_status']    = "success";
         $response['link_title']     = $_POST["link_title"];
-        $response['download_url']   = str_replace('"','',$_POST["download_url"]);         
-        echo json_encode($response);    
+        $response['download_url']   = str_replace('"','',$_POST["download_url"]);
+        echo json_encode($response);
     }
     function video_file(){
         $response = array();
-        $file_data['videos_id']         = $_POST["videos_id"];            
+        $file_data['videos_id']         = $_POST["videos_id"];
         $file_data['file_source']       = $_POST["type"];
         $file_data['file_url']          = $_POST["url"];
         $file_data['source_type']       = 'link';
@@ -3101,9 +3101,9 @@ class Admin extends CI_Controller {
         $response['row_id']             = $this->db->insert_id();
         $response['post_status']        = "success";
         $response['type']               = $_POST["type"];
-        $response['url']                = $_POST["url"];         
-        $response['watch_url']          = base_url('watch/').$this->common_model->get_slug_by_videos_id($_POST["videos_id"]).'.html?key='.$file_data['stream_key'];         
-        echo json_encode($response);    
+        $response['url']                = $_POST["url"];
+        $response['watch_url']          = base_url('watch/').$this->common_model->get_slug_by_videos_id($_POST["videos_id"]).'.html?key='.$file_data['stream_key'];
+        echo json_encode($response);
     }
 
     function episodes_url(){
@@ -3111,7 +3111,7 @@ class Admin extends CI_Controller {
         $datetime                       = date("Y-m-d H:i:s");
         $file_data['videos_id']         = $_POST["videos_id"];
         $file_data['seasons_id']        = $_POST["seasons_id"];
-        $file_data['episodes_name']     = $_POST["episodes_name"];            
+        $file_data['episodes_name']     = $_POST["episodes_name"];
         $file_data['file_source']       = $_POST["type"];
         $file_data['file_url']          = $_POST["url"];
         $file_data['date_added']        = $datetime;
@@ -3121,7 +3121,7 @@ class Admin extends CI_Controller {
         $response['row_id']             = $this->db->insert_id();
         $response['post_status']        = "success";
         $response['type']               = $_POST["type"];
-        $response['url']                = $_POST["url"];         
+        $response['url']                = $_POST["url"];
         $response['episodes_name']      = $_POST["episodes_name"];
 
         // update videos
@@ -3129,20 +3129,20 @@ class Admin extends CI_Controller {
         $this->db->where('videos_id',$_POST["videos_id"]);
         $this->db->update('videos',$videos_data);
 
-        echo json_encode($response);    
+        echo json_encode($response);
     }
 
     // rating
     function rating(){
-        $response = array();            
+        $response = array();
         $rate                       = $_POST["rate"];
         $video_id                       = $_POST["video_id"];
         $post_status = $this->post_rating( $rate , $video_id);
-        $response['post_status'] = $post_status; 
-        $response['rate'] = $rate; 
-        $response['video_id'] = $video_id; 
+        $response['post_status'] = $post_status;
+        $response['rate'] = $rate;
+        $response['video_id'] = $video_id;
         echo json_encode($response);
-    
+
     }
 
     // post rating
@@ -3151,31 +3151,31 @@ class Admin extends CI_Controller {
         $ip=$_SERVER['REMOTE_ADDR'];
 
         $verify_data = array(
-                            'video_id'    => $video_id,                             
-                            'ip'      => $ip                                                    
+                            'video_id'    => $video_id,
+                            'ip'      => $ip
                             );
 
         $data = array(
                       'video_id'    => $video_id,
-                      'rating'    => $rate,                             
-                       'ip'      => $ip                                                   
+                      'rating'    => $rate,
+                       'ip'      => $ip
                     );
 
-        $query = $this->db->get_where('rating' , $verify_data);        
+        $query = $this->db->get_where('rating' , $verify_data);
             $rating = $query->result_array();
             $num_row = $query->num_rows();
-            if($num_row>0){        
+            if($num_row>0){
                 $this->db->where($verify_data);
 				$this->db->update('rating', $data);
 			}
-            else{                
+            else{
                 $this->db->insert('rating', $data);
                 $current_rating =$this->db->get_where('videos' , array('videos_id'=>$video_id))->row()->total_rating;
 				$rating=$current_rating+1;
 				$this->db->where('videos_id', $video_id);
-				$this->db->update('videos', array('total_rating' => $rating));                
+				$this->db->update('videos', array('total_rating' => $rating));
             }
-           return "success"; 
+           return "success";
         }
 
         //movie importer
@@ -3215,7 +3215,7 @@ class Admin extends CI_Controller {
                 $data['page_title'] = 'Movie Scrapper';
                 $this->load->view('admin/index', $data);
         }
-		
+
 		public function movie_scrapper() {
 			$message            =   '';
             $list               =   trim($this->input->post('movie_list'));
@@ -3226,8 +3226,8 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('message', $message);
             redirect(base_url() . 'admin/videos_add/', 'refresh');
         }
-        $explode            = explode(',', $list); 
-        foreach($explode as $movieName) {    
+        $explode            = explode(',', $list);
+        foreach($explode as $movieName) {
         $url = 'http://ovoo.spagreen.net/movie-scrapper/get_movie_info_title.php?title='.urlencode($movieName);
         $curl               =   curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -3255,28 +3255,28 @@ class Admin extends CI_Controller {
                 $imdb_data['enable_download']   = '0';
                 $poster                         = $data['Poster'];
                 if($type=='series'){
-                    $imdb_data['is_tvseries']   = '1';                    
+                    $imdb_data['is_tvseries']   = '1';
                 }
 
                 if(isset($fetch_trailer) && $publication =='1'){
-                    $imdb_data['trailer']       = '1';                    
+                    $imdb_data['trailer']       = '1';
                 }else{
                     $imdb_data['trailer']       = '0';
                 }
                 if(isset($publication) &&  $publication =='1'){
-                    $imdb_data['publication']   = '1';                    
+                    $imdb_data['publication']   = '1';
                 }else{
                     $imdb_data['publication']   = '0';
                 }
 				$result_row     =   count($this->db->get_where('videos', array('imdbid' =>$imdbid))->result_array());
-			
+
 			if($result_row == 0){
 				$this->db->insert('videos', $imdb_data);
                 $insert_id = $this->db->insert_id();
                 //save poster
-                $save_to = 'uploads/video_thumb/'.$insert_id.'.jpg';           
+                $save_to = 'uploads/video_thumb/'.$insert_id.'.jpg';
                 $this->common_model->grab_image($poster,$save_to);
-				
+
 				$slug                       = url_title($title, 'dash', TRUE);
 				$slug_num                   = $this->common_model->slug_num('videos',$slug);
 				if($slug_num > 0){
@@ -3290,11 +3290,11 @@ class Admin extends CI_Controller {
 			else if($result_row > 0){
 				$message    .= '<div class="alert alert-warning"><strong>'.$movieName.' </strong> already exist on your system.</div>';
 			}
-			
+
 		}else{
                 $message    .= '<div class="alert alert-warning"><strong>'.$movieName.' </strong>not found.</div>';
 
-        }   
+        }
 	}
 	$this->session->set_flashdata('message', $message);
 	redirect(base_url() . 'admin/movie_scrapper_manage/', 'refresh');
@@ -3354,19 +3354,19 @@ class Admin extends CI_Controller {
         if(isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
             {
                 ############ Edit settings ##############
-                $UploadDirectory    = 'uploads/videos/'; //specify upload directory ends with / (slash)                
+                $UploadDirectory    = 'uploads/videos/'; //specify upload directory ends with / (slash)
                 //check if this is an ajax request
                 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])){
                     $response['status'] = 'error';
-                    $response['errors'] = 'Not ajax requiest';                    
-                }            
-                
+                    $response['errors'] = 'Not ajax requiest';
+                }
+
                 //Is file size is less than allowed size.
                 if ($_FILES["FileInput"]["size"] > 50000000000242880) {
                     $response['status'] = 'error';
                     $response['errors'] = 'File size is too big!';
                 }
-                
+
                 //allowed file type Server side check
                 switch(strtolower($_FILES['FileInput']['type']))
                 {
@@ -3385,12 +3385,12 @@ class Admin extends CI_Controller {
                     default:
                         $response['status'] = 'error';
                         $response['errors'] = 'Unsupported File!';
-                }                
+                }
                 $File_Name          = strtolower($_FILES['FileInput']['name']);
                 $File_Ext           = substr($File_Name, strrpos($File_Name, '.')); //get file extention
                 $Random_Number      = rand(0, 9999999999); //Random number to be added to name.
                 $NewFileName        = $videos_id.'_'.$Random_Number.$File_Ext; //new file name
-                
+
                 if(move_uploaded_file($_FILES['FileInput']['tmp_name'], $UploadDirectory.$NewFileName ))
                 {
                     $data['videos_id']      = $videos_id;
@@ -3422,7 +3422,7 @@ class Admin extends CI_Controller {
                 }else{
                     $response['status'] = 'error';
                     $response['errors'] = 'error uploading File!';
-                }                
+                }
             }
             else
             {
@@ -3440,19 +3440,19 @@ class Admin extends CI_Controller {
         if(isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
             {
                 ############ Edit settings ##############
-                $UploadDirectory    = 'uploads/videos/'; //specify upload directory ends with / (slash)                
+                $UploadDirectory    = 'uploads/videos/'; //specify upload directory ends with / (slash)
                 //check if this is an ajax request
                 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])){
                     $response['status'] = 'error';
-                    $response['errors'] = 'Not ajax requiest';                    
-                }            
-                
+                    $response['errors'] = 'Not ajax requiest';
+                }
+
                 //Is file size is less than allowed size.
                 if ($_FILES["FileInput"]["size"] > 50000000000242880) {
                     $response['status'] = 'error';
                     $response['errors'] = 'File size is too big!';
                 }
-                
+
                 //allowed file type Server side check
                 switch(strtolower($_FILES['FileInput']['type']))
                 {
@@ -3471,12 +3471,12 @@ class Admin extends CI_Controller {
                     default:
                         $response['status'] = 'error';
                         $response['errors'] = 'Unsupported File!';
-                }                
+                }
                 $File_Name          = strtolower($_FILES['FileInput']['name']);
                 $File_Ext           = substr($File_Name, strrpos($File_Name, '.')); //get file extention
                 $Random_Number      = rand(0, 9999999999); //Random number to be added to name.
                 $NewFileName        = $videos_id.'_'.$seasons_id.'_'.$Random_Number.$File_Ext; //new file name
-                
+
                 if(move_uploaded_file($_FILES['FileInput']['tmp_name'], $UploadDirectory.$NewFileName ))
                 {
                     $datetime               = date("Y-m-d H:i:s");
@@ -3500,7 +3500,7 @@ class Admin extends CI_Controller {
                 }else{
                     $response['status'] = 'error';
                     $response['errors'] = 'error uploading File!';
-                }                
+                }
             }
             else
             {
@@ -3559,6 +3559,6 @@ class Admin extends CI_Controller {
         $this->load->model('tmdb_model');
         $result = $this->tmdb_model->import_tvseries_info($id);
         var_dump($result);
-    }    
-    
+    }
+
 }

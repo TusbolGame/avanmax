@@ -12,7 +12,7 @@ if (!defined('BASEPATH'))
  * @package     OVOO-Movie & Video Stremaing CMS Pro
  * @author      Abdul Mannan/Spa Green Creative
  * @copyright   Copyright (c) 2014 - 2017 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
+ * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/
  * @link        http://www.spagreen.net
  * @link        support@spagreen.net
  *
@@ -20,21 +20,21 @@ if (!defined('BASEPATH'))
 
 
 
-class User extends CI_Controller{   
-    
+class User extends CI_Controller{
+
 	function __construct(){
 			parent::__construct();
             $this->load->library('google');
             $this->load->library('facebook');
             $this->load->model('common_model');
 			$this->load->database();
-		
+
        		/*cache controling*/
 			$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
             $this->output->set_header('Pragma: no-cache');
             $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	}
-    
+
     // index function
     public function index() {
         if ($this->session->userdata('login_status') == 1)
@@ -51,11 +51,11 @@ class User extends CI_Controller{
         $data['title']          = 'Login | Signup';
 		$this->load->library('google');
         $data['facebook_login_url'] = $this->facebook->getLoginUrl(array(
-                'redirect_uri' => site_url('user/facebook_login'), 
+                'redirect_uri' => site_url('user/facebook_login'),
                 'scope' => array("email") // permissions here
             ));
 		$data['login_url']      = $this->google->login_url();
-        //$data['facebook_login_url'] =  $this->facebook->login_url();        
+        //$data['facebook_login_url'] =  $this->facebook->login_url();
         $this->load->view('front_end/index', $data);
     }
 
@@ -67,7 +67,7 @@ class User extends CI_Controller{
         redirect(base_url() , 'refresh');
     }
 
-    public function google_login(){       
+    public function google_login(){
         if(isset($_GET['code'])){
             $this->google->authenticate();
             $get_user_info = $this->google->get_user_info();
@@ -83,10 +83,10 @@ class User extends CI_Controller{
             $this->varify_social_user_info($user_info);
             redirect('user/profile/');
         }
-        redirect('user/login/');        
+        redirect('user/login/');
     }
 
-    public function facebook_login(){       
+    public function facebook_login(){
         if($this->facebook->is_authenticated()){
             $get_user_info = $this->facebook->request('get', '/me?fields=id,first_name,last_name,email,gender,locale,picture');
             // Preparing data for database insertion
@@ -103,7 +103,7 @@ class User extends CI_Controller{
             redirect('user/profile/');
         }
         redirect('user/login/');
-        
+
     }
 
     public function varify_social_user_info($user_info=''){
@@ -113,11 +113,11 @@ class User extends CI_Controller{
         if ($num_rows > 0) {
             $this->session->set_userdata('login_status', '1');
             $this->session->set_userdata('user_id', $row->user_id);
-            $this->session->set_userdata('name', $row->name);                     
+            $this->session->set_userdata('name', $row->name);
             $this->db->where('user_id', $row->user_id);
             $this->db->update('user', array(
                 'last_login' => date('Y-m-d H:i:s')
-            )); 
+            ));
             if($row->role=='admin'){
               $this->session->set_userdata('admin_is_login', '1');
               $this->session->set_userdata('login_type', 'admin');
@@ -126,6 +126,10 @@ class User extends CI_Controller{
               $this->session->set_userdata('user_is_login', '1');
               $this->session->set_userdata('login_type', 'subscriber');
             }
+            if($row->role=='crew'){
+              $this->session->set_userdata('user_is_login', '1');
+              $this->session->set_userdata('login_type', 'crew');
+            }
         }else{
             $name                   = $user_info['first_name'].' '.$user_info['last_name'];
             $data['name']           = $name;
@@ -133,7 +137,7 @@ class User extends CI_Controller{
             $data['email']          = $user_info['email'];
             $data['role']           = 'subscriber';
             $data['join_date']      = date('Y-m-d H:i:s');
-            $data['last_login']     = date('Y-m-d H:i:s');             
+            $data['last_login']     = date('Y-m-d H:i:s');
             $this->db->insert('user', $data);
             $user_id                = $this->db->insert_id();
             //save user image
@@ -144,7 +148,7 @@ class User extends CI_Controller{
             // create session
             $this->session->set_userdata('login_status', '1');
             $this->session->set_userdata('user_id', $user_id);
-            $this->session->set_userdata('name', $name);                     
+            $this->session->set_userdata('name', $name);
             $this->db->where('user_id', $row->user_id);
             $this->db->update('user', array('last_login' => date('Y-m-d H:i:s')));
             $this->session->set_userdata('user_is_login', '1');
@@ -153,7 +157,7 @@ class User extends CI_Controller{
         return TRUE;
     }
 
-    
+
     // signup function
     function signup($param1='', $param2='')  {
         if ($param1 == 'do_signup') {
@@ -178,14 +182,14 @@ class User extends CI_Controller{
                 else:
                     $email_exist             = $this->common_model->check_email($email);
                     if($email_exist):
-                        $this->session->set_flashdata('error', 'Signup fail.Email is already exist on system');                        
+                        $this->session->set_flashdata('error', 'Signup fail.Email is already exist on system');
                     else:
                         $data['join_date']       = date('Y-m-d H:i:s');
                         $data['last_login']       = date('Y-m-d H:i:s');
                         $this->db->insert('user', $data);
                         $this->load->model('email_model');
                         $this->email_model->account_opening_email($email, $password);
-                        $this->session->set_flashdata('success', 'Signup successfully.now you can login to system');                    
+                        $this->session->set_flashdata('success', 'Signup successfully.now you can login to system');
                         redirect(base_url() . 'user/login', 'refresh');
                     endif;
                 endif;
@@ -199,25 +203,25 @@ class User extends CI_Controller{
 
     // forget password function
     function forget_password($param1='', $param2='') {
-        if ($param1 == 'do_reset') {           
-            $email                  = $this->input->post('email');            
+        if ($param1 == 'do_reset') {
+            $email                  = $this->input->post('email');
             $user_exist             = $this->common_model->check_email($email);
-            if($user_exist){ 
-                $token = bin2hex(openssl_random_pseudo_bytes(16));               
+            if($user_exist){
+                $token = bin2hex(openssl_random_pseudo_bytes(16));
                 $data['token'] = $token;
                 $this->db->where('email',$email);
                 $this->db->update('user',$data);
                 $this->load->model('email_model');
                 $this->email_model->password_reset_email($email, $token);
                 $this->session->set_flashdata('success', 'Please Check Your Email to Complete Password Reset.');
-                redirect(base_url() . 'user/forget_password', 'refresh');                
+                redirect(base_url() . 'user/forget_password', 'refresh');
             }else{
-            $this->session->set_flashdata('error', 'Email not found on our system');            
+            $this->session->set_flashdata('error', 'Email not found on our system');
             redirect(base_url() . 'user/forget_password', 'refresh');
             }
         }
         $data['page_name']      = 'forget_password';
-        $data['title']     = 'Password Recovery';        
+        $data['title']     = 'Password Recovery';
         $this->load->view('front_end/index', $data);
         //redirect(base_url() . 'login', 'refresh');
 
@@ -236,7 +240,7 @@ class User extends CI_Controller{
             if ($this->form_validation->run() == FALSE)
             {
                 $this->session->set_flashdata('error', validation_errors());
-                redirect(base_url() . 'user/complete_reset?token='.$token, 'refresh'); 
+                redirect(base_url() . 'user/complete_reset?token='.$token, 'refresh');
             }
 
             else{
@@ -254,10 +258,10 @@ class User extends CI_Controller{
             $token                  = $this->input->get('token');
             if(isset($token) && $token !=''){
                 $token_exist             = $this->common_model->check_token($token);
-                if($token_exist){                               
+                if($token_exist){
                 $data['token'] = $token;
                 $data['page_name']      = 'new_password';
-                $data['title']     = 'New Password';        
+                $data['title']     = 'New Password';
                 $this->load->view('front_end/index', $data);
                 }else{
                 $this->session->set_flashdata('error', 'Invalid token..');
@@ -266,8 +270,8 @@ class User extends CI_Controller{
             }else{
                 $this->session->set_flashdata('error', 'Invalid token..');
                 redirect(base_url() . 'user/forget_password', 'refresh');
-            }            
-        }   
+            }
+        }
     // validate login  function
     function validate_login($email   =   '' , $password   =  ''){
         $credential    =   array(  'email' => $email , 'password' => $password );
@@ -276,11 +280,11 @@ class User extends CI_Controller{
         if ($query->num_rows() > 0):
             $this->session->set_userdata('login_status', '1');
             $this->session->set_userdata('user_id', $row->user_id);
-            $this->session->set_userdata('name', $row->name);                     
+            $this->session->set_userdata('name', $row->name);
             $this->db->where('user_id', $row->user_id);
             $this->db->update('user', array(
                 'last_login' => date('Y-m-d H:i:s')
-            )); 
+            ));
             if($row->role =='admin'):
               $this->session->set_userdata('admin_is_login', '1');
               $this->session->set_userdata('login_type', 'admin');
@@ -289,12 +293,16 @@ class User extends CI_Controller{
               $this->session->set_userdata('user_is_login', '1');
               $this->session->set_userdata('login_type', 'subscriber');
             endif;
+            if($row->role =='crew'):
+              $this->session->set_userdata('user_is_login', '1');
+              $this->session->set_userdata('login_type', 'crew');
+            endif;
               return 'success';
-        endif;        
-        return 'invalid';       
+        endif;
+        return 'invalid';
     }
 
-    
+
     // dashboard function
     function dashboard(){
         if ($this->session->userdata('user_is_login') != 1)
@@ -329,10 +337,10 @@ class User extends CI_Controller{
             redirect(base_url() . 'login', 'refresh');
         if ($param1 == 'update') {
             $data['name']           = $this->input->post('name');
-            $data['gender']         = $this->input->post('gender');             
+            $data['gender']         = $this->input->post('gender');
             $this->db->where('user_id', $user_id);
             $this->db->update('user', $data);
-            move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/user_image/' .$user_id.'.jpg');            
+            move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/user_image/' .$user_id.'.jpg');
             $this->session->set_flashdata('success', 'Profile information updated.');
             redirect(base_url() . 'user/update_profile/', 'refresh');
         }
@@ -348,7 +356,7 @@ class User extends CI_Controller{
             $user_id=$this->session->userdata('user_id');
         if ($this->session->userdata('login_status') != 1)
             redirect(base_url() . 'login', 'refresh');
-        
+
             $data['page_name']      = 'favorite';
             $data['title']          = 'My Favorite Movies & Videos';
             $this->db->order_by('wish_list_id', 'desc');
@@ -360,7 +368,7 @@ class User extends CI_Controller{
             $user_id=$this->session->userdata('user_id');
         if ($this->session->userdata('login_status') != 1)
             redirect(base_url() . 'login', 'refresh');
-        
+
             $data['page_name']      = 'watch_later';
             $data['title']          = 'My Wish List';
             $this->db->order_by('wish_list_id', 'desc');
@@ -372,7 +380,7 @@ class User extends CI_Controller{
     function update_profile($param1 = '', $param2 = ''){
             $user_id=$this->session->userdata('user_id');
         if ($this->session->userdata('login_status') != 1)
-            redirect(base_url() . 'login', 'refresh');        
+            redirect(base_url() . 'login', 'refresh');
             $data['page_name']      = 'update_profile';
             $data['title']     = 'Update Profile';
             $data['profile_info']   = $this->db->get_where('user', array(
@@ -389,11 +397,11 @@ class User extends CI_Controller{
             $password               = md5($this->input->post('password'));
             $new_password           = md5($this->input->post('new_password'));
             $retype_new_password    = md5($this->input->post('retype_new_password'));
-            
+
             $current_password       = $this->db->get_where('user', array(
                 'user_id' => $this->session->userdata('user_id')
             ))->row()->password;
-            
+
             if ($current_password == $password && $new_password == $retype_new_password) {
                 $this->db->where('user_id', $this->session->userdata('user_id'));
                 $this->db->update('user', array(
@@ -407,7 +415,7 @@ class User extends CI_Controller{
             } else {
                 $this->session->set_flashdata('error', 'Password not match.');
             }
-            redirect(base_url() . 'user/change_password/', 'refresh');        
+            redirect(base_url() . 'user/change_password/', 'refresh');
         }
 
             $data['page_name']      = 'change_password';
@@ -425,8 +433,8 @@ class User extends CI_Controller{
         if ($this->form_validation->run() == FALSE):
             $this->session->set_flashdata('login_error', validation_errors());
             redirect(base_url() . 'user/login', 'refresh');
-        else:            
-            $login_status               = $this->validate_login( $email ,$password);        
+        else:
+            $login_status               = $this->validate_login( $email ,$password);
             if ($login_status == 'success'):
                 if($this->session->userdata('admin_is_login')==1)
                 redirect(base_url() . 'admin/dashboard', 'refresh');
@@ -435,7 +443,7 @@ class User extends CI_Controller{
                 $this->session->set_flashdata('login_error', 'Username & password not match..');
                 redirect(base_url() . 'user/login', 'refresh');
             endif;
-        endif;      
+        endif;
     }
 
 
@@ -443,7 +451,7 @@ class User extends CI_Controller{
     function subscribe(){
         $response                       = array();
         $email                          = $_POST["email"];
-        $name                           = $_POST["name"];       
+        $name                           = $_POST["name"];
         $response['submitted_data']     = $_POST;
         $subscribe_status               = $this->add_subscriber($name,$email);
         $response['subscribe_status']   = $subscribe_status;
@@ -453,7 +461,7 @@ class User extends CI_Controller{
     function add_to_wish_list(){
         $response = array();
         $list_type                      = trim($_POST["list_type"]);
-        $videos_id                      = trim($_POST["videos_id"]);       
+        $videos_id                      = trim($_POST["videos_id"]);
         $response['submitted_data']     = $_POST;
         $status                         = $this->add_to_list($list_type,$videos_id);
         $response['status']             = $status;
@@ -462,7 +470,7 @@ class User extends CI_Controller{
 
     function remove_wish_list(){
         $response                       = array();
-        $wish_list_id                   = trim($_POST["wish_list_id"]);       
+        $wish_list_id                   = trim($_POST["wish_list_id"]);
         $response['submitted_data']     = $_POST;
         $status                         = $this->remove_from_list($wish_list_id);
         $response['status']             = $status;
@@ -474,7 +482,7 @@ class User extends CI_Controller{
         $user_id                        = $this->session->userdata('user_id');
         $query                          = $this->db->get_where('wish_list' , array('videos_id' => $videos_id, 'user_id'=>$user_id,'wish_list_type'=>$list_type));
         if($user_id =='' || $user_id==NULL):
-           return 'login_fail'; 
+           return 'login_fail';
         elseif ($query->num_rows() > 0):
             return 'exist';
         else:
@@ -491,13 +499,13 @@ class User extends CI_Controller{
         $user_id                        = $this->session->userdata('user_id');
         $query                          = $this->db->get_where('wish_list' , array('wish_list_id' => $wish_list_id, 'user_id'=>$user_id));
         if($user_id =='' || $user_id==NULL){
-           return 'login_error'; 
+           return 'login_error';
         }else if ($query->num_rows() > 0) {
             $this->db->where('wish_list_id',$wish_list_id);
             $this->db->delete('wish_list');
-            return 'success';            
+            return 'success';
         }else{
-           return 'error'; 
+           return 'error';
         }
     }
 
@@ -512,13 +520,13 @@ class User extends CI_Controller{
             $data['email']          = $email;
             $data['role']           = 'subscriber';
             $data['join_date']      = date('Y-m-d H:i:s');
-            $data['last_login']     = date('Y-m-d H:i:s');             
+            $data['last_login']     = date('Y-m-d H:i:s');
             $this->db->insert('user', $data);
             $this->load->model('email_model');
             if($this->email_model->send_confirmation_to_subscriber($email)){
             return 'success';
             }else{
-               return 'error'; 
+               return 'error';
             }
         }
         else if ($query->num_rows() > 0) {
@@ -551,4 +559,3 @@ class User extends CI_Controller{
     }
 
 }
-    

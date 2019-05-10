@@ -25,6 +25,7 @@
   <select  class="form-control"  name="role" required>
     <option value="admin" <?php if($row['role']=="admin"){ echo "selected"; }?>>Admin</option>
     <option value="subscriber"  <?php if($row['role']=="subscriber"){ echo "selected"; }?>>Subscriber</option>
+    <option value="crew"  <?php if($row['role']=="crew"){ echo "selected"; }?>>Crew</option>
   </select>
 </div>
 <?php endforeach; ?>
@@ -38,7 +39,7 @@
 <script>
   jQuery(document).ready(function() {
     $(".select2").select2();
-    $('form').parsley();                            
+    $('form').parsley();
 
   });
-</script> 
+</script>
