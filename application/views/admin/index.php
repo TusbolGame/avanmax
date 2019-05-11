@@ -1,10 +1,10 @@
-<?php    
+<?php
     $system_name              =   $this->db->get_where('config' , array('title'=>'system_name'))->row()->value;
     $system_short_name        =   $this->db->get_where('config' , array('title'=>'system_short_name'))->row()->value;
     $site_name                =   $this->db->get_where('config' , array('title'=>'site_name'))->row()->value;
     $business_address         =   $this->db->get_where('config' , array('title'=>'business_address'))->row()->value;
     $system_email             =   $this->db->get_where('config' , array('title'=>'system_email'))->row()->value;
-    $business_phone           =   $this->db->get_where('config' , array('title'=>'business_phone'))->row()->value;    
+    $business_phone           =   $this->db->get_where('config' , array('title'=>'business_phone'))->row()->value;
     $color                    =   $this->db->get_where('user' , array('user_id'=>$this->session->userdata('user_id')))->row()->theme_color;
 ?>
 <!DOCTYPE html>
@@ -14,14 +14,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Abdul Mannan">
-    <meta name="copyright" content="Copyright (c) 2014 - 2018 SpaGreen">
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
+    <meta name="author" content="Ryan Connor">
+    <meta name="copyright" content="AvanMax 2019">
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png">
     <!-- CSS-->
 
     <!-- select2 CSS -->
     <link href="<?php echo base_url(); ?>assets/plugins/select2/dist/css/select2.css" rel="stylesheet" />
-   
+
     <!-- main CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/main.css">
     <!-- custom css -->
@@ -32,8 +32,8 @@
 
     <!--summernote CSS -->
     <link href="<?php echo base_url(); ?>assets/plugins/summernote/dist/summernote.css" rel="stylesheet" />
-    
-    
+
+
     <!--Jquery JS -->
     <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js"></script>
     <title><?php echo $page_title .'-'.$system_short_name;?></title>
@@ -41,19 +41,19 @@
     <!--if lt IE 9
     script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
     script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
-    -->    
+    -->
 </head>
 
-<body class="app sidebar-mini rtl <?php //if(isset($page_name) && ($page_name=='videos_add' || $page_name=='videos_edit'|| $page_name=='videos_manage')){ echo 'sidebar-collapse';}  ?>">    
+<body class="app sidebar-mini rtl <?php //if(isset($page_name) && ($page_name=='videos_add' || $page_name=='videos_edit'|| $page_name=='videos_manage')){ echo 'sidebar-collapse';}  ?>">
     <!-- Navbar-->
     <header class="app-header hidden-print"><a class="app-header__logo" href="<?php echo base_url(); ?>">
-        <img src="<?php echo base_url(); ?>assets/images/logo.png" alt="Ovoo" height="30" style="margin-top:-15px;"></a>
+        <img src="<?php echo base_url(); ?>assets/images/logo.png" alt="AvanMax"></a>
         <!-- Sidebar toggle button-->
         <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
         <!-- visit website -->
-        <li><a class="app-nav__item" href="<?php echo base_url(); ?>" target="_blank">VISIT WEBSITE</a></li>
+        <li><a class="app-nav__item" href="<?php echo base_url(); ?>" target="_blank">Ver Sitio</a></li>
         <!-- User Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><img  src="<?php echo $this->common_model->get_img('user', $this->session->userdata('user_id')).'?'.time();?>" class="img-circle" alt="photo" height="20"></a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
@@ -73,8 +73,6 @@
         </div>
         <?php  include $page_name.'.php';?>
     </main>
-    <footer class="footer text-right"> <?php echo date("Y"); ?> &copy; <a href="https://codecanyon.net/item/ovoomovie-video-steaming-cms/20180569">OVOO - v<?php echo ovoo_config('version'); ?></a> |
-  Developed by: <a href="http://www.spagreen.net">SpaGreen Creative</a></footer>
    <!-- ajax modal  -->
 
     <div id="mymodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -87,7 +85,7 @@
             </div>
             <div class="modal-body">
               <div id="modal-loader" style="display: none; text-align: center;"> <img src="<?php echo base_url(); ?>assets/images/preloader.gif" /> </div>
-              
+
               <!-- content will be load here -->
               <div id="dynamic-content"></div>
             </div>
@@ -96,7 +94,7 @@
         </div>
       </div>
     </div>
-    <!-- /.modal --> 
+    <!-- /.modal -->
 <script>
     $(document).ready(function() {
         $(document).on('click', '#menu', function(e) {
@@ -112,8 +110,8 @@
             .done(function(data) {
                 console.log(data);
                 $('#dynamic-content').html('');
-                $('#dynamic-content').html(data); // load response 
-                $('#modal-loader').hide(); // hide ajax loader 
+                $('#dynamic-content').html(data); // load response
+                $('#modal-loader').hide(); // hide ajax loader
             })
             .fail(function() {
                 $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
@@ -168,7 +166,7 @@
     function delete_row(table_name, row_id) {
         var table_row = '#row_' + row_id
         var base_url = '<?php echo base_url();?>'
-        url = base_url + 'admin/delete_record/'        
+        url = base_url + 'admin/delete_record/'
         swal({
             title: 'Are you sure?',
             text: "It will be deleted permanently!",
@@ -177,9 +175,9 @@
             buttons: ["Cancel", "Delete"],
             dangerMode: true,
             closeOnClickOutside: false
-            })           
+            })
         .then(function(confirmed){
-            if (confirmed){                
+            if (confirmed){
                  $.ajax({
                     url: url,
                     type: 'POST',
@@ -195,7 +193,7 @@
                     swal('Oops...', 'Something went wrong with ajax !', 'error');
                  })
             }
-        })      
+        })
     }
 </script>
 <!-- END Ajax Delete -->

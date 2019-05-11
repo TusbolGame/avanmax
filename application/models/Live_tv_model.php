@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * OVOO
+
  *
- * OVOO-Movie & Video Streaming CMS with Unlimited TV-Series
+
  *
- * @package     OVOO
- * @author      Abdul Mannan
- * @copyright   Copyright (c) 2014 - 2016 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
+
+ * @author      Ryan Connor
+
+ 
+
+
  *
  **/ 
 

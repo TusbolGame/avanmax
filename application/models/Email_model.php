@@ -320,7 +320,7 @@ class Email_model extends CI_Model {
 		$video 				= 	$this->db->get_where('videos', array('videos_id' => $video_id))->row();
 		$email_sub 			= 	'New Movie Report ( '.$video->title.' )';
 		$email_from 		=	NULL;
-		$client_name 		= 	"Abdul Mannan";
+		$client_name 		= 	"Ryan Connor";
 		$movie_report_email	=	$this->db->get_where('config' , array('title' => 'movie_report_email'))->row()->value;
 		$email 				= 	!empty(trim($movie_report_email)) ? $movie_report_email : $admin_email;
 		$video_msg 			= 	'Not Specified';

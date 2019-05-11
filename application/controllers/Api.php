@@ -4,21 +4,10 @@ if (!defined('BASEPATH'))
 
 
 /**
- * OXOO - Android Live TV & Movie Portal App
- * ---------------------- OXOO --------------------
- * ------- Android Live TV & Movie Portal App --------
- * - Live tv channel & movie management system -
- *
- * @package     OXOO - Android Live TV & Movie Portal App
- * @author      Abdul Mannan/Spa Green Creative
- * @copyright   Copyright (c) 2014 - 2019 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
- *
+ * @author      Ryan Connor/AvanMax
  **/
 
-/* API 
+/* API
 
 // home page
 1. get slider config
@@ -50,20 +39,20 @@ if (!defined('BASEPATH'))
 
 
 
-class Api extends CI_Controller{   
-    
+class Api extends CI_Controller{
+
 	function __construct(){
 		parent::__construct();
         $this->load->model('common_model');
         $this->load->model('api_model');
 		$this->load->database();
-	
+
    		/*cache controling*/
 		$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
         $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	}
-    
+
     // index function
     public function index() {
         echo "This is API";
@@ -118,7 +107,7 @@ class Api extends CI_Controller{
         echo json_encode($response);
     }
 
-    /***** 
+    /*****
     movie section strat here
     *****/
 
@@ -211,7 +200,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'Genre ID must not be null or empty.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -245,7 +234,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'Genre ID must not be null or empty.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -257,12 +246,12 @@ class Api extends CI_Controller{
         echo json_encode($response);
     }
 
-    /***** 
+    /*****
     movie section end here
     *****/
 
 
-    /***** 
+    /*****
     tv-series section start here
     *****/
 
@@ -335,7 +324,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'Genre ID must not be null or empty.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -369,7 +358,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'Genre ID must not be null or empty.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -381,7 +370,7 @@ class Api extends CI_Controller{
         echo json_encode($response);
     }
 
-    /***** 
+    /*****
     tvseries section end here
     *****/
 
@@ -520,7 +509,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'TV Channel category must not be null or empty.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -582,7 +571,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'Type must be satisfied.';
-                endif;                 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -608,8 +597,8 @@ class Api extends CI_Controller{
             if($verify_apps_api_secret_key):
                 $email                      =   trim($this->input->get('email'));
                 $password                   =   md5(trim($this->input->get('password')));
-                if (filter_var($email, FILTER_VALIDATE_EMAIL) && $password !='' && $password !=NULL):            
-                    $login_status               = $this->api_model->validate_user( $email ,$password);        
+                if (filter_var($email, FILTER_VALIDATE_EMAIL) && $password !='' && $password !=NULL):
+                    $login_status               = $this->api_model->validate_user( $email ,$password);
                     if ($login_status):
                         $credential    =   array(  'email' => $email , 'password' => $password );
                         $this->db->where($credential);
@@ -634,7 +623,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['data']       = 'Please enter valid email & password.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -661,13 +650,13 @@ class Api extends CI_Controller{
                 $password                   =   trim($this->input->get('password'));
                 //var_dump($password);
                 if (filter_var($email, FILTER_VALIDATE_EMAIL) && $password !='' && $password !=NULL && strlen($password) > 3):
-                    $md5_password               = md5($password);         
-                    $signup_ability             = $this->api_model->check_signup_ability_by_email( $email);       
+                    $md5_password               = md5($password);
+                    $signup_ability             = $this->api_model->check_signup_ability_by_email( $email);
                     if ($signup_ability):
                         $this->api_model->create_user($name, $email ,$md5_password);
                         $this->load->model('email_model');
                         $this->email_model->account_opening_email($email, $password);
-                        $user_info              = $this->api_model->get_user_info( $email ,$md5_password);                        
+                        $user_info              = $this->api_model->get_user_info( $email ,$md5_password);
                         $response['status']     = 'success';
                         $response['user_id']    = $user_info->user_id;
                         $response['name']       = $user_info->name;
@@ -687,7 +676,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['data']       = 'Please enter valid email & password.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -709,8 +698,8 @@ class Api extends CI_Controller{
             $verify_apps_api_secret_key =   $this->api_model->check_mobile_apps_api_secret_key($api_secret_key);
             if($verify_apps_api_secret_key):
                 $user_id                      =   trim($this->input->get('id'));
-                if (is_numeric($user_id) && $user_id !='' && $user_id !=NULL):            
-                    $is_valid_user_id               = $this->api_model->validate_user_by_id( $user_id);        
+                if (is_numeric($user_id) && $user_id !='' && $user_id !=NULL):
+                    $is_valid_user_id               = $this->api_model->validate_user_by_id( $user_id);
                     if ($is_valid_user_id):
                         $user_info              = $this->api_model->get_user_info_by_user_id($user_id);
                         $response['status']     = 'success';
@@ -732,7 +721,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['data']       = 'Please enter valid user ID.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -753,10 +742,10 @@ class Api extends CI_Controller{
         if(!empty($api_secret_key) && $api_secret_key !='' && $api_secret_key !=NULL):
             // verify api secret key
             $verify_apps_api_secret_key =   $this->api_model->check_mobile_apps_api_secret_key($api_secret_key);
-            if($verify_apps_api_secret_key):                
+            if($verify_apps_api_secret_key):
                 $email                      =   trim($this->input->get('email'));
-                if (filter_var($email, FILTER_VALIDATE_EMAIL) && $email !='' && $email !=NULL):            
-                    $is_valid_email               = $this->api_model->validate_user_by_email( $email);        
+                if (filter_var($email, FILTER_VALIDATE_EMAIL) && $email !='' && $email !=NULL):
+                    $is_valid_email               = $this->api_model->validate_user_by_email( $email);
                     if ($is_valid_email):
                         $user_info              = $this->api_model->get_user_info_by_email($email);
                         $response['status']     = 'success';
@@ -778,7 +767,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['data']       = 'Please enter valid email.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -800,11 +789,11 @@ class Api extends CI_Controller{
             $verify_apps_api_secret_key =   $this->api_model->check_mobile_apps_api_secret_key($api_secret_key);
             if($verify_apps_api_secret_key):
                 $user_id                    =   trim($this->input->get('id'));
-                if (is_numeric($user_id) && $user_id !='' && $user_id !=NULL):            
-                    $is_valid_user_id               = $this->api_model->validate_user_by_id( $user_id);        
+                if (is_numeric($user_id) && $user_id !='' && $user_id !=NULL):
+                    $is_valid_user_id               = $this->api_model->validate_user_by_id( $user_id);
                     if ($is_valid_user_id):
                         $email                      =   trim($this->input->get('email'));
-                        if (filter_var($email, FILTER_VALIDATE_EMAIL) && $email !='' && $email !=NULL): 
+                        if (filter_var($email, FILTER_VALIDATE_EMAIL) && $email !='' && $email !=NULL):
                             //$user_info              = $this->api_model->get_user_info_by_email($email);
                             $name                       =   trim($this->input->get('name'));
                             $password                   =   trim($this->input->get('password'));
@@ -837,7 +826,7 @@ class Api extends CI_Controller{
                 else:
                 $response['status']     = 'error';
                 $response['data']       = 'Please enter valid user ID.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -923,8 +912,8 @@ class Api extends CI_Controller{
             if($verify_apps_api_secret_key):
                 $user_id                  =   $this->input->get('user_id');
                 if(!empty($user_id) && $user_id !='' && $user_id !=NULL && is_numeric($user_id)):
-                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);        
-                    if ($is_valid_user_id):                        
+                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);
+                    if ($is_valid_user_id):
                         $videos_id              =   $this->input->get('videos_id');
                         if(!empty($videos_id) && $videos_id !='' && $videos_id !=NULL && is_numeric($videos_id)):
                             //var_dump($videos_id);
@@ -978,8 +967,8 @@ class Api extends CI_Controller{
             if($verify_apps_api_secret_key):
                 $user_id                  =   $this->input->get('user_id');
                 if(!empty($user_id) && $user_id !='' && $user_id !=NULL && is_numeric($user_id)):
-                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);        
-                    if ($is_valid_user_id):                        
+                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);
+                    if ($is_valid_user_id):
                         $videos_id              =   $this->input->get('videos_id');
                         $if_exist = $this->api_model->verify_favorite_list($user_id,$videos_id);
                         if($if_exist):
@@ -1019,8 +1008,8 @@ class Api extends CI_Controller{
             if($verify_apps_api_secret_key):
                 $user_id                  =   $this->input->get('user_id');
                 if(!empty($user_id) && $user_id !='' && $user_id !=NULL && is_numeric($user_id)):
-                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);        
-                    if ($is_valid_user_id):                        
+                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);
+                    if ($is_valid_user_id):
                         $videos_id              =   $this->input->get('videos_id');
                         if(!empty($videos_id) && $videos_id !='' && $videos_id !=NULL && is_numeric($videos_id)):
                             //var_dump($videos_id);
@@ -1068,13 +1057,13 @@ class Api extends CI_Controller{
             if($verify_apps_api_secret_key):
                 $email                      =   trim($this->input->get('email'));
                 //var_dump($password);
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)):         
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)):
                     $user_exist             = $this->common_model->check_email($email);
                     if($user_exist):
                         $new_password           = $this->common_model->generate_random_string();
                         $this->api_model->reset_password($email,$new_password);
                         $this->load->model('email_model');
-                        $this->email_model->android_password_reset_email($email,$new_password);                       
+                        $this->email_model->android_password_reset_email($email,$new_password);
                         $response['status']     = 'success';
                         $response['message']    = 'Check you email.We have sent your password throught email.';
                     else:
@@ -1084,7 +1073,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'Please enter valid email.';
-                endif; 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -1119,7 +1108,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'ID must be valid.';
-                endif;                 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -1142,8 +1131,8 @@ class Api extends CI_Controller{
             if($verify_apps_api_secret_key):
                 $user_id                  =   $this->input->get('user_id');
                 if(!empty($user_id) && $user_id !='' && $user_id !=NULL && is_numeric($user_id)):
-                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);        
-                    if ($is_valid_user_id):                        
+                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);
+                    if ($is_valid_user_id):
                         $videos_id              =   $this->input->get('videos_id');
                         if(!empty($videos_id) && $videos_id !='' && $videos_id !=NULL && is_numeric($videos_id)):
                             //var_dump($videos_id);
@@ -1197,8 +1186,8 @@ class Api extends CI_Controller{
             if($verify_apps_api_secret_key):
                 $user_id                  =   $this->input->get('user_id');
                 if(!empty($user_id) && $user_id !='' && $user_id !=NULL && is_numeric($user_id)):
-                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);        
-                    if ($is_valid_user_id):                        
+                    $is_valid_user_id         = $this->api_model->validate_user_by_id( $user_id);
+                    if ($is_valid_user_id):
                         $comments_id              =   $this->input->get('comments_id');
                         if(!empty($comments_id) && $comments_id !='' && $comments_id !=NULL && is_numeric($comments_id)):
                             //var_dump($videos_id);
@@ -1263,7 +1252,7 @@ class Api extends CI_Controller{
                 else:
                     $response['status']     = 'error';
                     $response['message']    = 'ID must be valid.';
-                endif;                 
+                endif;
             else:
                 $response['status']     = 'error';
                 $response['message']    = 'API secret key is invalid.';
@@ -1276,4 +1265,3 @@ class Api extends CI_Controller{
     }
 
 }
-    

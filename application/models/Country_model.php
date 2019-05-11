@@ -1,27 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * OVOO
  *
- * OVOO-Movie & Video Streaming CMS with Unlimited TV-Series
- *
- * @package     OVOO
- * @author      Abdul Mannan
- * @copyright   Copyright (c) 2014 - 2016 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
+ * @author      Ryan Connor
  *
  **/
- 
+
 
 class Country_model extends CI_Model {
-	
+
 	function __construct()
     {
         parent::__construct();
     }
-		/* clear cache*/	
+		/* clear cache*/
 	function clear_cache()
 	{
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -29,7 +21,7 @@ class Country_model extends CI_Model {
 	}
 
 
-	
+
 
     public function all_published_country()
     {
@@ -49,7 +41,7 @@ class Country_model extends CI_Model {
         $status = FALSE;
         $num_rows = $this->db->get_where('country', array('slug' => $slug))->num_rows();
         if($num_rows > 0){
-           $status = TRUE; 
+           $status = TRUE;
         }
         return $status;
     }
@@ -104,7 +96,7 @@ class Country_model extends CI_Model {
             return "#";
         }
     }
-    
+
 
    public function fetch_country_video_by_slug($limit=16, $start=0, $slug) {
         $country_id   = $this->db->get_where('country', array('slug' => $slug))->row()->country_id;
@@ -113,14 +105,12 @@ class Country_model extends CI_Model {
         return $this->db->get('videos')->result_array();
    }
 
-   
+
    public function fetch_country_video_by_slug_record_count($slug)
     {
         $country_id = $this->db->get_where('country', array('slug' => $slug))->row()->country_id;
         $this->db->where("find_in_set(".$country_id.",country) >",0);
-        $query = $this->db->get('videos');        
+        $query = $this->db->get('videos');
         return $query->num_rows();
-    }   
+    }
 }
-
-

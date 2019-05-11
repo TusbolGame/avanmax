@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Tmdb_model extends CI_Model {
-  
+
   function __construct()
     {
         parent::__construct();
@@ -55,7 +55,7 @@ class Tmdb_model extends CI_Model {
           $response['status']    = 'fail';
         }
       }
-    return $response;    
+    return $response;
   }
 
   function get_tvseries_info($tmdb_id='')
@@ -108,7 +108,7 @@ class Tmdb_model extends CI_Model {
         }
       }
     return $response;
-    
+
   }
 
 
@@ -122,7 +122,6 @@ class Tmdb_model extends CI_Model {
       if($tmdb_id =='' || $tmdb_id==NULL):
         $tmdb_id  = '00000000';
       endif;
-      //$data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v20/get_movie_json/xxxxxxxxxx/'.$tmdb_id);
       $data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v20/get_movie_json/'.$purchase_code.'/'.$tmdb_id);
       $data           = json_decode($data, true);
       if(isset($data['error_message'])){
@@ -131,14 +130,14 @@ class Tmdb_model extends CI_Model {
         //var_dump($data);
         $actors         = array();
         $directors      = array();
-        $writters       = array();        
+        $writters       = array();
         if(count($data) >0){
           $actors       = $this->update_actors($data['credits']['cast']);
           $stars        = $this->update_directors_writers($data['credits']['crew']);
           $added_star   = $actors + $stars;
         }
       }
-      return $added_star;    
+      return $added_star;
   }
 
   function get_tvshow_actor_info($tmdb_id='')
@@ -159,20 +158,20 @@ class Tmdb_model extends CI_Model {
         //var_dump($data);
         $actors         = array();
         $directors      = array();
-        $writters       = array();        
+        $writters       = array();
         if(count($data) >0){
           $actors       = $this->update_actors($data['credits']['cast']);
           $stars        = $this->update_directors_writers($data['credits']['crew']);
           $added_star   = $actors + $stars;
         }
       }
-      return $added_star;    
+      return $added_star;
   }
 
 
   function update_actors($actors){
     $added_star =0;
-    for ($i=0; $i<sizeof($actors); $i++) {      
+    for ($i=0; $i<sizeof($actors); $i++) {
       $actors_name        = trim($actors[$i]['name']);
       $org_profile_path   = trim($actors[$i]['profile_path']);
       $profile_path       = 'https://image.tmdb.org/t/p/w138_and_h175_bestv2'.$org_profile_path;
@@ -186,11 +185,11 @@ class Tmdb_model extends CI_Model {
         $insert_id = $this->db->insert_id();
         if($org_profile_path !='' && $org_profile_path !=NULL && $org_profile_path !='null'):
           $save_to = 'uploads/star_image/'.$insert_id.'.jpg';
-          $cron_data['type']       = "image";       
-          $cron_data['action']     = "download";       
-          $cron_data['image_url']  = $profile_path;       
+          $cron_data['type']       = "image";
+          $cron_data['action']     = "download";
+          $cron_data['image_url']  = $profile_path;
           $cron_data['save_to']    = $save_to;
-          $this->db->insert('cron',$cron_data);       
+          $this->db->insert('cron',$cron_data);
           //$this->common_model->grab_image($profile_path,$save_to);
         endif;
       endif;
@@ -199,7 +198,7 @@ class Tmdb_model extends CI_Model {
   }
   function update_directors_writers($stars){
     $added_star =0;
-    for ($i=0; $i<sizeof($stars); $i++) {      
+    for ($i=0; $i<sizeof($stars); $i++) {
       $actors_name        = trim($stars[$i]['name']);
       $org_profile_path   = trim($stars[$i]['profile_path']);
       $profile_path       = 'https://image.tmdb.org/t/p/w138_and_h175_bestv2'.$org_profile_path;
@@ -219,11 +218,11 @@ class Tmdb_model extends CI_Model {
         $insert_id = $this->db->insert_id();
         if($org_profile_path !='' && $org_profile_path !=NULL && $org_profile_path !='null'):
           $save_to = 'uploads/star_image/'.$insert_id.'.jpg';
-          $cron_data['type']       = "image";       
-          $cron_data['action']     = "download";       
-          $cron_data['image_url']  = $profile_path;       
+          $cron_data['type']       = "image";
+          $cron_data['action']     = "download";
+          $cron_data['image_url']  = $profile_path;
           $cron_data['save_to']    = $save_to;
-          $this->db->insert('cron',$cron_data);           
+          $this->db->insert('cron',$cron_data);
           //$this->common_model->grab_image($profile_path,$save_to);
         endif;
       endif;
@@ -234,7 +233,7 @@ class Tmdb_model extends CI_Model {
 
 
 
-    
+
   //echo $movie->getJSON();
   function filter_actors($actors){
     $actors_name = '';
@@ -250,7 +249,7 @@ class Tmdb_model extends CI_Model {
   function filter_directors($directors){
     $j=0;
     $directors_name = '';
-    for ($i=0; $i<sizeof($directors); $i++) {        
+    for ($i=0; $i<sizeof($directors); $i++) {
       if($directors[$i]['department'] =='Directing' && $directors[$i]['job'] =='Director'){
         if($j>0){
            $directors_name .=',';
@@ -264,7 +263,7 @@ class Tmdb_model extends CI_Model {
   function filter_writters($writters){
     $writter_name = '';
     $j=0;
-    for ($i=0; $i<sizeof($writters); $i++) {        
+    for ($i=0; $i<sizeof($writters); $i++) {
       if($writters[$i]['department'] =='Writing'){
         if($j>0){
            $writter_name .=',';
@@ -318,7 +317,6 @@ class Tmdb_model extends CI_Model {
       if($title =='' || $title==NULL):
         $title  = '00000000';
       endif;
-      //$data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v20/get_movie_json/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/'.$title);
       if($to =='tv'):
         $data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v30/search_tvseries/'.$purchase_code.'/'.$title);
       else:
@@ -340,7 +338,6 @@ class Tmdb_model extends CI_Model {
       if($tmdb_id =='' || $tmdb_id==NULL):
         $tmdb_id  = '00000000';
       endif;
-      //$data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v20/get_movie_json/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/'.$tmdb_id);
       $data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v20/get_movie_json/'.$purchase_code.'/'.$tmdb_id);
       $data           = json_decode($data, true);
       if(isset($data['error_message'])){
@@ -381,12 +378,12 @@ class Tmdb_model extends CI_Model {
           $insert_id                    = $this->db->insert_id();
           //save thumbnail
           $image_source                 = 'https://image.tmdb.org/t/p/w185/'.$data['poster_path'];
-          $save_to                      = 'uploads/video_thumb/'.$insert_id.'.jpg';           
+          $save_to                      = 'uploads/video_thumb/'.$insert_id.'.jpg';
           $this->common_model->grab_image($image_source,$save_to);
           // save poster
-          if($data['backdrop_path'] !='' && $data['backdrop_path'] !=NULL):            
+          if($data['backdrop_path'] !='' && $data['backdrop_path'] !=NULL):
             $image_source                 = 'https://image.tmdb.org/t/p/w780/'.$data['backdrop_path'];
-            $save_to                      = 'uploads/poster_image/'.$insert_id.'.jpg';           
+            $save_to                      = 'uploads/poster_image/'.$insert_id.'.jpg';
             $this->common_model->grab_image($image_source,$save_to);
           endif;
           // update slug
@@ -403,7 +400,7 @@ class Tmdb_model extends CI_Model {
           $response      = FALSE;
         }
       }
-    return $response;    
+    return $response;
   }
 
   function import_tvseries_info($tmdb_id=''){
@@ -415,7 +412,6 @@ class Tmdb_model extends CI_Model {
       if($tmdb_id =='' || $tmdb_id==NULL):
         $tmdb_id  = '00000000';
       endif;
-      //$data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v20/get_movie_json/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/'.$tmdb_id);
       $data           = file_get_contents('http://ovoo.spagreen.net/scrapper/v20/get_tvshow_json/'.$purchase_code.'/'.$tmdb_id);
       $data           = json_decode($data, true);
       if(isset($data['error_message'])){
@@ -457,12 +453,12 @@ class Tmdb_model extends CI_Model {
           $insert_id                    = $this->db->insert_id();
           //save thumbnail
           $image_source                 = 'https://image.tmdb.org/t/p/w185/'.$data['poster_path'];
-          $save_to                      = 'uploads/video_thumb/'.$insert_id.'.jpg';           
+          $save_to                      = 'uploads/video_thumb/'.$insert_id.'.jpg';
           $this->common_model->grab_image($image_source,$save_to);
           // save poster
-          if($data['backdrop_path'] !='' && $data['backdrop_path'] !=NULL):            
+          if($data['backdrop_path'] !='' && $data['backdrop_path'] !=NULL):
             $image_source                 = 'https://image.tmdb.org/t/p/w780/'.$data['backdrop_path'];
-            $save_to                      = 'uploads/poster_image/'.$insert_id.'.jpg';           
+            $save_to                      = 'uploads/poster_image/'.$insert_id.'.jpg';
             $this->common_model->grab_image($image_source,$save_to);
           endif;
           // update slug
@@ -479,7 +475,6 @@ class Tmdb_model extends CI_Model {
           $response      = FALSE;
         }
       }
-    return $response;    
+    return $response;
   }
 }
-

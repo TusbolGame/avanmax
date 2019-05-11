@@ -1,17 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * OXOO - Android Live TV & Movie Portal App
- * ---------------------- OXOO --------------------
- * ------- Android Live TV & Movie Portal App --------
- * - Live tv channel & movie management system -
+
+
+
+
  *
- * @package     OXOO - Android Live TV & Movie Portal App
- * @author      Abdul Mannan/Spa Green Creative
- * @copyright   Copyright (c) 2014 - 2019 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
+
+ * @author      Ryan Connor/AvanMax
+
+ 
+
+
  *
  **/
  

@@ -1,4 +1,4 @@
-<?php    
+<?php
     $facebook_url               =   $this->db->get_where('config' , array('title'=>'facebook_url'))->row()->value;
     $twitter_url                =   $this->db->get_where('config' , array('title'=>'twitter_url'))->row()->value;
     $vimeo_url                  =   $this->db->get_where('config' , array('title'=>'vimeo_url'))->row()->value;
@@ -48,19 +48,18 @@
                          if($this->session->userdata('admin_is_login') == 1){
                             echo '<li><a href="'.base_url().'admin"><i class="fi ion-ios-speedometer-outline m-r-10"></i>Admin Dashboard</a></li>';
                           } ?>
-                            <li><a href="<?php echo base_url('my-account/profile'); ?>"><i class="fi ion-ios-person-outline m-r-10"></i>Profile</a></li>
-                            <li><a href="<?php echo base_url('my-account/favorite'); ?>"><i class="fi ion-ios-heart-outline m-r-10"></i>My Favorite</a></li>
-                            <li><a href="<?php echo base_url('my-account/watch-later'); ?>"><i class="fi ion-ios-clock-outline m-r-10"></i>Wish List</a></li>
-                            <li><a href="<?php echo base_url('my-account/update'); ?>"><i class="fi ion-edit m-r-10"></i>Update Profile</a></li>
-                            <li><a href="<?php echo base_url('my-account/change-password'); ?>"><i class="fi ion-key m-r-10"></i>Change Password</a></li>
-                            <li><a href="<?php echo base_url('login/logout'); ?>"><i class="fi ion-log-out m-r-10"></i>Logout</a></li>
+                            <li><a href="<?php echo base_url('my-account/profile'); ?>"><i class="fi ion-ios-person-outline m-r-10"></i>Perfil</a></li>
+                            <li><a href="<?php echo base_url('my-account/favorite'); ?>"><i class="fi ion-ios-heart-outline m-r-10"></i>Mis Favoritas</a></li>
+                            <li><a href="<?php echo base_url('my-account/watch-later'); ?>"><i class="fi ion-ios-clock-outline m-r-10"></i>Quiero Ver</a></li>
+                            <li><a href="<?php echo base_url('my-account/update'); ?>"><i class="fi ion-edit m-r-10"></i>Actualizar Perfil</a></li>
+                            <li><a href="<?php echo base_url('login/logout'); ?>"><i class="fi ion-log-out m-r-10"></i>Salir</a></li>
                             </ul>
                             </li>
                         </ul>
                         <?php else: ?>
 
                 <div class="login">
-                <a class="btn btn-success btn-sm" href="<?php echo base_url('user/login'); ?>"> <span class="btn-label"><i class="fi ion-log-in"></i></span>Login</a>
+                <a class="btn btn-success btn-sm" href="<?php echo base_url('user/login'); ?>"> <span class="btn-label"><i class="fi ion-log-in"></i></span>Acceder</a>
                 </div>
                 <?php endif; ?>
             </div>

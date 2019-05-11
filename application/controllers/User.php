@@ -4,17 +4,17 @@ if (!defined('BASEPATH'))
 
 
 /**
- * Ovoo-Movie & Video Stremaing CMS Pro
- * ----------------------------- OVOO -----------------------------
- * -------------- Movie & Video Stremaing CMS Pro -----------------
- * -------- Professional video content management system ----------
+ * AvanMax
+
+
+
  *
- * @package     OVOO-Movie & Video Stremaing CMS Pro
- * @author      Abdul Mannan/Spa Green Creative
- * @copyright   Copyright (c) 2014 - 2017 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
+
+ * @author      Ryan Connor/AvanMax
+
+
+
+
  *
  **/
 
@@ -80,7 +80,7 @@ class User extends CI_Controller{
             $user_info['locale']         = !empty($get_user_info['locale'])?$get_user_info['locale']:'';
             $user_info['profile_url']    = !empty($get_user_info['link'])?$get_user_info['link']:'';
             $user_info['picture_url']    = !empty($get_user_info['picture'])?$get_user_info['picture']:'';
-            $this->varify_social_user_info($user_info);
+            $this->verify_social_user_info($user_info);
             redirect('user/profile/');
         }
         redirect('user/login/');
@@ -99,14 +99,14 @@ class User extends CI_Controller{
             $user_info['locale'] = $get_user_info['locale'];
             $user_info['profile_url'] = 'https://www.facebook.com/'.$get_user_info['id'];
             $user_info['picture_url'] = $get_user_info['picture']['data']['url'];
-            $this->varify_social_user_info($user_info);
+            $this->verify_social_user_info($user_info);
             redirect('user/profile/');
         }
         redirect('user/login/');
 
     }
 
-    public function varify_social_user_info($user_info=''){
+    public function verify_social_user_info($user_info=''){
         $query  = $this->db->get_where('user' , array('email'=>$user_info['email']));;
         $row  = $query->row();
         $num_rows  = $query->num_rows();
@@ -121,14 +121,17 @@ class User extends CI_Controller{
             if($row->role=='admin'){
               $this->session->set_userdata('admin_is_login', '1');
               $this->session->set_userdata('login_type', 'admin');
+              $this->session->set_userdata('user_is_crew', '1');
             }
             if($row->role=='subscriber'){
               $this->session->set_userdata('user_is_login', '1');
               $this->session->set_userdata('login_type', 'subscriber');
+              $this->session->set_userdata('user_is_crew', '0');
             }
             if($row->role=='crew'){
               $this->session->set_userdata('user_is_login', '1');
               $this->session->set_userdata('login_type', 'crew');
+              $this->session->set_userdata('user_is_crew', '1');
             }
         }else{
             $name                   = $user_info['first_name'].' '.$user_info['last_name'];
@@ -288,14 +291,17 @@ class User extends CI_Controller{
             if($row->role =='admin'):
               $this->session->set_userdata('admin_is_login', '1');
               $this->session->set_userdata('login_type', 'admin');
+              $this->session->set_userdata('crew_is_login', '1');
             endif;
             if($row->role =='subscriber'):
               $this->session->set_userdata('user_is_login', '1');
               $this->session->set_userdata('login_type', 'subscriber');
+              $this->session->set_userdata('crew_is_login', '1');
             endif;
             if($row->role =='crew'):
               $this->session->set_userdata('user_is_login', '1');
-              $this->session->set_userdata('login_type', 'suscriber');
+              $this->session->set_userdata('login_type', 'crew');
+              $this->session->set_userdata('crew_is_login', '1');
             endif;
               return 'success';
         endif;

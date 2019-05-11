@@ -1,27 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * OVOO
- *
- * OVOO-Movie & Video Streaming CMS with Unlimited TV-Series
- *
- * @package     OVOO
- * @author      Abdul Mannan
- * @copyright   Copyright (c) 2014 - 2020 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
+*
+ * @author      Ryan Connor
  *
  **/
- 
+
 
 class Common_model extends CI_Model {
-	
+
 	function __construct()
     {
         parent::__construct();
     }
-		/* clear cache*/	
+		/* clear cache*/
 	function clear_cache()
 	{
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -38,8 +30,8 @@ class Common_model extends CI_Model {
         }
         else{
         	return FALSE;
-        }  
-              
+        }
+
     }
 
     function check_email($email='') {
@@ -51,7 +43,7 @@ class Common_model extends CI_Model {
                 $result = TRUE;
             endif;
         endif;
-        return $result;              
+        return $result;
     }
 
     function check_token($token='') {
@@ -62,7 +54,7 @@ class Common_model extends CI_Model {
         }
         else{
             return FALSE;
-        }    
+        }
     }
 
 
@@ -73,7 +65,7 @@ class Common_model extends CI_Model {
         }
         else{
           return FALSE;
-        }      
+        }
     }
 
     function slug_num($table='',$slug='') {
@@ -100,34 +92,34 @@ class Common_model extends CI_Model {
 			$image_url	=	base_url().'uploads/'.$type.'_image/'.$id.'.jpg';
 		else
 			$image_url	=	base_url().'uploads/user.jpg';
-			
+
 		return $image_url;
 	}
 		/* create and download database backup*/
 	function create_backup()
     {
-        $this->load->dbutil();  
+        $this->load->dbutil();
         $options = array(
-                'format'      => 'txt',             
-                'add_drop'    => TRUE,              
-                'add_insert'  => TRUE,              
-                'newline'     => "\n"               
+                'format'      => 'txt',
+                'add_drop'    => TRUE,
+                'add_insert'  => TRUE,
+                'newline'     => "\n"
               );
         $tables   = array();
         $file_name  =   'db_backup_'.date('Y-m-d-H-i-s');
         $backup = $this->dbutil->backup(array_merge($options , $tables));
         $this->load->helper('file');
-        write_file('db_backup/'.$file_name.'.sql', $backup); 
+        write_file('db_backup/'.$file_name.'.sql', $backup);
         //$this->load->helper('download');
         //force_download($file_name.'.sql', $backup);
         return 'done';
     }
-	
-	
-		/* restore database backup*/	
+
+
+		/* restore database backup*/
 	function restore_backup()
 	{
-		
+
 		move_uploaded_file($_FILES['backup_file']['tmp_name'], 'uploads/backup.sql');
 
 		$prefs = array(
@@ -135,14 +127,14 @@ class Common_model extends CI_Model {
 			'delete_after_upload'			=> TRUE,
 			'delimiter'						=> ';'
         );
-		
+
 		$schema = htmlspecialchars(file_get_contents($prefs['filepath']));
 
 		$query = rtrim( trim($schema), "\n;");
 
 		$query_list = explode(";", $query);
-		$this->truncate();	
-		
+		$this->truncate();
+
 
         foreach($query_list as $query){
         	$this->db->query($query);
@@ -150,7 +142,7 @@ class Common_model extends CI_Model {
 		//$restore =& $this->dbutil->restore($prefs);
         unlink($prefs['filepath']);
 	}
-	
+
 		/* empty data from table */
 	function truncate() {
             $this->db->truncate('access');
@@ -162,23 +154,23 @@ class Common_model extends CI_Model {
             $this->db->truncate('ip');
             $this->db->truncate('device');
             $this->db->truncate('os');
-            $this->db->truncate('supplier');  
+            $this->db->truncate('supplier');
     }
 
     function set_custom_value(){
-    	 $data['value'] = "SpaGreen Creative";
+    	 $data['value'] = "AvanMax";
          $this->db->where('title' , 'company_name');
          $this->db->update('config' , $data);
-         
+
          $data['value'] = "Gulshan, Dhaka-1200";
          $this->db->where('title' , 'address');
          $this->db->update('config' , $data);
-         
-         $data['value'] = "880100000000";
+
+         $data['value'] = "768201";
          $this->db->where('title' , 'phone');
          $this->db->update('config' , $data);
-         
-         $data['value'] = "support@spagreen.net";
+
+         $data['value'] = "info@avanmax.cloud";
          $this->db->where('title' , 'system_email');
          $this->db->update('config' , $data);
     }
@@ -191,7 +183,7 @@ class Common_model extends CI_Model {
 			'delete_after_upload'			=> FALSE,
 			'delimiter'						=> ';'
         );
-		
+
 		$schema = htmlspecialchars(file_get_contents($prefs['filepath']));
 
 		$query = rtrim( trim($schema), "\n;");
@@ -212,7 +204,7 @@ class Common_model extends CI_Model {
     }
 
     public function all_published_videos($limit='',$page='')
-    {        
+    {
         $offset = ($page*$limit)-$limit;
         if($offset<0){
             $offset = 0;
@@ -226,7 +218,7 @@ class Common_model extends CI_Model {
 
 
     public function get_hot_videos($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','0');
         $this->db->where('publication', '1');
         $this->db->order_by("total_view","desc");
@@ -235,7 +227,7 @@ class Common_model extends CI_Model {
     }
 
     public function get_today_hot_videos($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','0');
         $this->db->where('publication', '1');
         $this->db->order_by("today_view","desc");
@@ -245,7 +237,7 @@ class Common_model extends CI_Model {
 
 
     public function get_weekly_hot_videos($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','0');
         $this->db->where('publication', '1');
         $this->db->order_by("weekly_view","desc");
@@ -255,7 +247,7 @@ class Common_model extends CI_Model {
 
 
     public function get_top_rated_videos($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','0');
         $this->db->where('publication', '1');
         $this->db->order_by("total_rating","desc");
@@ -264,7 +256,7 @@ class Common_model extends CI_Model {
     }
 
     public function get_hot_tvseries($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','1');
         $this->db->where('publication', '1');
         $this->db->order_by("last_ep_added","DESC");
@@ -273,7 +265,7 @@ class Common_model extends CI_Model {
     }
 
     public function get_today_hot_tvseries($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','1');
         $this->db->where('publication', '1');
         $this->db->order_by("last_ep_added","DESC");
@@ -283,7 +275,7 @@ class Common_model extends CI_Model {
 
 
     public function get_weekly_hot_tvseries($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','1');
         $this->db->where('publication', '1');
         $this->db->order_by("last_ep_added","DESC");
@@ -293,7 +285,7 @@ class Common_model extends CI_Model {
 
 
     public function get_top_rated_tvseries($limit=12)
-    {        
+    {
         $this->db->where('is_tvseries','1');
         $this->db->where('publication', '1');
         $this->db->order_by("total_rating","desc");
@@ -303,7 +295,7 @@ class Common_model extends CI_Model {
 
 
     public function get_features_genres($limit=5)
-    {  
+    {
         $this->db->where('featured', '1');
         $this->db->where('publication', '1');
         $this->db->order_by("genre_id","desc");
@@ -415,8 +407,8 @@ class Common_model extends CI_Model {
         $query_result = $this->db->get();
         $result = $query_result->result();
         return $result;
-    }    
-    
+    }
+
     public function all_published_trailers()
     {
         $this->db->select('*');
@@ -429,7 +421,7 @@ class Common_model extends CI_Model {
         $result = $query_result->result();
         return $result;
     }
-   
+
 
     public function get_videos_by_slug($slug)
     {
@@ -446,7 +438,7 @@ class Common_model extends CI_Model {
         $weekly_view        =   $this->db->get_where('videos', array('videos_id' => $videos_id))->row()->weekly_view;
         $monthly_view       =   $this->db->get_where('videos', array('videos_id' => $videos_id))->row()->monthly_view;
         $total_view         =   $this->db->get_where('videos', array('videos_id' => $videos_id))->row()->total_view;
-        
+
         $data['today_view'] =    $today_view +   1;
         $this->db->where('videos_id', $videos_id);
         $this->db->update('videos', $data);
@@ -464,7 +456,7 @@ class Common_model extends CI_Model {
         $data['total_view'] =    $total_view +   1;
         $this->db->where('videos_id', $videos_id);
         $this->db->update('videos', $data);
-    }    
+    }
 
     public function type_is_exist($slug)
     {
@@ -509,7 +501,7 @@ class Common_model extends CI_Model {
         $names = '';
         if($ids !='' && $ids !=NULL):
             $i = 0;
-            $stars =explode(',', $ids);                                               
+            $stars =explode(',', $ids);
             foreach ($stars as $star_id):
                 if($i>0){ $names .=',';} $i++;
                 $names .= $this->common_model->get_star_name_by_id($star_id);
@@ -529,13 +521,13 @@ class Common_model extends CI_Model {
         $this->db->group_end();
         $this->db->where('publication', '1');
         $this->db->order_by("videos_id","desc");
-        $query = $this->db->get();        
+        $query = $this->db->get();
         return $query->num_rows();
     }
 
     public function get_video_by_director($limit, $start,$director)
     {
-        
+
         $this->db->select('*');
         $this->db->from('videos');
         $this->db->like('director', $director);
@@ -568,7 +560,7 @@ class Common_model extends CI_Model {
         $this->db->limit($limit,$start);
         $query = $this->db->get('videos');
         if ($query->num_rows() > 0){
-            return $query->result_array();        
+            return $query->result_array();
         }else{
             return array();
         }
@@ -579,16 +571,16 @@ class Common_model extends CI_Model {
         $this->db->order_by("star_id","DESC");
         $this->db->limit($limit,$start);
         $query = $this->db->get_where('star', array('status'=>'1'));
-        $data = $query->result_array(); 
+        $data = $query->result_array();
         if ($query->num_rows() > 0){
-            return $data;        
+            return $data;
         }
     }
 
 
 
     public function get_tvseries($limit=NULL, $start=NULL)
-    {        
+    {
         $this->db->select('*');
         $this->db->from('videos');
         $this->db->where('is_tvseries', '1');
@@ -596,7 +588,7 @@ class Common_model extends CI_Model {
         $this->db->limit($limit,$start);
         $query = $this->db->get();
         if ($query->num_rows() > 0){
-            return $query->result_array();        
+            return $query->result_array();
         }
     }
 
@@ -608,7 +600,7 @@ class Common_model extends CI_Model {
         $this->db->where('publication', '1');
         $this->db->order_by("videos_id","desc");
         $this->db->limit(24);
-        $query = $this->db->get();        
+        $query = $this->db->get();
         return $query->num_rows();
     }
 
@@ -618,7 +610,7 @@ class Common_model extends CI_Model {
         $this->db->where('publication', '1');
         $this->db->order_by("videos_id","desc");
         $this->db->limit($limit,$start);
-        $query = $this->db->get("videos");        
+        $query = $this->db->get("videos");
         return $query->result_array();
 
     }
@@ -638,7 +630,7 @@ class Common_model extends CI_Model {
         $this->db->like('release', $year);
         $this->db->where('publication', '1');
         $this->db->order_by("videos_id","desc");
-        $query = $this->db->get("videos");    
+        $query = $this->db->get("videos");
         return $query->num_rows();
     }
 
@@ -650,17 +642,17 @@ class Common_model extends CI_Model {
         $this->db->where('publication', '1');
         $this->db->order_by("videos_id","desc");
         $this->db->limit(24);
-        $query = $this->db->get();        
+        $query = $this->db->get();
         return $query->num_rows();
-    }    
-    
+    }
+
     // star movie import
     public function get_star_ids_for_movie_import($type='',$stars='')
     {
         $stars          = explode(',', $stars);
         $data           = array();
         $i=0;
-        foreach ($stars as $star) { 
+        foreach ($stars as $star) {
             $data[$i]['id']      =   $this->get_star_id_by_name($type,trim($star));
             $data[$i]['text']     =   trim($star);
             $i++;
@@ -689,7 +681,7 @@ class Common_model extends CI_Model {
         if(is_numeric($star_id) && $star_id !=''):
             $query  =   $this->db->get_where('star' , array('star_id' => $star_id));
             $res    =   $query->result_array();
-            foreach($res as $row)           
+            foreach($res as $row)
                 return $row['star_name'];
         else:
             return $star_id;
@@ -700,7 +692,7 @@ class Common_model extends CI_Model {
     {
         $query  =   $this->db->get_where('star' , array('star_id' => $star_id));
         $res    =   $query->result_array();
-        foreach($res as $row)           
+        foreach($res as $row)
             return $row['slug'];
     }
 
@@ -711,7 +703,7 @@ class Common_model extends CI_Model {
         if($result >    0){
         $star_id = $this->db->get_where('star', array('star_name' => $name))->row();
         return $star_id->star_id;
-        }else{            
+        }else{
             $data['slug']                   = $this->get_seo_url($name);
             $data['star_name']              = $name;
             $data['star_type']              = $type;
@@ -722,7 +714,7 @@ class Common_model extends CI_Model {
         }
     }
 
-    
+
     public function movies_record_count()
     {
         $this->db->where("is_tvseries !=","1");
@@ -733,10 +725,10 @@ class Common_model extends CI_Model {
     public function search_movies_record_count($search='')
     {
         $query = $this->db->like('title', $search)->get('videos');
-        
+
         return $query->num_rows();
     }
-    
+
     public function tv_series_record_count()
     {
         return $this->db->get_where('videos', array('is_tvseries'=>'1'))->num_rows();
@@ -745,32 +737,32 @@ class Common_model extends CI_Model {
     public function is_video_published($videos_id)
     {
         $publication                    =   $this->db->get_where('videos' , array('videos_id'=>$videos_id))->row()->publication;
-        
+
         if($publication =='1')
             return true;
         else
-            return false;        
+            return false;
     }
-    
+
     public function requested_movie_record_count()
     {
         $query = $this->db->where("FIND_IN_SET(left(3,10),video_type)>0")->get('videos');
         //$query = $this->db->where('video_type', '3')->get('videos');
-        
+
         return $query->num_rows();
     }
-    
+
     public function trailers_record_count()
     {
         $query = $this->db->where("FIND_IN_SET(left(4,10),video_type)>0")->get('videos');
         //$query = $this->db->where('video_type', '4')->get('videos');
-        
+
         return $query->num_rows();
     }
-    
+
    public function fetch_videos($limit, $start) {
         $this->db->limit($limit, $start);
-        
+
         $this->db->select('*');
         $this->db->from('videos');
         //$this->db->where('video_type', '1');
@@ -779,7 +771,7 @@ class Common_model extends CI_Model {
         $this->db->order_by("videos_id","desc");
         $this->db->limit(24);
         $query = $this->db->get();
-        
+
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -795,10 +787,10 @@ class Common_model extends CI_Model {
         $this->db->like('title',$search);
         $this->db->where('publication', '1');
         $this->db->order_by("videos_id","desc");
-        return $this->db->get('videos')->result_array();        
+        return $this->db->get('videos')->result_array();
    }
 
-   
+
    public function fetch_tv_series($limit, $start) {
         $this->db->where('is_tvseries','1');
         $this->db->where('publication', '1');
@@ -807,10 +799,10 @@ class Common_model extends CI_Model {
         $query = $this->db->get("videos");
         return $query->result_array();
    }
-   
+
    public function fetch_request_movies($limit, $start) {
         $this->db->limit($limit, $start);
-        
+
         $this->db->select('*');
         $this->db->from('videos');
         $this->db->where("FIND_IN_SET(left(3,10),video_type)>0");
@@ -819,7 +811,7 @@ class Common_model extends CI_Model {
         $this->db->order_by("videos_id","desc");
         $this->db->limit(32);
         $query = $this->db->get();
-        
+
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -829,7 +821,7 @@ class Common_model extends CI_Model {
         }
         return false;
    }
-   
+
    public function fetch_trailers($limit, $start) {
         $this->db->limit($limit, $start);
         $this->db->where("FIND_IN_SET(left(4,10),video_type)>0");
@@ -837,7 +829,7 @@ class Common_model extends CI_Model {
         $this->db->order_by("videos_id","desc");
         $this->db->limit(32);
         $query = $this->db->get('videos');
-        
+
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -846,7 +838,7 @@ class Common_model extends CI_Model {
             return $data;
         }
         return false;
-   }   
+   }
 
    public function fetch_video_type_video_by_slug($limit, $start, $slug)
    {
@@ -862,13 +854,13 @@ class Common_model extends CI_Model {
   public function fetch_video_type_video_by_slug_record_count($slug)
     {
         $video_type = $this->db->get_where('video_type', array('slug' => $slug))->row();
-        $query = $this->db->where(array('video_type'=>$video_type->video_type_id))->get('videos');        
+        $query = $this->db->where(array('video_type'=>$video_type->video_type_id))->get('videos');
         return $query->num_rows();
     }
 
     public function fetch_country_video_by_slug($limit, $start, $slug) {
         $country_id = $this->db->get_where('country', array('slug' => $slug))->row();
-        $this->db->limit($limit, $start);        
+        $this->db->limit($limit, $start);
         $this->db->select('*');
         $this->db->from('videos');
         $this->db->where("FIND_IN_SET(left($country_id->country_id,10),country)>0");
@@ -878,7 +870,7 @@ class Common_model extends CI_Model {
         $this->db->order_by("videos_id","desc");
         $this->db->limit(24);
         $query = $this->db->get();
-        
+
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -893,20 +885,20 @@ class Common_model extends CI_Model {
     {
         $country_id = $this->db->get_where('country', array('slug' => $slug))->row();
         $query = $this->db->where(array('country'=>$country_id->country_id))->get('videos');
-        
+
         return $query->num_rows();
     }
 
 
     public function fetch_blog_post($limit, $start) {
-        $this->db->limit($limit, $start);        
+        $this->db->limit($limit, $start);
         $this->db->select('*');
         $this->db->from('posts');
         $this->db->where('publication', '1');
         $this->db->order_by("posts_id","DESC");
         $this->db->limit(10);
         $query = $this->db->get();
-        
+
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -919,37 +911,37 @@ class Common_model extends CI_Model {
 
    public function fetch_blog_post_record_count()
     {
-        
+
         $query = $this->db->where(array('publication'=>'1'))->get('posts');
-        
+
         return $query->num_rows();
     }
     public function post_comments_record_count_by_id($id='')
     {
-        
+
         $query = $this->db->where(array('post_id'=>$id, 'comment_type'=>'1','publication'=>'1'))->get('post_comments');
-        
+
         return $query->num_rows();
     }
 
     public function fetch_blog_post_by_category_record_count($slug)
-    {        
+    {
         $category_id = $this->db->get_where('post_category', array('slug' => $slug))->row();
         $this->db->where("FIND_IN_SET(left($category_id->post_category_id,10),category_id)>0");
         $this->db->where('publication', '1');
-        $query = $this->db->get('posts');        
+        $query = $this->db->get('posts');
         return $query->num_rows();
     }
     public function fetch_blog_post_by_category($limit, $start, $slug)
     {
         $category_id = $this->db->get_where('post_category', array('slug' => $slug))->row();
-        $this->db->limit($limit, $start);        
+        $this->db->limit($limit, $start);
         $this->db->select('*');
         $this->db->where("FIND_IN_SET(left($category_id->post_category_id,10),category_id)>0");
         $this->db->where('publication', '1');
         $this->db->order_by("posts_id","desc");
         $this->db->limit(10);
-        $query = $this->db->get('posts');        
+        $query = $this->db->get('posts');
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $data[] = $row;
@@ -960,23 +952,23 @@ class Common_model extends CI_Model {
     }
 
     public function fetch_blog_post_by_author_record_count($slug)
-    {        
+    {
         $author_id = $this->db->get_where('user', array('slug' => $slug))->row();
         $this->db->where('user_id',$author_id->user_id);
         $this->db->where('publication', '1');
-        $query = $this->db->get('posts');        
+        $query = $this->db->get('posts');
         return $query->num_rows();
     }
     public function fetch_blog_post_by_author($limit, $start, $slug)
     {
         $author_id = $this->db->get_where('user', array('slug' => $slug))->row();
-        $this->db->limit($limit, $start);        
+        $this->db->limit($limit, $start);
         $this->db->select('*');
         $this->db->where('user_id',$author_id->user_id);
         $this->db->where('publication', '1');
         $this->db->order_by("posts_id","desc");
         $this->db->limit(10);
-        $query = $this->db->get('posts');        
+        $query = $this->db->get('posts');
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $data[] = $row;
@@ -985,7 +977,7 @@ class Common_model extends CI_Model {
         }
         return '';
     }
-   
+
    public function search_result($search)
    {
      $this->db->like('title',$search);
@@ -1000,7 +992,7 @@ class Common_model extends CI_Model {
             $image_url  =   base_url().'uploads/'.$type.'_image/'.$id.'.jpg';
         else
             $image_url  =   base_url().'uploads/user.jpg';
-            
+
         return $image_url;
     }
 
@@ -1010,7 +1002,7 @@ class Common_model extends CI_Model {
             $image_url  =   base_url().'uploads/video_thumb/'.$videos_id.'.jpg';
         else
             $image_url  =   base_url().'uploads/default_image/thumbnail.jpg';
-            
+
         return $image_url;
     }
 
@@ -1021,7 +1013,7 @@ class Common_model extends CI_Model {
         else if(file_exists('uploads/video_thumb/'.$videos_id.'.jpg'))
             $image_url  =   base_url().'uploads/video_thumb/'.$videos_id.'.jpg';
         else
-            $image_url  =   base_url().'uploads/default_image/poster.jpg';            
+            $image_url  =   base_url().'uploads/default_image/poster.jpg';
         return $image_url;
     }
 
@@ -1029,29 +1021,29 @@ class Common_model extends CI_Model {
     {
         if(file_exists('uploads/poster_image/'.$videos_id.'.jpg'))
             $image_url  =   base_url().'uploads/poster_image/'.$videos_id.'.jpg';
-        
+
         else
             $image_url  =   base_url().'uploads/default_image/poster.jpg';
-            
+
         return $image_url;
-    }    
+    }
 
 
    function get_name_by_id($user_id)
     {
         $query  =   $this->db->get_where('user' , array('user_id' => $user_id));
         $res    =   $query->result_array();
-        foreach($res as $row)           
+        foreach($res as $row)
             return $row['name'];
     }
 
-    
+
 
     function get_slug_by_user_id($user_id)
     {
         $query  =   $this->db->get_where('user' , array('user_id' => $user_id));
         $res    =   $query->result_array();
-        foreach($res as $row)           
+        foreach($res as $row)
             return $row['slug'];
     }
 
@@ -1059,7 +1051,7 @@ class Common_model extends CI_Model {
     {
         $query  =   $this->db->get_where('post_category' , array('post_category_id' => $category_id));
         $res    =   $query->result_array();
-        foreach($res as $row)           
+        foreach($res as $row)
             return $row['category'];
     }
 
@@ -1067,7 +1059,7 @@ class Common_model extends CI_Model {
     {
         $query  =   $this->db->get_where('post_category' , array('post_category_id' => $category_id));
         $res    =   $query->result_array();
-        foreach($res as $row)           
+        foreach($res as $row)
             return $row['slug'];
     }
 
@@ -1153,7 +1145,7 @@ class Common_model extends CI_Model {
     {
         $query  =   $this->db->get_where('videos' , array('videos_id' => $videos_id));
         $res    =   $query->result_array();
-        foreach($res as $row)           
+        foreach($res as $row)
             return $row['title'];
     }
 
@@ -1203,7 +1195,7 @@ class Common_model extends CI_Model {
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
         $output = curl_exec($ch);
         $file = fopen($save_to, "w+");
@@ -1274,7 +1266,7 @@ class Common_model extends CI_Model {
     function get_title_by_posts_id($posts_id){
          $total = count($this->db->get_where('posts' , array('posts_id'=>$posts_id))->result_array());
          if($total > 0){
-            return $this->db->get_where('posts' , array('posts_id'=>$posts_id))->row()->post_title;        
+            return $this->db->get_where('posts' , array('posts_id'=>$posts_id))->row()->post_title;
          }else{
             return "Not Found";
         }
@@ -1290,7 +1282,7 @@ class Common_model extends CI_Model {
          if($ads->ads_type == 'image' && $ads->enable !='0'){
             $ads_content .= "<a href='".$ads->ads_url."'><img src='".$ads->ads_image_url."'class='img-fluid'></a>";
         }else if($ads->ads_type == 'code' && $ads->enable !='0'){
-            $ads_content .= $ads->ads_code;       
+            $ads_content .= $ads->ads_code;
          }
          return $ads_content;
     }
@@ -1372,7 +1364,7 @@ class Common_model extends CI_Model {
             else:
                 $error = TRUE;
             endif;
-            
+
         else:
             $error = TRUE;
         endif;
@@ -1386,7 +1378,7 @@ class Common_model extends CI_Model {
         if($rows >0):
           $result = TRUE;
         endif;
-        return $result;     
+        return $result;
     }
 
     function check_movie_visiability($videos_id) {
@@ -1396,7 +1388,7 @@ class Common_model extends CI_Model {
             if ($this->session->userdata('admin_is_login') != '1')
                 $result = FALSE;
         endif;
-        return $result;     
+        return $result;
     }
 
     function formatSizeUnits($bytes)
@@ -1499,5 +1491,3 @@ class Common_model extends CI_Model {
     }
 
 }
-
-

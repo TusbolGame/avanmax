@@ -2,18 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Ovoo-Movie & Video Stremaing CMS Pro
- * ----------------------------- OVOO -----------------------------
- * -------------- Movie & Video Stremaing CMS Pro -----------------
- * -------- Professional video content management system ----------
- *
- * @package     OVOO-Movie & Video Stremaing CMS Pro
- * @author      Abdul Mannan/Spa Green Creative
- * @copyright   Copyright (c) 2014 - 2017 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
- *
+ * AvanMax
+ * @author      Ryan Connor/AvanMax
  **/
 
 class Live_tv extends CI_Controller {
@@ -30,7 +20,7 @@ class Live_tv extends CI_Controller {
 		$data['new_videos']				= $this->common_model->new_published_videos();
 		$data['latest_videos']			= $this->common_model->latest_published_videos();
 		$data['new_tv_series']			= $this->common_model->new_published_tv_series();
-		$data['latest_tv_series']		= $this->common_model->latest_published_tv_series();		
+		$data['latest_tv_series']		= $this->common_model->latest_published_tv_series();
 		$data['title'] 					= $this->db->get_where('config' , array('title' =>'home_page_seo_title'))->row()->value;
 		// seo
 		$data['title']				= $this->db->get_where('config' , array('title' =>'live_tv_title'))->row()->value;
@@ -41,10 +31,10 @@ class Live_tv extends CI_Controller {
 		$data['page_name']				= 'live_tv';
 		$this->load->view('front_end/index',$data);
 	}
-  
+
 	public function watch($slug){
-		if ($slug == '' || $slug ==NULL) {        
-            redirect('notfound');            
+		if ($slug == '' || $slug ==NULL) {
+            redirect('notfound');
         }else if(!$this->live_tv_model->live_tv_is_published($slug)){
             redirect('notfound');
         }else {
@@ -64,8 +54,8 @@ class Live_tv extends CI_Controller {
             $data['slug']                   = $slug;
             $data['page_name']              = 'watch_tv';
             $data['latest_videos']          = $this->common_model->latest_published_videos();
-            $data['latest_tv_series']       = $this->common_model->latest_published_tv_series();    
-            $this->load->view('front_end/index', $data);           
+            $data['latest_tv_series']       = $this->common_model->latest_published_tv_series();
+            $this->load->view('front_end/index', $data);
         }
 	}
 }

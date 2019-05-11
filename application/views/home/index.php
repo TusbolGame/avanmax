@@ -1,21 +1,21 @@
-<?php    
+<?php
     $default_meta_description       =   $this->db->get_where('config' , array('title'=>'meta_description'))->row()->value;
     $default_focus_keyword          =   $this->db->get_where('config' , array('title'=>'focus_keyword'))->row()->value;
     $author                         =   $this->db->get_where('config' , array('title'=>'author'))->row()->value;
     $front_end_theme                =   $this->db->get_where('config' , array('title'=>'front_end_theme'))->row()->value;
     $dark_theme                     =   $this->db->get_where('config' , array('title'=>'dark_theme'))->row()->value;
     $google_analytics_id            =   $this->db->get_where('config' , array('title'=>'google_analytics_id'))->row()->value;
-    $header_templete                =   $this->db->get_where('config' , array('title'=>'header_templete'))->row()->value;   
+    $header_templete                =   $this->db->get_where('config' , array('title'=>'header_templete'))->row()->value;
     $footer_templete                =   $this->db->get_where('config' , array('title'=>'footer_templete'))->row()->value;
-    $share_this_enable              =   $this->db->get_where('config' , array('title' =>'social_share_enable'))->row()->value;    
+    $share_this_enable              =   $this->db->get_where('config' , array('title' =>'social_share_enable'))->row()->value;
     $site_name              		=   $this->db->get_where('config' , array('title' =>'site_name'))->row()->value;
-    $registration_enable            =   $this->db->get_where('config' , array('title' =>'registration_enable'))->row()->value;    
-	$frontend_login_enable          =   $this->db->get_where('config' , array('title' =>'frontend_login_enable'))->row()->value;   
-	$landing_page_image_url         =   $this->db->get_where('config' , array('title' =>'landing_page_image_url'))->row()->value;   
+    $registration_enable            =   $this->db->get_where('config' , array('title' =>'registration_enable'))->row()->value;
+	$frontend_login_enable          =   $this->db->get_where('config' , array('title' =>'frontend_login_enable'))->row()->value;
+	$landing_page_image_url         =   $this->db->get_where('config' , array('title' =>'landing_page_image_url'))->row()->value;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<link rel="canonical" href="<?php if(isset($canonical) && !empty($canonical)): echo $canonical; else: echo base_url(); endif; ?>">
@@ -23,7 +23,7 @@
 		<meta name="keywords" content="<?php if (isset($focus_keyword)) { echo $focus_keyword;} else{ echo $default_focus_keyword ; } ?>">
 		<meta name="author" content="<?php echo $author; ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title><?php if(isset($title) && !empty($title)): echo $title; else: echo $site_name; endif; ?></title>   
+		<title><?php if(isset($title) && !empty($title)): echo $title; else: echo $site_name; endif; ?></title>
 		<link rel="shortcut icon" href="<?php echo base_url(); ?>uploads/system_logo/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/front_end/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/front_end/css/additional.css">
@@ -41,6 +41,8 @@
 		<style>
 			#body-search {
 				background-image: url(<?php echo ($landing_page_image_url !='') ? $landing_page_image_url : base_url('uploads/landing_page/bg.jpg'); ?>);
+                background-size: cover;
+                background-position:center;
 			}
 			.search-box .input-search {
 			    height: 56px;
@@ -85,7 +87,7 @@
 
 			.footer_container{
 				padding-top: 150px;
-			}		
+			}
 		</style>
 	</head>
 	<body id="body-search">
@@ -94,14 +96,14 @@
 				<ul class="top-menu">
 					<li class="active"><a href="<?php echo base_url(); ?>" title="HOME">HOME</a></li>
 					<li><a href="<?php echo base_url('movies.html'); ?>" title="MOVIES">MOVIES</a></li>
-					<?php 
+					<?php
 		              $tv_series_publish          = $this->db->get_where('config',array('title'=>'tv_series_publish'))->row()->value;
 		              $tv_series_pin_primary_menu = $this->db->get_where('config',array('title'=>'tv_series_pin_primary_menu'))->row()->value;
 		              if($tv_series_publish =='1' && $tv_series_pin_primary_menu =='1'):
 		            ?>
 					<li><a href="<?php echo base_url('tv-series.html'); ?>" title="TV-SERIES">TV-SERIES</a></li>
 					<?php endif; ?>
-					<?php 
+					<?php
 		              $live_tv_publish          = $this->db->get_where('config',array('title'=>'live_tv_publish'))->row()->value;
 		              $live_tv_pin_primary_menu = $this->db->get_where('config',array('title'=>'live_tv_pin_primary_menu'))->row()->value;
 		              if($live_tv_publish =='1' && $live_tv_pin_primary_menu =='1'):
@@ -136,8 +138,8 @@
 			                    <input type="text" name="q" class="form-control input-search"  autocomplete="off" id="search-input" placeholder="Search" >
 			                    <span class="input-group-addon">
 			                        <button type="submit" class="submit_btn">
-			                            Search
-			                        </button>  
+			                            Buscar
+			                        </button>
 			                    </span>
 			                </div>
 			            </div>
@@ -145,9 +147,9 @@
 		        </form>
 			</div>
 			<div class="row text-center" style="margin-top: 20px;">
-				<a href="<?php echo base_url('all-movies.html') ?>" class="btn btn-success btn-all-movie">Brows All Movies & Tv-Series</a>
+				<a href="<?php echo base_url('all-movies.html') ?>" class="btn btn-success btn-all-movie">Explorar</a>
 				<div style="margin-top: 10px;margin-bottom: 10px;">
-					<?php 
+					<?php
 						if($this->common_model->get_ads_status('billboard')=='1'):
 	                        echo $this->common_model->get_ads('billboard');
 	                	 endif;
@@ -162,18 +164,18 @@
 					<p>Copyright © <?php echo $site_name; ?> All Rights Reserved</p>
 					<?php if($this->session->userdata('login_status') == 1): ?>
 						<p>
-							<a href="<?php echo base_url('my-account/profile') ?>">My Account</a> | <a href="<?php echo base_url('login/logout') ?>">Logout</a>
-							
+							<a href="<?php echo base_url('my-account/profile') ?>">Mi Cuenta</a> | <a href="<?php echo base_url('login/logout') ?>">Salir</a>
+
 						</p>
 					<?php else: ?>
 						<p>
 							<?php if($frontend_login_enable =='1'  && $registration_enable =='1'): ?>
-								<a href="<?php echo base_url('user/login') ?>">Login</a> | <a href="<?php echo base_url('user/login') ?>">Signup</a>
+								<a href="<?php echo base_url('user/login') ?>">Acceder</a> | <a href="<?php echo base_url('user/login') ?>">Registrarse</a>
 							<?php endif; ?>
 						</p>
 					<?php endif; ?>
 				</div>
-				
+
 			</div>
 		</div>
 		<!-- typehead search  -->
@@ -197,7 +199,7 @@
 		};
 		});
 		</script>
-		    
+
 	<?php if($google_analytics_id !='' && $google_analytics_id !=NULL && !empty($google_analytics_id)): ?>
 	<!-- Google analytics -->
     <script>
@@ -218,12 +220,12 @@
     <!-- END Google analytics -->
 	<?php endif; ?>
 	<?php
-		$push_notification_enable       =   $this->db->get_where('config' , array('title' =>'push_notification_enable'))->row()->value; 
+		$push_notification_enable       =   $this->db->get_where('config' , array('title' =>'push_notification_enable'))->row()->value;
 	    if($push_notification_enable == '1'):
-	    $onesignal_appid                    =   $this->db->get_where('config' , array('title' =>'onesignal_appid'))->row()->value;    
-	    $onesignal_actionmessage            =   $this->db->get_where('config' , array('title' =>'onesignal_actionmessage'))->row()->value;    
-	    $onesignal_acceptbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_acceptbuttontext'))->row()->value;    
-	    $onesignal_cancelbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_cancelbuttontext'))->row()->value;    
+	    $onesignal_appid                    =   $this->db->get_where('config' , array('title' =>'onesignal_appid'))->row()->value;
+	    $onesignal_actionmessage            =   $this->db->get_where('config' , array('title' =>'onesignal_actionmessage'))->row()->value;
+	    $onesignal_acceptbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_acceptbuttontext'))->row()->value;
+	    $onesignal_cancelbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_cancelbuttontext'))->row()->value;
 	 ?>
 	<!-- oneSignal -->
 	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>

@@ -86,7 +86,7 @@ $error_msg      =   $this->session->flashdata('error');
 
                                         <div class="col-sm-8">
                                             <div class="block avatar mb10">
-                                                <img class="img img-circle m-b-10" width="180" alt="Abdul Mannan" src="<?php echo $this->common_model->get_img('user', $profile_info->user_id).'?'.time(); ?>">
+                                                <img class="img img-circle m-b-10" width="180" alt="Ryan Connor" src="<?php echo $this->common_model->get_img('user', $profile_info->user_id).'?'.time(); ?>">
                                             </div>
                                             <input name="photo" type="file" id="avatar">
 

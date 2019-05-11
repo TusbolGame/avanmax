@@ -6,7 +6,8 @@
 
 <div class="pull-right">
 
-    <?php echo '#0'; //. $this->session->userdata('user_id') ?>
+    <?php echo '#0 ' . $this->session->userdata('login_type');
+    ?>
 
     <a data-toggle="modal" id="menu" class="btn" data-target="#report-modal" data-id="<?php echo base_url('home/view_modal/report/'.$watch_videos->videos_id) ?>" style="text-transform: lowercase;font-size: 13px;color: yellow;" href="#"><i class="fa fa-warning"></i>&nbsp;report</a>
 </div>

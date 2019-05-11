@@ -2,18 +2,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 /**
- * OVOO-Live TV & Movie Portal CMS with Unlimited TV-Series
- * ---------------------- OVOO --------------------
- * ------- Live TV & Movie Portal CMS with Unlimited TV-Series --------
- * - Professional live tv and movie management system -
- *
- * @package     OVOO-Movie & Video Stremaing CMS Pro
- * @author      Abdul Mannan/SpaGreen Creative
- * @copyright   Copyright (c) 2014 - 2019 SpaGreen,
- * @license     http://codecanyon.net/wiki/support/legal-terms/licensing-terms/ 
- * @link        http://www.spagreen.net
- * @link        support@spagreen.net
- *
+ * @author  Ryan Connor/AvanMax
  **/
 class Updater extends CI_Controller{
 
@@ -23,7 +12,7 @@ class Updater extends CI_Controller{
         $this->load->database();
     }
 
-    //default index function, redirects to login/dashboard 
+    //default index function, redirects to login/dashboard
     public function index(){
         if ($this->session->userdata('admin_is_login') != 1)
             redirect(base_url() . 'login', 'refresh');

@@ -158,7 +158,7 @@
 	            ?>
 
 				<?php
-					if( $source['video_type'] != 'private' ){
+					if( ($source['video_type'] != 'private') || (($this->session->userdata('login_type') == 'admin') && ($source['video_type'] == 'private')) || (($this->session->userdata('login_type') == 'crew') && ($source['video_type'] == 'private')) ){
 						echo '<a href="';
 						echo base_url().'watch/'.$watch_videos->slug.'.html?key='.$source['stream_key'];
 						echo '"'; //end href
@@ -181,7 +181,7 @@
 						echo '</a>';
 
 					}else{
-						echo 'vos no.';
+						//silence is gold
 					}
 				?>
 
