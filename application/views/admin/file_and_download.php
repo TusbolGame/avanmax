@@ -107,7 +107,7 @@
             <tr id="row_<?php echo $video_file['video_file_id']; ?>">
               <td><?php echo $sl; ?></td>
               <td><?php echo $video_file['video_file_name']; ?></td>
-              <td><a href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'.html?key='.$video_file['stream_key']; ?>"><?php echo 'Server-'.$sl.'('.$video_file['file_source'].')'; ?></a></td>
+              <td><a href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'?key='.$video_file['stream_key']; ?>"><?php echo 'Server-'.$sl.'('.$video_file['file_source'].')'; ?></a></td>
               <td><?php echo urldecode($video_file['file_url']); ?></td>
               <td>
                 <?php if($video_file['file_source'] == 'youtube' || $video_file['file_source'] == 'vimeo'):?>
@@ -127,7 +127,7 @@
                 <div class="btn-group">
                   <button type="button" class="btn btn-white btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a class="dropdown-item" target="_blank" href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'.html?key='.$video_file['stream_key']; ?>">Watch Now</a></li>
+                    <li><a class="dropdown-item" target="_blank" href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'?key='.$video_file['stream_key']; ?>">Watch Now</a></li>
                     <?php if($video_file['file_source']!='youtube' && $video_file['file_source']!='vimeo' && $video_file['file_source']!='embed'):?>
                     <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#mymodal" data-id="<?php echo base_url() . 'admin/view_modal/subtitle_add/'.$video_file['videos_id'].'/'.$video_file['video_file_id'];?>" id="menu">Add Subtitle</a> </li>
                   <?php endif; ?>

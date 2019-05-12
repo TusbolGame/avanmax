@@ -1,15 +1,15 @@
 <div class="movie-payer">
 	<div class="btn-group">
-        <a href="<?php echo base_url('live-tv/').$watch_tv->slug.'.html';?>" class="btn btn-sm btn-default"><?php echo $watch_tv->stream_label;?></a>
+        <a href="<?php echo base_url('live-tv/').$watch_tv->slug.'';?>" class="btn btn-sm btn-default"><?php echo $watch_tv->stream_label;?></a>
         <?php
         if($this->live_tv_model->get_stream_url($watch_tv->live_tv_id,'opt1') !=''):
         ?>
-        <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'.html?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt1');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt1');?></a>
+        <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt1');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt1');?></a>
         <?php endif; ?>
         <?php
         if($this->live_tv_model->get_stream_url($watch_tv->live_tv_id,'opt2') !=''):
         ?>
-        <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'.html?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt2');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt2');?></a>
+        <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt2');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt2');?></a>
         <?php endif; ?>
     </div>
 	<?php
@@ -48,9 +48,9 @@
             <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
         </video>
         <script>
-	        var ovoo_player = videojs("play", { 
-	        									"controls": true, 
-	        									"autoplay": false, 
+	        var ovoo_player = videojs("play", {
+	        									"controls": true,
+	        									"autoplay": false,
 	        									"preload": "auto" ,
 	        									"playbackRates": [0.5, 1, 1.5, 2],
 	        									"width": 640,
@@ -65,15 +65,15 @@
 	<?php if($file_source=='youtube'): ?>
         <!-- play from youtube file -->
        <video id="play" class="video-js vjs-big-play-centered skin-<?php echo $player_color_skin; ?> vjs-16-9" poster="<?php echo $this->live_tv_model->get_tv_poster($watch_tv->poster); ?>">
-           
+
        </video>
         <!-- youtube -->
         <script src="<?php echo base_url(); ?>assets/player/plugins/videojs-youtube/Youtube.min.js"></script>
-       
+
         <script>
-            videojs("play", { 
-				            "controls": true, 
-				            "autoplay": false, 
+            videojs("play", {
+				            "controls": true,
+				            "autoplay": false,
 				            "preload": "auto" ,
 				            "playbackRates": [0.5, 1, 1.5, 2],
 				            "width": 640,
@@ -81,7 +81,7 @@
 				             techOrder:  ["youtube"],
 				             sources: [{ "type": "video/youtube", "src": "<?php echo $file_url; ?>"}],
              		});
-        </script>                                    
+        </script>
     <?php endif; ?>
     <?php if($file_source=='embed'): ?>
         <!-- play from embed url  -->

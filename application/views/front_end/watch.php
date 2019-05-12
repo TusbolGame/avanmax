@@ -89,7 +89,7 @@
                                             <?php  if($this->db->get_where('config' , array('title' =>'social_share_enable'))->row()->value =='1'):?>
 
                                             <!-- Go to www.addthis.com/dashboard to customize your tools -->
-                                            <div class="addthis_inline_share_toolbox_yl99 m-t-30 m-b-10" data-url="<?php echo base_url().'watch/'.$watch_videos->slug.'.html';?>" data-title="Watch & Download <?php echo $watch_videos->title;?>"></div>
+                                            <div class="addthis_inline_share_toolbox_yl99 m-t-30 m-b-10" data-url="<?php echo base_url().'watch/'.$watch_videos->slug.'';?>" data-title="Watch & Download <?php echo $watch_videos->title;?>"></div>
                                             <!-- Addthis Social tool -->
                                         <?php endif; ?>
                                             <p>
@@ -199,7 +199,7 @@
                                             <?php if ($watch_videos->tags !='' && $watch_videos->tags !=NULL): ?>
                                                     <?php $tags=explode(',', $watch_videos->tags);
                                                     foreach ($tags as $tag):
-                                                    ?><a class="btn btn-default btn-tags btn-sm" href="<?php echo base_url().'tags/'.$tag.'.html'; ?>">#<?php echo $tag; ?></a>
+                                                    ?><a class="btn btn-default btn-tags btn-sm" href="<?php echo base_url().'tags/'.$tag.''; ?>">#<?php echo $tag; ?></a>
                                                     <?php endforeach; ?>
                                             <?php endif; ?>
                                         </div>

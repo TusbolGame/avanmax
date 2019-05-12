@@ -86,17 +86,17 @@
             </thead>
             <tbody>
               <?php
-                                  
-              
+
+
               $this->db->LIMIT('5' );
-              $this->db->order_by('comment_at', 'desc' );                                    
-              $comments = $this->db->get('comments')->result_array();                                  
+              $this->db->order_by('comment_at', 'desc' );
+              $comments = $this->db->get('comments')->result_array();
               foreach ($comments as $comment): ?>
               <tr>
               <td><?php echo $this->common_model->get_name_by_id($comment['user_id']); ?></td>
               <td><?php echo $this->common_model->get_video_title_by_id($comment['video_id']); ?></td>
                 <td><?php echo $comment['comment']; ?></td>
-                <td><?php echo $comment['comment_at']; ?></td>                 
+                <td><?php echo $comment['comment_at']; ?></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
@@ -121,15 +121,15 @@
               </tr>
             </thead>
             <tbody>
-              <?php 
+              <?php
               $this->db->LIMIT('5' );
-              $this->db->order_by('total_view', 'desc' );                                    
-              $videos = $this->db->get('videos')->result_array();                                  
+              $this->db->order_by('total_view', 'desc' );
+              $videos = $this->db->get('videos')->result_array();
               foreach ($videos as $video): ?>
               <tr>
-                <td><a href="<?php echo base_url().'watch/'.$video['slug'].'.html'; ?>" target="_blank"><?php echo $video['title']; ?></a></td>
-                <td><a href="<?php echo base_url().'watch/'.$video['slug'].'.html'; ?>" target="_blank"><?php echo $video['release']; ?></a></td>
-                <td><a href="<?php echo base_url().'watch/'.$video['slug'].'.html'; ?>" target="_blank"><?php echo $video['total_view']; ?></a></td>                 
+                <td><a href="<?php echo base_url().'watch/'.$video['slug'].''; ?>" target="_blank"><?php echo $video['title']; ?></a></td>
+                <td><a href="<?php echo base_url().'watch/'.$video['slug'].''; ?>" target="_blank"><?php echo $video['release']; ?></a></td>
+                <td><a href="<?php echo base_url().'watch/'.$video['slug'].''; ?>" target="_blank"><?php echo $video['total_view']; ?></a></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
@@ -155,13 +155,13 @@
             <tbody>
               <?php
               $this->db->LIMIT('5' );
-              $this->db->order_by('total_rating', 'desc' );                                    
-              $videos = $this->db->get('videos')->result_array();                                  
+              $this->db->order_by('total_rating', 'desc' );
+              $videos = $this->db->get('videos')->result_array();
               foreach ($videos as $video): ?>
               <tr>
-                <td><a href="<?php echo base_url().'watch/'.$video['slug'].'.html'; ?>" target="_blank"><?php echo $video['title']; ?></a></td>
-                <td><a href="<?php echo base_url().'watch/'.$video['slug'].'.html'; ?>" target="_blank"><?php echo $video['release']; ?></a></td>
-                <td><a href="<?php echo base_url().'watch/'.$video['slug'].'.html'; ?>" target="_blank"><?php echo $video['total_rating']; ?></a></td>                 
+                <td><a href="<?php echo base_url().'watch/'.$video['slug'].''; ?>" target="_blank"><?php echo $video['title']; ?></a></td>
+                <td><a href="<?php echo base_url().'watch/'.$video['slug'].''; ?>" target="_blank"><?php echo $video['release']; ?></a></td>
+                <td><a href="<?php echo base_url().'watch/'.$video['slug'].''; ?>" target="_blank"><?php echo $video['total_rating']; ?></a></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
@@ -188,12 +188,12 @@
             <tbody>
               <?php
               $this->db->LIMIT('5' );
-              $this->db->order_by('posts_id', 'desc' );                                    
-              $posts = $this->db->get('posts')->result_array();                                  
+              $this->db->order_by('posts_id', 'desc' );
+              $posts = $this->db->get('posts')->result_array();
               foreach ($posts as $post): ?>
               <tr>
                 <td><?php echo substr($post['post_title'],0,45).'..'; ?></td>
-                <td><?php echo $post['post_at']; ?></td>                 
+                <td><?php echo $post['post_at']; ?></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
@@ -218,13 +218,13 @@
             <tbody>
               <?php
               $this->db->LIMIT('5' );
-              $this->db->order_by('user_id', 'desc' );                                    
-              $subscribers = $this->db->get('user')->result_array();                                  
+              $this->db->order_by('user_id', 'desc' );
+              $subscribers = $this->db->get('user')->result_array();
               foreach ($subscribers as $subscriber): ?>
               <tr>
                 <td><?php echo $subscriber['name']; ?></td>
                 <td><?php echo $subscriber['email']; ?></td>
-                <td><?php echo $subscriber['join_date']; ?></td>                 
+                <td><?php echo $subscriber['join_date']; ?></td>
               </tr>
               <?php endforeach; ?>
             </tbody>

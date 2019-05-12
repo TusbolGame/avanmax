@@ -1,28 +1,28 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Notify_model extends CI_Model {
-	
+
 	function __construct()
     {
         parent::__construct();
     }
 
 	function send_push_notification($video_id = NULL)
-	{	
+	{
 		$site_name			=	$this->db->get_where('config' , array('title' => 'site_name'))->row()->value;
 		$video 				= 	$this->db->get_where('videos', array('videos_id' => $video_id))->row();
 		$logo				= 	base_url('uploads/system_logo/logo.png');
 		$thumb_image		= 	$this->common_model->get_video_thumb_url($video->videos_id);;
-		$watch_url			=	base_url().'watch/'.$video->slug.'.html';		
+		$watch_url			=	base_url().'watch/'.$video->slug.'';
 		$headings			=	"New Movie Release-".$video->title;
 		$message			=	"Watch ".$video->title." on ".$site_name;
         $data['message']    = 	$message;
         $data['url']        = 	$watch_url;
         $data['headings']   = 	$headings;
-        $data['icon']       = 	$logo;        
+        $data['icon']       = 	$logo;
         $data['img']        = 	$thumb_image;
         $this->send_notification($data);
-        
+
 		return TRUE;
 	}
 
@@ -30,7 +30,7 @@ class Notify_model extends CI_Model {
 		$onesignal_appid    = $this->db->get_where('config' , array('title' =>'onesignal_appid'))->row()->value;
         $onesignal_api_keys = $this->db->get_where('config' , array('title' =>'onesignal_api_keys'))->row()->value;
         define('APKEY',$onesignal_api_keys);
-        $user_id            = '4444'; 
+        $user_id            = '4444';
         $content = array(
             "en" => $data['message']
         );
@@ -62,4 +62,3 @@ class Notify_model extends CI_Model {
         return $response;
 	}
 }
-

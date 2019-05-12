@@ -28,7 +28,7 @@
                             <td><div class="btn-group">
                                 <button type="button" class="btn btn-white btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu" role="menu">
-                                  <li><a class="dropdown-item" target="_blank" href="<?php echo base_url() . 'live-tv/'. $tv['slug'].'.html';?>"><?php echo tr_wd('preview'); ?></a></li>
+                                  <li><a class="dropdown-item" target="_blank" href="<?php echo base_url() . 'live-tv/'. $tv['slug'].'';?>"><?php echo tr_wd('preview'); ?></a></li>
                                   <li><a class="dropdown-item"  href="<?php echo base_url() . 'admin/manage_live_tv/edit/'. $tv['live_tv_id'];?>"><?php echo tr_wd('edit'); ?></a></li>
                                   <li><a class="dropdown-item" title="<?php echo tr_wd('delete'); ?>" href="#" onclick="delete_row(<?php echo " 'live_tv' ".','.$tv['live_tv_id'];?>)" class="delete"><?php echo tr_wd('delete'); ?></a> </li>
                                 </ul>
@@ -39,11 +39,11 @@
                             </td>
                             <td><strong><?php echo $tv['tv_name'];?></strong></td>
                             <td>
-                                <?php 
+                                <?php
                                     echo mb_substr($tv['stream_url'], 0, 35).'..';
                                     echo mb_substr($this->live_tv_model->get_live_tv_url($tv['live_tv_id'],'sd'), 0, 35).'..';
                                     echo mb_substr($this->live_tv_model->get_live_tv_url($tv['live_tv_id'],'lq'), 0, 35).'..';
-                                ?>                                    
+                                ?>
                             </td>
                             <td><?php echo $tv['description'];?></td>
                             <td> <?php echo $this->live_tv_model->get_live_tv_category($tv['live_tv_category_id']); ?></td>

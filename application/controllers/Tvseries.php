@@ -10,17 +10,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
  **/
 
- 
+
 class Tvseries extends CI_Controller{
-    
+
     public function index($slug=''){
-        $tv_series_publish                =   $this->db->get_where('config' , array('title'=>'tv_series_publish'))->row()->value;        
+        $tv_series_publish                =   $this->db->get_where('config' , array('title'=>'tv_series_publish'))->row()->value;
     	if($tv_series_publish =='1' && $slug !='' && $slug !=NULL):
             $data['page_details']= $this->common_model->get_page_details_by_slug($slug);
             $data['title'] = $data['page_details']->page_title;
@@ -30,13 +30,13 @@ class Tvseries extends CI_Controller{
             $this->load->view('front_end/index',$data);
         else:
             redirect('error', 'refresh');
-        endif;      
+        endif;
     }
 
     public function home(){
         $tv_series_publish    =   $this->db->get_where('config' , array('title'=>'tv_series_publish'))->row()->value;
         if($tv_series_publish =='1'):
-            $this->load->library("pagination");        
+            $this->load->library("pagination");
             $config = array();
             $config["base_url"] = base_url() . "tvseries/home";
             $config["total_rows"] = $this->common_model->tv_series_record_count();
@@ -66,8 +66,8 @@ class Tvseries extends CI_Controller{
 
             $config['num_tag_open'] = '<li>';
             $config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
-            $config['suffix']=  '.html'; 
-      
+            $config['suffix']=  '';
+
 
             $this->pagination->initialize($config);
             $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -78,20 +78,20 @@ class Tvseries extends CI_Controller{
             $data['title']              = $this->db->get_where('config' , array('title' =>'tv_series_title'))->row()->value;
             $data['meta_description']   = $this->db->get_where('config' , array('title' =>'tv_series_meta_description'))->row()->value;
             $data['focus_keyword']      = $this->db->get_where('config' , array('title' =>'tv_series_keyword'))->row()->value;
-            $data['canonical']          = base_url('tv-series.html');
+            $data['canonical']          = base_url('tv-series');
             // end seo
             $data['page_name']              = 'tv_series';
             $this->load->view('front_end/index',$data);
         else:
             redirect('error', 'refresh');
         endif;
-    } 
+    }
 
 
     public function watch($slug='',$param1='',$param2=''){
         $data['videos_id']                  = $this->common_model->get_videos_id_by_slug($slug);
         $tv_series_publish                  = $this->db->get_where('config' , array('title'=>'tv_series_publish'))->row()->value;
-        $video_is_published                 = $this->common_model->is_video_published($data['videos_id']);       
+        $video_is_published                 = $this->common_model->is_video_published($data['videos_id']);
         if($tv_series_publish =='1' && $slug !='' && $slug !=NULL && $video_is_published):
             $this->common_model->watch_count_by_slug($slug);
             $data['watch_videos']           = $this->common_model->get_videos_by_slug($slug);
@@ -104,10 +104,9 @@ class Tvseries extends CI_Controller{
             $data['param1']                 = $param1;
             $data['param2']                 = $param2;
             $data['page_name']              = 'tvseries_watch';
-            $this->load->view('front_end/index', $data);           
+            $this->load->view('front_end/index', $data);
         else:
             redirect('error', 'refresh');
         endif;
     }
 }
-

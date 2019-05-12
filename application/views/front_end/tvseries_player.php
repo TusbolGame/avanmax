@@ -8,15 +8,15 @@
                	$video_file_id  = $video_file->episodes_id;
 		        $source_type    = $video_file->source_type;
 		        $file_source    = $video_file->file_source;
-		        $file_url       = $video_file->file_url;                            
-		        
+		        $file_url       = $video_file->file_url;
+
 		    else:
 		    	$this->db->order_by('episodes_id', "DESC");
 	            $video_file = $this->db->get_where('episodes', array('videos_id'=>$videos_id),1)->row();
                 $video_file_id  = $video_file->episodes_id;
 		        $source_type    = $video_file->source_type;
 		        $file_source    = $video_file->file_source;
-		        $file_url       = $video_file->file_url;                            
+		        $file_url       = $video_file->file_url;
 		    endif;
 		    $subtitles = $this->db->get_where('tvseries_subtitle', array('episodes_id'=>$video_file_id))->result_array();
 		    if($file_source=='mp4' || $file_source=='webm' || $file_source=='mkv' || $file_source=='flv' || $file_source=='m3u8' || $file_source=='gdrive' || $file_source=='amazone'):
@@ -32,14 +32,14 @@
                 ?>
                 <!-- subtitle source -->
                 <track kind="<?php echo $subtitle['kind']; ?>" src="<?php echo $subtitle['src']; ?>" srclang="<?php echo $subtitle['srclang']; ?>" label="<?php echo $subtitle['language']; ?>"></track><!-- Tracks need an ending tag thanks to IE9 -->
-                <?php endforeach; ?>                         
+                <?php endforeach; ?>
             <!-- worning text if needed -->
             <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
         </video>
         <script>
-	        var ovoo_player = videojs("play", { 
-	        									"controls": true, 
-	        									"autoplay": false, 
+	        var ovoo_player = videojs("play", {
+	        									"controls": true,
+	        									"autoplay": false,
 	        									"preload": "auto" ,
 	        									"playbackRates": [0.5, 1, 1.5, 2],
 	        									"width": 640,
@@ -63,11 +63,11 @@
 	       </video>
 	        <!-- youtube -->
 	        <script src="<?php echo base_url(); ?>assets/player/plugins/videojs-youtube/Youtube.min.js"></script>
-	       
+
 	        <script>
-	            videojs("play", { 
-					            "controls": true, 
-					            "autoplay": false, 
+	            videojs("play", {
+					            "controls": true,
+					            "autoplay": false,
 					            "preload": "auto" ,
 					            "playbackRates": [0.5, 1, 1.5, 2],
 					            "width": 640,
@@ -75,10 +75,10 @@
 					             techOrder:  ["youtube"],
 					             sources: [{ "type": "video/youtube", "src": "<?php echo $file_url; ?>"}],
 	             		});
-	        </script>                                    
-	    <?php endif; ?>                        
+	        </script>
+	    <?php endif; ?>
 	    <?php if($file_source=='vimeo'): ?>
-	        <!--  play from vimeo file -->                            
+	        <!--  play from vimeo file -->
 	          <script src="<?php echo base_url(); ?>assets/player/video-js-5/video.min.js"></script>
 	          <script src="<?php echo base_url(); ?>assets/player/plugins/videojs-vimeo/vimeo.js"></script>
 	           <video id="playerjs" class="video-js vjs-big-play-centered skin-<?php echo $player_color_skin; ?> vjs-16-9" controls autoplay width="960" height="400"
@@ -87,9 +87,9 @@
 	            </video>
 	            </center>
 	            <script>
-	                videojs("playerjs", { 
-	                "controls": true, 
-	                "autoplay": false, 
+	                videojs("playerjs", {
+	                "controls": true,
+	                "autoplay": false,
 	                "preload": "auto" ,
 	                "playbackRates": [0.5, 1, 1.5, 2],
 	                "width": 640,
@@ -97,7 +97,7 @@
 	                 techOrder:  ["vimeo"],
 	                 sources: [{ "type": "video/vimeo", "src": "https://vimeo.com/257776764"}],
 	                 });
-	            </script>                             
+	            </script>
 	    <?php endif; ?>
 	    <?php if($file_source=='embed'): ?>
 	        <!-- play from embed url  -->
@@ -146,11 +146,11 @@
             <?php
                 $this->db->order_by('seasons_name', "ASC");
                 $seasons = $this->db->get_where('seasons',array('videos_id'=>$watch_videos->videos_id))->result_array();
-                foreach ($seasons as $season):                                       
+                foreach ($seasons as $season):
              ?>
 
              <?php if($this->common_model->get_num_episodes_by_seasons_id($season['seasons_id']) > 0): ?>
-            <div class="season">                                        
+            <div class="season">
                 <p class="btn btn-inline text-uppercase" style="font-size: 14px;color: #055b86">Seasons:: <?php echo $season['seasons_name']; ?> | Ep:: </p>
                     <?php
                         $this->db->order_by('episodes_id', "DESC");
@@ -162,12 +162,12 @@
                         foreach($episodes as $episode):
                             $i++;
                      ?>
-                    <a href="<?php echo base_url().'watch/'.$watch_videos->slug.'.html?key='.$episode['stream_key']; ?>" class="btn btn-sm btn-inline <?php if($episode['stream_key']==$current_key){ echo 'btn-success';}else if($current_key=='000000' && $i=='1'){ echo 'btn-success';}else{ echo 'btn-default';} ?>"><?php echo $episode['episodes_name']; ?></a>
+                    <a href="<?php echo base_url().'watch/'.$watch_videos->slug.'?key='.$episode['stream_key']; ?>" class="btn btn-sm btn-inline <?php if($episode['stream_key']==$current_key){ echo 'btn-success';}else if($current_key=='000000' && $i=='1'){ echo 'btn-success';}else{ echo 'btn-default';} ?>"><?php echo $episode['episodes_name']; ?></a>
                     <?php endforeach; ?>
-                    <?php $this->load->view('front_end/report'); ?>                                       
+                    <?php $this->load->view('front_end/report'); ?>
                 </div>
             <?php endif; ?>
-        <?php endforeach; ?> 
+        <?php endforeach; ?>
         </div>
     </div>
 	<style type="text/css">

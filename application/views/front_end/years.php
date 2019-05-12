@@ -25,13 +25,13 @@
 <div id="section-opt">
     <div class="container">
         <div class="row">
-            
+
             <?php $current_year = date("Y");
             $end_year = $current_year - 108;
             for($i=$current_year;$i>$end_year;$i--): ?>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-1 m-t-10 m-b-10"><a class="btn btn-lg btn-success" href="<?php echo base_url('year/'.$i.'.html'); ?>"><?php echo $i; ?></a></div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-1 m-t-10 m-b-10"><a class="btn btn-lg btn-success" href="<?php echo base_url('year/'.$i.''); ?>"><?php echo $i; ?></a></div>
             <?php endfor; ?>
-            
+
         </div>
     </div>
 </div>

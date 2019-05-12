@@ -1,4 +1,4 @@
-<?php 
+<?php
 $tv_series_publish          = $this->db->get_where('config',array('title'=>'tv_series_publish'))->row()->value;
 $live_tv_publish            = $this->db->get_where('config',array('title'=>'live_tv_publish'))->row()->value;
 $blog_enable                = $this->db->get_where('config',array('title'=>'blog_enable'))->row()->value;
@@ -13,38 +13,38 @@ echo'<?xml version="1.0" encoding="UTF-8" ?>' ?>
     </url>
     <?php if($landing_page_enable == '1'): ?>
         <url>
-            <loc><?php echo base_url('all-movies.html');?></loc>
+            <loc><?php echo base_url('all-movies');?></loc>
             <priority>1.0</priority>
         </url>
     <?php endif; ?>
 
 <!-- Start Sitemap -->
     <url>
-        <loc><?php echo base_url()."movies.html";?></loc>
+        <loc><?php echo base_url()."movies";?></loc>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc><?php echo base_url()."privacy-policy.html";?></loc>
+        <loc><?php echo base_url()."privacy-policy";?></loc>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc><?php echo base_url()."dmca.html";?></loc>
+        <loc><?php echo base_url()."dmca";?></loc>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc><?php echo base_url()."contact-us.html";?></loc>
+        <loc><?php echo base_url()."contact-us";?></loc>
         <priority>0.5</priority>
     </url>
     <?php if($live_tv_publish =='1'):?>
     <url>
-        <loc><?php echo base_url()."live-tv.html";?></loc>
+        <loc><?php echo base_url()."live-tv";?></loc>
         <priority>0.5</priority>
     </url>
     <?php endif; ?>
     <!-- Start country -->
     <?php foreach($countries as $country): ?>
     <url>
-        <loc><?php echo base_url()."country/".$country['slug'].'.html';?></loc>
+        <loc><?php echo base_url()."country/".$country['slug'].'';?></loc>
         <priority>0.5</priority>
     </url>
     <?php endforeach; ?>
@@ -52,7 +52,7 @@ echo'<?xml version="1.0" encoding="UTF-8" ?>' ?>
     <!-- Start Genre -->
     <?php foreach($genres as $genre): ?>
     <url>
-        <loc><?php echo base_url()."genre/".$genre['slug'].'.html';?></loc>
+        <loc><?php echo base_url()."genre/".$genre['slug'].'';?></loc>
         <priority>0.5</priority>
     </url>
     <?php endforeach; ?>
@@ -63,7 +63,7 @@ echo'<?xml version="1.0" encoding="UTF-8" ?>' ?>
     $end_year = $current_year - 108;
     for($i=$current_year;$i>$end_year;$i--): ?>
         <url>
-            <loc><?php echo base_url()."year/".$i.'.html';?></loc>
+            <loc><?php echo base_url()."year/".$i.'';?></loc>
             <priority>0.5</priority>
         </url>
     <?php endfor; ?>
@@ -74,11 +74,11 @@ echo'<?xml version="1.0" encoding="UTF-8" ?>' ?>
     <!-- Start Movies -->
     <?php foreach($movies as $movie): ?>
     <url>
-        <loc><?php echo base_url()."watch/".$movie['slug'].'.html';?></loc>
+        <loc><?php echo base_url()."watch/".$movie['slug'].'';?></loc>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc><?php echo base_url()."movie/".$movie['slug'].'.html';?></loc>
+        <loc><?php echo base_url()."movie/".$movie['slug'].'';?></loc>
         <priority>0.5</priority>
     </url>
     <?php endforeach; ?>
@@ -87,7 +87,7 @@ echo'<?xml version="1.0" encoding="UTF-8" ?>' ?>
     <!-- Start Movies Type -->
     <?php foreach($movie_types as $movie_type): ?>
     <url>
-        <loc><?php echo base_url()."type/".$movie_type['slug'].'.html';?></loc>
+        <loc><?php echo base_url()."type/".$movie_type['slug'].'';?></loc>
         <priority>0.5</priority>
     </url>
     <?php endforeach; ?>
@@ -96,7 +96,7 @@ echo'<?xml version="1.0" encoding="UTF-8" ?>' ?>
     <!-- Start Page -->
     <?php foreach($pages as $page): ?>
     <url>
-        <loc><?php echo base_url()."page/".$page['slug'].'.html';?></loc>
+        <loc><?php echo base_url()."page/".$page['slug'].'';?></loc>
         <priority>0.5</priority>
     </url>
     <?php endforeach; ?>
@@ -105,12 +105,12 @@ echo'<?xml version="1.0" encoding="UTF-8" ?>' ?>
     <!-- Start Blog & post -->
     <?php if($blog_enable =='1'):?>
         <url>
-        <loc><?php echo base_url()."blog.html";?></loc>
+        <loc><?php echo base_url()."blog";?></loc>
         <priority>0.5</priority>
         </url>
         <?php foreach($posts as $post): ?>
         <url>
-            <loc><?php echo base_url()."blog/".$post['slug'].'.html';?></loc>
+            <loc><?php echo base_url()."blog/".$post['slug'].'';?></loc>
             <priority>0.5</priority>
         </url>
         <?php endforeach; ?>

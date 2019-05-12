@@ -13,16 +13,16 @@
                     </div>
                     <div class="movie-payer">
                         <div class="btn-group">
-                            <a href="<?php echo base_url('live-tv/').$watch_tv->slug.'.html';?>" class="btn btn-sm btn-default"><?php echo $watch_tv->stream_label;?></a>
+                            <a href="<?php echo base_url('live-tv/').$watch_tv->slug.'';?>" class="btn btn-sm btn-default"><?php echo $watch_tv->stream_label;?></a>
                             <?php
                             if($this->live_tv_model->get_stream_url($watch_tv->live_tv_id,'opt1') !=''):
                             ?>
-                            <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'.html?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt1');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt1');?></a>
+                            <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt1');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt1');?></a>
                             <?php endif; ?>
                             <?php
                             if($this->live_tv_model->get_stream_url($watch_tv->live_tv_id,'opt2') !=''):
                             ?>
-                            <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'.html?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt2');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt2');?></a>
+                            <a href="<?php echo base_url('live-tv/').$this->live_tv_model->get_slug_by_live_tv_id($watch_tv->live_tv_id).'?key='.$this->live_tv_model->get_stream_key($watch_tv->live_tv_id,'opt2');?>" class="btn btn-sm btn-default"><?php echo $this->live_tv_model->get_stream_label($watch_tv->live_tv_id,'opt2');?></a>
                             <?php endif; ?>
                         </div>
                         <?php
@@ -157,11 +157,11 @@
             <?php if($file_source=='youtube'): ?>
             <!-- play from youtube file -->
             <video id="play" class="video-js vjs-big-play-centered skin-<?php echo $player_color_skin; ?> vjs-16-9" poster="<?php echo $this->live_tv_model->get_tv_poster($watch_tv->poster); ?>">
-                
+
             </video>
             <!-- youtube -->
             <script src="<?php echo base_url(); ?>assets/player/plugins/videojs-youtube/Youtube.min.js"></script>
-            
+
             <script>
             videojs("play", {
             "controls": true,
@@ -239,7 +239,7 @@
         ?>
         <div class="item">
             <figure class="figure">
-                <a href="<?php echo base_url('live-tv/').$tv['slug'].'.html'; ?>">
+                <a href="<?php echo base_url('live-tv/').$tv['slug'].''; ?>">
                     <img class="owl-lazy" data-src="<?php echo $this->live_tv_model->get_tv_thumbnail($tv['thumbnail']); ?>" alt="" />
                     <figcaption class="figure-caption "><?php echo $tv['tv_name']; ?></figcaption>
                 </a>
@@ -293,7 +293,7 @@
     <div class="latest-movie movie-opt">
         <div class="movie-heading overflow-hidden"> <span>Latest Movies</span>
         <div class="disable-bottom-line"></div>
-        <a href="<?php echo base_url();?>movies.html" class="btn btn-success btn-sm pull-right">More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
+        <a href="<?php echo base_url();?>movies" class="btn btn-success btn-sm pull-right">More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
     </div>
     <div class="row clean-preset">
         <div class="movie-container">
@@ -301,7 +301,7 @@
             <div class="col-md-2 col-sm-3 col-xs-4">
                 <div class="latest-movie-img-container">
                     <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
-                        <a href="<?php echo base_url('movie/'.$videos['slug']).'.html';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
+                        <a href="<?php echo base_url('movie/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                         <div class="overlay-div"></div>
                         <div class="video_quality">
                             <span class="label label-primary">
@@ -310,7 +310,7 @@
                         </div>
                         <div class="movie-title">
                             <h3>
-                            <a href="<?php echo base_url('movie/'.$videos['slug']).'.html';?>"><?php echo $videos['title'];?></a>
+                            <a href="<?php echo base_url('movie/'.$videos['slug']).'';?>"><?php echo $videos['title'];?></a>
                             </h3>
                         </div>
                     </div>
@@ -331,7 +331,7 @@ if($tv_series_publish =='1'):
 <div class="latest-movie movie-opt">
     <div class="movie-heading overflow-hidden"> <span>Latest TV-Series</span>
     <div class="disable-bottom-line"></div>
-    <a href="<?php echo base_url();?>tv-series.html" class="btn btn-success btn-sm pull-right">More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
+    <a href="<?php echo base_url();?>tv-series" class="btn btn-success btn-sm pull-right">More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
 </div>
 <div class="row clean-preset">
     <div class="movie-container">
@@ -339,7 +339,7 @@ if($tv_series_publish =='1'):
         <div class="col-md-2 col-sm-3 col-xs-4">
             <div class="latest-movie-img-container">
                 <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
-                    <a href="<?php echo base_url('movie/'.$videos['slug']).'.html';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
+                    <a href="<?php echo base_url('movie/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                     <div class="overlay-div"></div>
                     <div class="video_quality">
                         <span class="label label-primary">
@@ -348,7 +348,7 @@ if($tv_series_publish =='1'):
                     </div>
                     <div class="movie-title">
                         <h3>
-                        <a href="<?php echo base_url('movie/'.$videos['slug']).'.html';?>"><?php echo $videos['title'];?></a>
+                        <a href="<?php echo base_url('movie/'.$videos['slug']).'';?>"><?php echo $videos['title'];?></a>
                         </h3>
                     </div>
                 </div>

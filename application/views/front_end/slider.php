@@ -1,5 +1,5 @@
 <?php
-    $header_templete                =   $this->db->get_where('config' , array('title'=>'header_templete'))->row()->value;   
+    $header_templete                =   $this->db->get_where('config' , array('title'=>'header_templete'))->row()->value;
 
     $slider_type            =   $this->db->get_where('config' , array('title'=>'slider_type'))->row()->value;
     $total_movie_in_slider  =   $this->db->get_where('config' , array('title'=>'total_movie_in_slider'))->row()->value;
@@ -25,10 +25,10 @@
         $this->db->limit($total_movie_in_slider);
         $this->db->order_by("videos_id","desc");
         $slider_videos = $this->db->get_where('videos', array('publication'=>'1'))->result();
-        foreach ($slider_videos as $videos) :?> 
+        foreach ($slider_videos as $videos) :?>
       <div class="item">
           <div class="latest-movie-img-container">
-                <div class="movie-img"> <img class="img-responsive" src="<?php echo $this->common_model->get_video_thumb_url($videos->videos_id); ?>" alt="<?php echo $videos->title;?>"> <a href="<?php echo base_url('watch/'.$videos->slug).'.html';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
+                <div class="movie-img"> <img class="img-responsive" src="<?php echo $this->common_model->get_video_thumb_url($videos->videos_id); ?>" alt="<?php echo $videos->title;?>"> <a href="<?php echo base_url('watch/'.$videos->slug).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                     <div class="overlay-div"></div>
                 </div>
             </div>
@@ -48,14 +48,14 @@
 
 
 <script>
-$(document).ready(function() { 
-  $("#owl-demo").owlCarousel({ 
-      autoplay: 3000, 
+$(document).ready(function() {
+  $("#owl-demo").owlCarousel({
+      autoplay: 3000,
       items : <?php echo $slide_per_page; ?>,
       itemsDesktop : [1199,3],
       itemsDesktopSmall : [979,3],
       video: true
-  }); 
+  });
 });
 </script>
 <?php elseif($slider_type == "image"):?>
@@ -75,7 +75,7 @@ $(document).ready(function() {
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $("#owl-demo").owlCarousel({
-            navigation : true, 
+            navigation : true,
             slideSpeed : 300,
             paginationSpeed : 500,
             items: 1,

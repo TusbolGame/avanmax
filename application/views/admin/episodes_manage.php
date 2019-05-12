@@ -1,6 +1,6 @@
 <div class="card">
 
-  <div class="row">         
+  <div class="row">
     <div class="col-md-12">
      <a class="btn btn-sm btn-primary waves-effect mb-20" href="<?php echo base_url('admin/seasons_manage/').$param1; ?>"> <span class="btn-label"><i class="fa fa-arrow-left"></i></span>Back to Seasons</a>
      <a class="btn btn-sm btn-primary waves-effect mb-20" href="<?php echo base_url('watch/').$slug; ?>" target="_blank"> <span class="btn-label"><i class="fa fa-eye"></i></span>Preview</a><br><br>
@@ -9,8 +9,8 @@
             <div class="panel-heading">
               <h3 class="panel-title"><?php echo tr_wd('upload_video') ?></h3>
             </div>
-            <div class="panel-body"> 
-        
+            <div class="panel-body">
+
           <div class="col-md-6 col-md-offset-3">
           <div class="animated-radio-button radio-inline">
           <label>
@@ -31,11 +31,11 @@
             <div class="form-group">
               <label class="control-label"><?php echo tr_wd('select_file'); ?></label>
               <input name="FileInput" id="FileInput" type="file" />
-            </div>               
+            </div>
             <button type="submit" class="btn btn-sm btn-primary waves-effect"> <span class="btn-label"><i class="fa fa-upload"></i></span><?php echo tr_wd('upload_video') ?> </button><br><br></form>
             <div id="progressbox">
               <div class="progress progress-striped active">
-                <div id="progressbar" class="progress-bar" style="width: 0%;"></div>                    
+                <div id="progressbar" class="progress-bar" style="width: 0%;"></div>
               </div>
               <center>
               <div id="statustxt">0%</div>
@@ -63,7 +63,7 @@
               <div class="form-group" id="_source1">
                 <label class="control-label" >URL</label>&nbsp;&nbsp;<input id="video_url" type="url" name="embed_link[]" class="form-control" placeholder="http://server-2.com/movies/titalic.mp4" required=""><br>
               <button class="btn btn-sm btn-primary waves-effect" id="add-link"> <span class="btn-label"><i class="fa fa-plus"></i></span><?php echo tr_wd('add') ?> </button>
-            </div>              
+            </div>
         </div>
     </div>
   </div></div>
@@ -72,7 +72,7 @@
             <div class="panel-heading">
               <h3 class="panel-title"><?php echo tr_wd('episodes_list') ?></h3>
             </div>
-            <div class="panel-body">               
+            <div class="panel-body">
             <table class="table table-bordered" id="video-list">
               <thead>
                 <tr>
@@ -96,7 +96,7 @@
                     <?php if($video_file['file_source'] == 'youtube' || $video_file['file_source'] == 'vimeo' || $video_file['file_source']=='embed'):?>
                       <p>Unsupported</p>
                     <?php else: ?>
-                    <?php 
+                    <?php
                       $subtitles = $this->db->get_where('tvseries_subtitle', array('episodes_id'=>$video_file['episodes_id']))->result_array();
                       foreach ($subtitles as $subtitle):
                      ?>
@@ -108,7 +108,7 @@
                     <div class="btn-group">
                       <button type="button" class="btn btn-white btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a class="dropdown-item" target="_blank" href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'.html?key='.$video_file['stream_key']; ?>">Watch Now</a></li>
+                        <li><a class="dropdown-item" target="_blank" href="<?php echo base_url('watch/').$this->common_model->get_slug_by_videos_id($video_file['videos_id']).'?key='.$video_file['stream_key']; ?>">Watch Now</a></li>
                         <?php if($video_file['file_source']!='youtube' && $video_file['file_source']!='vimeo' && $video_file['file_source']!='embed'):?>
                           <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#mymodal" data-id="<?php echo base_url() . 'admin/view_modal/tvseries_subtitle_add/'.$video_file['videos_id'].'/'.$video_file['seasons_id'].'/'.$video_file['episodes_id'];?>" id="menu">Add Subtitle</a> </li>
                         <?php endif; ?>
@@ -116,10 +116,10 @@
                       </ul>
                     </div>
                   </td>
-                </tr>             
+                </tr>
               <?php endforeach; ?>
             </tbody>
-            </table>         
+            </table>
         </div>
       </div>
     </div>
@@ -131,16 +131,16 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var options = {
-            //target:   '#output',   // target element(s) to be updated with server response 
-            beforeSubmit: beforeSubmit, // pre-submit callback 
-            success: afterSuccess, // post-submit callback 
-            uploadProgress: OnProgress, //upload progress callback 
-            resetForm: true // reset the form after successful submit 
+            //target:   '#output',   // target element(s) to be updated with server response
+            beforeSubmit: beforeSubmit, // pre-submit callback
+            success: afterSuccess, // post-submit callback
+            uploadProgress: OnProgress, //upload progress callback
+            resetForm: true // reset the form after successful submit
         };
 
         $('#MyUploadForm').submit(function() {
             $(this).ajaxSubmit(options);
-            // always return false to prevent standard browser submit and page navigation 
+            // always return false to prevent standard browser submit and page navigation
             return false;
         });
 
@@ -178,7 +178,7 @@
                 var ftype = $('#FileInput')[0].files[0].type; // get file type
 
 
-                //allow file types 
+                //allow file types
                 switch (ftype) {
                     case 'video/webm':
                     case 'video/msvideo':
@@ -204,7 +204,7 @@
                 $('#loading-img').show(); //hide submit button
                 $("#output").html("");
                 $('#progressbar').width('0%') //update progressbar percent complete
-                $('#statustxt').html('0%'); //update status text  
+                $('#statustxt').html('0%'); //update status text
             } else {
                 //Output error to older unsupported browsers that doesn't support HTML5 File API
                 $("#output").html("Please upgrade your browser, because your current browser lacks some new features we need!");
@@ -245,7 +245,7 @@
         $("#upload_section").hide();
         $("#link_section").show();
       });
-       
+
        $("#add-link").click(function(){
         $(this).html('<span class="btn-label"><i class="fa fa-plus"></i></span>Adding..');
         var  type = $("#selected-source").val();
@@ -264,7 +264,7 @@
                     var row_id = response.row_id;
                     var type = response.type;
                     var episodes_name = response.episodes_name;
-                    var url = response.url;                    
+                    var url = response.url;
                     if (post_status == "success") {
                       location.reload();
                       var html_text ='<tr id="row_'+row_id+'"><td><strong>'+episodes_name+'</strong></td><td><strong>'+type+'</strong></td><td>'+url+'</a></td><td><a title="delete" class="btn btn-icon" onclick="delete_row('+"'video_file',"+row_id+')" class="delete"><i class="fa fa-remove"></i></td></tr>';
@@ -277,7 +277,7 @@
                     } else {
                       $("#add-link").html('<span class="btn-label"><i class="fa fa-plus"></i></span>Add to List');
                         swal('OPPS!',post_status ,'error');
-                        //alert(post_status); 
+                        //alert(post_status);
                     }
 
                 }
@@ -298,4 +298,3 @@ function isUrl(s) {
 
 
 </script>
-

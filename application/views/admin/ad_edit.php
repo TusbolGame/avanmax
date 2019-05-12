@@ -1,6 +1,6 @@
 <?php echo form_open(base_url() . 'admin/ad_setting/update/'.$ads_id , array('class' => 'form-horizontal group-border-dashed', 'enctype' => 'multipart/form-data'));?>
 <div class="card">
-    <div class="row">        
+    <div class="row">
         <!-- panel  -->
         <div class="col-md-12">
             <div class="panel panel-border panel-primary">
@@ -17,7 +17,7 @@
                             <select class="form-control m-bot15" id="ad_option" name="ads_type">
                                 <option value="0" id="ad_disable"><?php echo tr_wd('disable'); ?></option>
                                 <option value="image" <?php if($ads_info->ads_type=='image' && $ads_info->enable=='1'){echo 'selected';}?> id="ad_image_selection"><?php echo tr_wd('image'); ?></option>
-                                <option value="code" <?php if($ads_info->ads_type=='code' && $ads_info->enable=='1'){echo 'selected';}?> id="ad_code_selection"><?php echo tr_wd('ads_code'); ?></option>                                
+                                <option value="code" <?php if($ads_info->ads_type=='code' && $ads_info->enable=='1'){echo 'selected';}?> id="ad_code_selection"><?php echo tr_wd('ads_code'); ?></option>
                              </select>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
         <?php endif; ?>
         <?php if($ads_info->ads_type == "code" && $ads_info->enable=="1"): ?>
         $("#ad_code_section").fadeIn("slow");
-        <?php endif; ?>   
+        <?php endif; ?>
         $("#ad_option").change(function() {
             var ad_val = $("#ad_option option:selected").val();
             if (ad_val == "image") {

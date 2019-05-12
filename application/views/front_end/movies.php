@@ -18,15 +18,15 @@
         <div class="row">
             <div class="col-md-8 col-sm-6 col-xs-12">
                 <div class="page-title">
-                    <h1 class="text-uppercase">Watch free movies</h1>
+                    <h1 class="text-uppercase">Películas</h1>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12 text-right">
                 <ul class="breadcrumb">
                     <li>
-                        <a href="<?php echo base_url();?>"><i class="fi ion-ios-home"></i>Home</a>
+                        <a href="<?php echo base_url();?>"><i class="fi ion-ios-home"></i>Portada</a>
                     </li>
-                    <li class="active">Movies</li>
+                    <li class="active">Películas</li>
                 </ul>
             </div>
         </div>
@@ -48,7 +48,7 @@
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
                                     <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
-                                        <a href="<?php echo base_url('watch/'.$videos['slug']).'.html';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
+                                        <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
                                             <span class="label label-primary">
@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="movie-title">
                                             <h3>
-                                            <a href="<?php echo base_url('watch/'.$videos['slug']).'.html';?>"><?php echo $videos['title'];?></a>
+                                            <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>"><?php echo $videos['title'];?></a>
                                             </h3>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
             <!-- End All Movies -->
         </div>
         <?php if($total_rows > $movie_per_page){ echo $links; } }else{ echo '<center><h3> Opps!! No Movie Found</h3></center>'; } ?>
-        
+
     </div>
 </div>
 <!-- Secondary Section -->

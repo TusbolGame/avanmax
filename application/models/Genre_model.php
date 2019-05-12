@@ -8,20 +8,20 @@
 
  * @author      Ryan Connor
 
- 
+
 
 
  *
  **/
- 
+
 
 class Genre_model extends CI_Model {
-	
+
 	function __construct()
     {
         parent::__construct();
     }
-		/* clear cache*/	
+		/* clear cache*/
 	function clear_cache()
 	{
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -29,7 +29,7 @@ class Genre_model extends CI_Model {
 	}
 
 
-	
+
 
     public function all_published_genre()
     {
@@ -42,7 +42,7 @@ class Genre_model extends CI_Model {
         $status = FALSE;
         $num_rows = $this->db->get_where('genre', array('slug' => $slug))->num_rows();
         if($num_rows > 0){
-           $status = TRUE; 
+           $status = TRUE;
         }
         return $status;
     }
@@ -54,7 +54,7 @@ class Genre_model extends CI_Model {
         $this->db->where("find_in_set(".$genre_id.",genre) >",0);
         $query = $this->db->get('videos');
         return $query->num_rows();
-    }    
+    }
 
     public function get_genre_ids($name='')
     {
@@ -100,12 +100,12 @@ class Genre_model extends CI_Model {
     public function get_genre_url_by_id($genre_id){
         $result =$this->db->get_where('genre', array('genre_id' => $genre_id))->num_rows();
         if($result >0){
-            return site_url().'genre/'.$this->db->get_where('genre', array('genre_id' => $genre_id))->row()->slug.'.html';
+            return site_url().'genre/'.$this->db->get_where('genre', array('genre_id' => $genre_id))->row()->slug.'';
         }else{
             return "#";
         }
     }
-    
+
 
    public function fetch_genre_video_by_slug($limit=16, $start=0, $slug) {
         $genre_id   = $this->db->get_where('genre', array('slug' => $slug))->row()->genre_id;
@@ -114,12 +114,12 @@ class Genre_model extends CI_Model {
         return $this->db->get('videos')->result_array();
    }
 
-   
+
    public function fetch_genre_video_by_slug_record_count($slug)
     {
         $genre_id = $this->db->get_where('genre', array('slug' => $slug))->row()->genre_id;
         $this->db->where("find_in_set(".$genre_id.",genre) >",0);
-        $query = $this->db->get('videos');        
+        $query = $this->db->get('videos');
         return $query->num_rows();
     }
 
@@ -130,7 +130,7 @@ class Genre_model extends CI_Model {
         $this->db->where("find_in_set(".$genre_id.",genre) >",0);
         $this->db->limit($limit);
         $this->db->order_by('videos_id',"desc");
-        $query = $this->db->get('videos');        
+        $query = $this->db->get('videos');
         return $query->result_array();
     }
 
@@ -141,9 +141,7 @@ class Genre_model extends CI_Model {
         $this->db->where("find_in_set(".$genre_id.",genre) >",0);
         $this->db->limit($limit);
         $this->db->order_by('videos_id',"desc");
-        $query = $this->db->get('videos');        
+        $query = $this->db->get('videos');
         return $query->result_array();
-    }   
+    }
 }
-
-

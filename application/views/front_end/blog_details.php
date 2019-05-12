@@ -50,7 +50,7 @@
                                         <?php $category=explode(',', $post_details->category_id);
                                             foreach ($category as $category):
                                         ?>
-                                        <a href="<?php echo base_url().'blog/category/'.$this->common_model->get_slug_by_category_id($category).'.html'; ?>">
+                                        <a href="<?php echo base_url().'blog/category/'.$this->common_model->get_slug_by_category_id($category).''; ?>">
                                             <?php echo $this->common_model->get_category_name_by_id($category);?>
                                         </a>
                                         <?php endforeach; ?>
@@ -63,20 +63,20 @@
                             <div class="movie-details-text">
                                 <?php echo $post_details->content; ?>
                                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-                                    <div class="addthis_inline_share_toolbox_yl99 m-t-30 m-b-10" data-url="<?php echo base_url().'blog/'.$post_details->slug.'.html';?>" data-title="Watch & Download <?php echo $post_details->post_title;?>"></div>
+                                    <div class="addthis_inline_share_toolbox_yl99 m-t-30 m-b-10" data-url="<?php echo base_url().'blog/'.$post_details->slug.'';?>" data-title="Watch & Download <?php echo $post_details->post_title;?>"></div>
                                     <!-- Addthis Social tool -->
                             </div>
                             <div class="movie-details-container">
-                                <?php   
+                                <?php
                                     $comments_method = $this->db->get_where('config' , array('title' =>'comments_method'))->row()->value;
                                     $facebook_comment_appid = $this->db->get_where('config' , array('title' =>'facebook_comment_appid'))->row()->value;
                                     if(($comments_method =='both' || $comments_method =='facebook') && $facebook_comment_appid !='') :
                                 ?>
                                 <!-- facebook comments -->
                                 <div class="row">
-                                    <div class="col-md-12">                        
+                                    <div class="col-md-12">
                                     <h2 class="border">Facebook Comments</h2>
-                                    <div class="fb-comments" data-href="<?php echo base_url();?>/blog/<?php echo $post_details->slug;?>.html" data-width="800" data-numposts="30"></div>
+                                    <div class="fb-comments" data-href="<?php echo base_url();?>/blog/<?php echo $post_details->slug;?>" data-width="800" data-numposts="30"></div>
                                     <div id="fb-root"></div>
                                     <script>
                                         (function(d, s, id) {
@@ -87,7 +87,7 @@
                                             js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=<?php echo $this->db->get_where('config' , array('title' =>'facebook_comment_appid'))->row()->value; ?>";
                                             fjs.parentNode.insertBefore(js, fjs);
                                         }(document, 'script', 'facebook-jssdk'));
-                                    </script>                        
+                                    </script>
                                     </div>
                                 </div>
                                 <!-- END facebook comments -->
@@ -135,7 +135,7 @@
                                                     </div>
                                                 </div>
                                                 <?php endforeach; ?>
-                                                <?php   
+                                                <?php
                                                     if(($comments_method =='both' || $comments_method =='ovoo')) :
                                                 ?>
                                                 <div class="comment coment-replay">
@@ -143,7 +143,7 @@
                                                         <textarea name="comment" id="comment" class="form-control" rows="2" placeholder="Repay" required></textarea>
                                                         <input type="hidden" name="post_id" value="<?php echo $post_details->posts_id; ?>">
                                                         <input type="hidden" name="replay_for" value="<?php echo $comment['comments_id']; ?>">
-                                                        <input type="hidden" name="url" value="<?php echo base_url(uri_string()).'.html'; ?>">
+                                                        <input type="hidden" name="url" value="<?php echo base_url(uri_string()).''; ?>">
                                                         <div>
                                                             <?php if($this->session->userdata('login_status') == 1){ ?>
                                                             <button type="submit" value="submit" class="btn btn-success btn-sm pull-right m-t-20"> <span class="btn-label"><i class="fi ion-ios-undo-outline"></i></span>Replay </button>
@@ -164,7 +164,7 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <?php   
+                                    <?php
                                         if(($comments_method =='both' || $comments_method =='ovoo')) :
                                     ?>
                                     <div id="comment-container">
@@ -173,7 +173,7 @@
                                         </div>
                                         <form class="comment-form" method="post" action="<?php echo base_url('comments/post_comment'); ?>">
                                             <input type="hidden" name="post_id" value="<?php echo $post_details->posts_id; ?>">
-                                            <input type="hidden" name="url" value="<?php echo base_url(uri_string()).'.html'; ?>">
+                                            <input type="hidden" name="url" value="<?php echo base_url(uri_string()).''; ?>">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
@@ -237,13 +237,13 @@
                                                 </div>
                                                 <div class="post-text">
                                                     <div class="sm-heading">
-                                                        <a href="<?php echo  base_url().'blog/'.$posts->slug.'.html'; ?>">
+                                                        <a href="<?php echo  base_url().'blog/'.$posts->slug.''; ?>">
                                                             <h2>
                                                                 <?php echo $posts->post_title;?>
                                                             </h2>
                                                         </a>
                                                     </div>
-                                                    <?php 
+                                                    <?php
                                                         $html = strip_tags($posts->content);
                                                         $html = html_entity_decode($html, ENT_QUOTES, 'UTF-8');
                                                         $html = mb_substr($html, 0, 100, 'UTF-8');
@@ -252,7 +252,7 @@
                                                     <p>
                                                         <?php echo $html;?>
                                                     </p>
-                                                    <a href="<?php echo  base_url().'blog/'.$posts->slug.'.html'; ?>" class="btn btn-success pull-right">Read More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
+                                                    <a href="<?php echo  base_url().'blog/'.$posts->slug.''; ?>" class="btn btn-success pull-right">Read More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -264,7 +264,7 @@
                     </div>
                 </div>
             </div>
-            <?php $this->load->view('front_end/blog_sidebar'); ?>   
+            <?php $this->load->view('front_end/blog_sidebar'); ?>
         </div>
     </div>
 </div>

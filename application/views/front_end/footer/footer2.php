@@ -1,4 +1,4 @@
-<?php    
+<?php
     $facebook_url               =   $this->db->get_where('config' , array('title'=>'facebook_url'))->row()->value;
     $twitter_url                =   $this->db->get_where('config' , array('title'=>'twitter_url'))->row()->value;
     $vimeo_url                  =   $this->db->get_where('config' , array('title'=>'vimeo_url'))->row()->value;
@@ -14,11 +14,11 @@
     $site_name                  =   $this->db->get_where('config' , array('title'=>'site_name'))->row()->value;
     $about_us_enable            =   $this->db->get_where('config' , array('title'=>'about_us_enable'))->row()->value;
     $about_us_to_footer_menu    =   $this->db->get_where('config' , array('title'=>'about_us_to_footer_menu'))->row()->value;
-    $contact_to_footer_menu     =   $this->db->get_where('config' , array('title' =>'contact_to_footer_menu'))->row()->value; 
-    $tv_series_pin_footer_menu  =   $this->db->get_where('config' , array('title' =>'tv_series_pin_footer_menu'))->row()->value; 
+    $contact_to_footer_menu     =   $this->db->get_where('config' , array('title' =>'contact_to_footer_menu'))->row()->value;
+    $tv_series_pin_footer_menu  =   $this->db->get_where('config' , array('title' =>'tv_series_pin_footer_menu'))->row()->value;
     $live_tv_pin_footer_menu    =   $this->db->get_where('config' , array('title' =>'live_tv_pin_footer_menu'))->row()->value;
     $privacy_policy_to_footer_menu  =   $this->db->get_where('config' , array('title'=>'privacy_policy_to_footer_menu'))->row()->value;
-    $dmca_to_footer_menu            =   $this->db->get_where('config' , array('title'=>'dmca_to_footer_menu'))->row()->value; 
+    $dmca_to_footer_menu            =   $this->db->get_where('config' , array('title'=>'dmca_to_footer_menu'))->row()->value;
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/front_end/css/'); ?>footer-with-button-logo.css">
 <?php $front_end_theme                =   $this->db->get_where('config' , array('title'=>'front_end_theme'))->row()->value; ?>
@@ -82,34 +82,34 @@
                     <li><a href="<?php echo base_url().'type/'.$video_type->slug?>"><?php echo $video_type->video_type;?></a></li>
                     <?php endforeach; ?>
                     <?php $all_page_on_footer_menu= $this->common_model->all_page_on_footer_menu();
-                        foreach ($all_page_on_footer_menu as $pages):                                                
+                        foreach ($all_page_on_footer_menu as $pages):
                     ?>
-                    <li><a href="<?php echo base_url().'page/'.$pages->slug.'.html';?>"><?php echo $pages->page_title?></a></li>
+                    <li><a href="<?php echo base_url().'page/'.$pages->slug.'';?>"><?php echo $pages->page_title?></a></li>
                     <?php endforeach; ?>
                     <?php if($about_us_enable =='1' && $about_us_to_footer_menu =='1'):?>
-                    <li><a href="<?php echo base_url('about-us.html')?>">About Us</a></li>
+                    <li><a href="<?php echo base_url('about-us')?>">About Us</a></li>
                     <?php endif; ?>
                     <?php if($live_tv_pin_footer_menu == '1'): ?>
-                        <li><a href="<?php echo base_url('live-tv.html')?>">Live TV</a></li>
+                        <li><a href="<?php echo base_url('live-tv')?>">Live TV</a></li>
                     <?php endif; ?>
                     <?php if($tv_series_pin_footer_menu == '1'): ?>
-                        <li><a href="<?php echo base_url('tv-series.html')?>">Tv-Series</a></li>
+                        <li><a href="<?php echo base_url('tv-series')?>">Tv-Series</a></li>
                     <?php endif; ?>
-                    <?php if($privacy_policy_to_footer_menu == '1'): ?>            
-                      <li><a href="<?php echo base_url('privacy-policy.html')?>">Privacy Policy</a></li>
+                    <?php if($privacy_policy_to_footer_menu == '1'): ?>
+                      <li><a href="<?php echo base_url('privacy-policy')?>">Privacy Policy</a></li>
                     <?php endif; ?>
-                    <?php if($dmca_to_footer_menu == '1'): ?>            
-                      <li><a href="<?php echo base_url('dmca.html')?>">DMCA</a></li>
-                    <?php endif; ?>  
+                    <?php if($dmca_to_footer_menu == '1'): ?>
+                      <li><a href="<?php echo base_url('dmca')?>">DMCA</a></li>
+                    <?php endif; ?>
                     <?php if($contact_to_footer_menu == '1'): ?>
-                        <li><a href="<?php echo base_url('contact-us.html')?>">Contact Us</a></li>
-                    <?php endif; ?>             
+                        <li><a href="<?php echo base_url('contact-us')?>">Contact Us</a></li>
+                    <?php endif; ?>
                 </ul>
 
             </div>
             <div class="col-sm-3">
                 <div class="social-networks">
-                    <?php if($twitter_url !=''): ?>                    
+                    <?php if($twitter_url !=''): ?>
                     <a href="<?php echo $twitter_url; ?>" class="twitter"><i class="fa fa-twitter"></i></a>
                     <?php endif; if($facebook_url !=''): ?>
                     <a href="<?php echo $facebook_url; ?>" class="facebook"><i class="fa fa-facebook"></i></a>
@@ -121,7 +121,7 @@
                     <a href="<?php echo $linkedin_url; ?>" class="google"><i class="fa fa-linkedin"></i></a>
                     <?php endif; ?>
                 </div>
-            <a class="btn btn-default" href="<?php echo base_url('contact-us.html'); ?>">Contact us</a>
+            <a class="btn btn-default" href="<?php echo base_url('contact-us'); ?>">Contact us</a>
             </div>
         </div>
     </div>

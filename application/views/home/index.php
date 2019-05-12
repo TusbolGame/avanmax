@@ -43,6 +43,7 @@
 				background-image: url(<?php echo ($landing_page_image_url !='') ? $landing_page_image_url : base_url('uploads/landing_page/bg.jpg'); ?>);
                 background-size: cover;
                 background-position:center;
+                height: 100vh;
 			}
 			.search-box .input-search {
 			    height: 56px;
@@ -95,20 +96,20 @@
 			<div id="bhh-menu">
 				<ul class="top-menu">
 					<li class="active"><a href="<?php echo base_url(); ?>" title="HOME">HOME</a></li>
-					<li><a href="<?php echo base_url('movies.html'); ?>" title="MOVIES">MOVIES</a></li>
+					<li><a href="<?php echo base_url('movies'); ?>" title="MOVIES">MOVIES</a></li>
 					<?php
 		              $tv_series_publish          = $this->db->get_where('config',array('title'=>'tv_series_publish'))->row()->value;
 		              $tv_series_pin_primary_menu = $this->db->get_where('config',array('title'=>'tv_series_pin_primary_menu'))->row()->value;
 		              if($tv_series_publish =='1' && $tv_series_pin_primary_menu =='1'):
 		            ?>
-					<li><a href="<?php echo base_url('tv-series.html'); ?>" title="TV-SERIES">TV-SERIES</a></li>
+					<li><a href="<?php echo base_url('tv-series'); ?>" title="TV-SERIES">TV-SERIES</a></li>
 					<?php endif; ?>
 					<?php
 		              $live_tv_publish          = $this->db->get_where('config',array('title'=>'live_tv_publish'))->row()->value;
 		              $live_tv_pin_primary_menu = $this->db->get_where('config',array('title'=>'live_tv_pin_primary_menu'))->row()->value;
 		              if($live_tv_publish =='1' && $live_tv_pin_primary_menu =='1'):
 		            ?>
-					<li><a href="<?php echo base_url('live-tv.html'); ?>" title="Live TV">TV</a></li>
+					<li><a href="<?php echo base_url('live-tv'); ?>" title="Live TV">TV</a></li>
 					<?php endif; ?>
 				</ul>
 				<div class="clearfix"></div>
@@ -147,7 +148,7 @@
 		        </form>
 			</div>
 			<div class="row text-center" style="margin-top: 20px;">
-				<a href="<?php echo base_url('all-movies.html') ?>" class="btn btn-success btn-all-movie">Explorar</a>
+				<a href="<?php echo base_url('all-movies') ?>" class="btn btn-success btn-all-movie">Explorar</a>
 				<div style="margin-top: 10px;margin-bottom: 10px;">
 					<?php
 						if($this->common_model->get_ads_status('billboard')=='1'):

@@ -10,12 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
  **/
- 
+
 
 class Genre extends CI_Controller {
 
@@ -53,7 +53,7 @@ class Genre extends CI_Controller {
 			$config['num_tag_open'] = '<li>';
 			$config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
 
-			$config['suffix']= 	'.html'; 
+			$config['suffix']= 	'';
 
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;

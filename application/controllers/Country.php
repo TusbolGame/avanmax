@@ -9,12 +9,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
  **/
- 
+
 class Country extends CI_Controller {
 
     public function __construct()
@@ -25,7 +25,7 @@ class Country extends CI_Controller {
     }
 
     public function index($slug=''){
-    	$country_exist = $this->country_model->country_exist($slug);    	
+    	$country_exist = $this->country_model->country_exist($slug);
     	if ($slug !='' && $slug !=NULL && $country_exist) {
     		$num_country = $this->country_model->total_country_found($slug);
             $config = array();
@@ -58,7 +58,7 @@ class Country extends CI_Controller {
 			$config['num_tag_open'] = '<li>';
 			$config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
 
-			$config['suffix']=    '.html'; 
+			$config['suffix']=    ''; 
 
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -73,7 +73,7 @@ class Country extends CI_Controller {
 		else{
             redirect('error', 'refresh');
         }
-        
+
     }
-    
+
 }

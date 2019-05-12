@@ -1,13 +1,13 @@
 <?php
-$registration_enable                  =   $this->db->get_where('config' , array('title' =>'registration_enable'))->row()->value;    
-$frontend_login_enable                =   $this->db->get_where('config' , array('title' =>'frontend_login_enable'))->row()->value;    
-$country_to_primary_menu              =   $this->db->get_where('config' , array('title' =>'country_to_primary_menu'))->row()->value;    
-$genre_to_primary_menu                =   $this->db->get_where('config' , array('title' =>'genre_to_primary_menu'))->row()->value;    
+$registration_enable                  =   $this->db->get_where('config' , array('title' =>'registration_enable'))->row()->value;
+$frontend_login_enable                =   $this->db->get_where('config' , array('title' =>'frontend_login_enable'))->row()->value;
+$country_to_primary_menu              =   $this->db->get_where('config' , array('title' =>'country_to_primary_menu'))->row()->value;
+$genre_to_primary_menu                =   $this->db->get_where('config' , array('title' =>'genre_to_primary_menu'))->row()->value;
 $release_to_primary_menu              =   $this->db->get_where('config' , array('title' =>'release_to_primary_menu'))->row()->value;
-$contact_to_primary_menu              =   $this->db->get_where('config' , array('title' =>'contact_to_primary_menu'))->row()->value; 
+$contact_to_primary_menu              =   $this->db->get_where('config' , array('title' =>'contact_to_primary_menu'))->row()->value;
 $privacy_policy_to_primary_menu       =   $this->db->get_where('config' , array('title'=>'privacy_policy_to_primary_menu'))->row()->value;
 $dmca_to_primary_menu                 =   $this->db->get_where('config' , array('title'=>'dmca_to_primary_menu'))->row()->value;
-$movie_request_enable                 =   $this->db->get_where('config' , array('title'=>'movie_request_enable'))->row()->value;    
+$movie_request_enable                 =   $this->db->get_where('config' , array('title'=>'movie_request_enable'))->row()->value;
 ?>
 <!-- Nav Bar-->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="padding: 0px; margin: 0px;">
@@ -30,11 +30,11 @@ $movie_request_enable                 =   $this->db->get_where('config' , array(
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <span class="caret"></span></a>
                   <div class="dropdown-menu row col-lg-12 three-column-navbar" role="menu">
                     <?php $all_published_genre= $this->genre_model->all_published_genre();
-                        foreach ($all_published_genre as $genre):                                                
+                        foreach ($all_published_genre as $genre):
                     ?>
                     <div class="col-md-3">
                       <ul class="menu-item list-unstyled">
-                          <li><a href="<?php echo base_url('genre/'.$genre->slug.'.html'); ?>"><?php echo $genre->name; ?></a></li>
+                          <li><a href="<?php echo base_url('genre/'.$genre->slug.''); ?>"><?php echo $genre->name; ?></a></li>
                       </ul>
                     </div>
                     <?php endforeach; ?>
@@ -42,15 +42,15 @@ $movie_request_enable                 =   $this->db->get_where('config' , array(
                 </li>
                 <?php endif; ?>
                 <?php if($country_to_primary_menu =='1'): ?>
-                <li class="dropdown"> 
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <span class="caret"></span></a>
                   <div class="dropdown-menu row col-lg-12 three-column-navbar" role="menu">
                     <?php $all_published_country= $this->country_model->all_published_country();
-                      foreach ($all_published_country as $country):                                                
+                      foreach ($all_published_country as $country):
                     ?>
                     <div class="col-md-3">
                       <ul class="menu-item list-unstyled">
-                        <li><a href="<?php echo base_url('country/'.$country->slug.'.html'); ?>"><?php echo $country->name; ?></a></li>
+                        <li><a href="<?php echo base_url('country/'.$country->slug.''); ?>"><?php echo $country->name; ?></a></li>
                       </ul>
                     </div>
                     <?php endforeach; ?>
@@ -62,65 +62,65 @@ $movie_request_enable                 =   $this->db->get_where('config' , array(
                   <div class="dropdown-menu row col-lg-12 three-column-navbar" role="menu">
                     <?php $current_year = date("Y");
                       $end_year = $current_year - 27;
-                      for($i=$current_year;$i>$end_year;$i--): 
+                      for($i=$current_year;$i>$end_year;$i--):
                     ?>
                     <div class="col-md-3">
                       <ul class="menu-item list-unstyled">
-                        <li><a href="<?php echo base_url('year/'.$i.'.html'); ?>"><?php echo $i; ?></a></li>
+                        <li><a href="<?php echo base_url('year/'.$i.''); ?>"><?php echo $i; ?></a></li>
                       </ul>
                     </div>
                     <?php endfor; ?>
                     <div class="col-md-3">
                         <ul class="menu-item list-unstyled">
-                            <li><a href="<?php echo base_url('year.html'); ?>">More..</a></li>
+                            <li><a href="<?php echo base_url('year'); ?>">More..</a></li>
                         </ul>
                     </div>
                   </div>
                 </li>
               <?php endif; ?>
-                <li><a href="<?php echo base_url('movies.html')?>">Movies</a></li>
-                <?php 
+                <li><a href="<?php echo base_url('movies')?>">Movies</a></li>
+                <?php
                   $tv_series_publish          = $this->db->get_where('config',array('title'=>'tv_series_publish'))->row()->value;
                   $tv_series_pin_primary_menu = $this->db->get_where('config',array('title'=>'tv_series_pin_primary_menu'))->row()->value;
                   if($tv_series_publish =='1' && $tv_series_pin_primary_menu =='1'):
                 ?>
-                <li><a href="<?php echo base_url('tv-series.html')?>">TV Series</a></li>
+                <li><a href="<?php echo base_url('tv-series')?>">TV Series</a></li>
                 <?php endif; ?>
-                <?php 
+                <?php
                   $live_tv_publish          = $this->db->get_where('config',array('title'=>'live_tv_publish'))->row()->value;
                   $live_tv_pin_primary_menu = $this->db->get_where('config',array('title'=>'live_tv_pin_primary_menu'))->row()->value;
                   if($live_tv_publish =='1' && $live_tv_pin_primary_menu =='1'):
                 ?>
-                <li><a href="<?php echo base_url('live-tv.html')?>">TV <span class="badge badge-danger" style="background-color: #d00202;">live</span></a></li>
+                <li><a href="<?php echo base_url('live-tv')?>">TV <span class="badge badge-danger" style="background-color: #d00202;">live</span></a></li>
                 <?php endif; ?>
                 <?php $all_video_type_on_primary_menu= $this->common_model->all_video_type_on_primary_menu();
-                  foreach ($all_video_type_on_primary_menu as $video_type):                                                
+                  foreach ($all_video_type_on_primary_menu as $video_type):
                 ?>
                 <li><a href="<?php echo base_url().'type/'.$video_type->slug?>"><?php echo $video_type->video_type;?></a></li>
                 <?php endforeach; ?>
-                <?php 
+                <?php
                   $blog_enable          = $this->db->get_where('config',array('title'=>'blog_enable'))->row()->value;
                   if($blog_enable =='1'):
                 ?>
-                <li><a href="<?php echo base_url('blog.html')?>">Blog</a></li>
-                <?php endif; ?>                  
+                <li><a href="<?php echo base_url('blog')?>">Blog</a></li>
+                <?php endif; ?>
                 <?php $all_page_on_primary_menu= $this->common_model->all_page_on_primary_menu();
-                  foreach ($all_page_on_primary_menu as $pages):                                                
+                  foreach ($all_page_on_primary_menu as $pages):
                 ?>
                 <li><a href="<?php echo base_url().'page/'.$pages->slug?>"><?php echo $pages->page_title?></a></li>
                 <?php endforeach; ?>
                 <?php if($movie_request_enable == '1'): ?>
                 <li><a href="#" data-toggle="modal" data-target="#movieRequest">Request</a></li>
               <?php endif; ?>
-                <?php if($privacy_policy_to_primary_menu == '1'): ?>            
-                  <li><a href="<?php echo base_url('privacy-policy.html')?>">Privacy Policy</a></li>
+                <?php if($privacy_policy_to_primary_menu == '1'): ?>
+                  <li><a href="<?php echo base_url('privacy-policy')?>">Privacy Policy</a></li>
                 <?php endif; ?>
-                <?php if($dmca_to_primary_menu == '1'): ?>            
-                  <li><a href="<?php echo base_url('dmca.html')?>">DMCA</a></li>
+                <?php if($dmca_to_primary_menu == '1'): ?>
+                  <li><a href="<?php echo base_url('dmca')?>">DMCA</a></li>
                 <?php endif; ?>
-                <?php if($contact_to_primary_menu == '1'): ?> 
-                  <li><a href="<?php echo base_url('contact-us.html')?>">Contact</a></li>
-                <?php endif; ?>               
+                <?php if($contact_to_primary_menu == '1'): ?>
+                  <li><a href="<?php echo base_url('contact-us')?>">Contact</a></li>
+                <?php endif; ?>
               </ul>
             </div>
           </div>
@@ -133,7 +133,7 @@ $movie_request_enable                 =   $this->db->get_where('config' , array(
     },function () {
         $(this).removeClass("open");
     });
-  $('.search_tools').click(function(){                    
+  $('.search_tools').click(function(){
     $(".search").toggleClass('open');
     if($(".search").hasClass("open")){
       $(this).html('<a href="#"><span class="fa fa-close"></span></a>');
@@ -154,7 +154,7 @@ $movie_request_enable                 =   $this->db->get_where('config' , array(
         $("#search-input").autocomplete({
             source: "<?php echo base_url(); ?>/home/autocompleteajax",
                 focus: function( event, ui ) {
-                //$( "#search" ).val( ui.item.title ); // uncomment this line if you want to select value to search box  
+                //$( "#search" ).val( ui.item.title ); // uncomment this line if you want to select value to search box
                 return false;
             },
             select: function( event, ui ) {

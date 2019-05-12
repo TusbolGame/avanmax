@@ -36,7 +36,7 @@
                     ?>
                     <div class="item">
                         <figure class="figure">
-                            <a href="<?php echo base_url('live-tv/').$tv['slug'].'.html'; ?>">
+                            <a href="<?php echo base_url('live-tv/').$tv['slug'].''; ?>">
                                 <img class="owl-lazy" src="<?php echo base_url('uploads/default_image/tv_poster.jpg'); ?>" data-src="<?php echo $this->live_tv_model->get_tv_poster($tv['poster']); ?>" alt="<?php echo $tv['tv_name']; ?>" />
                                 <figcaption class="figure-caption "><?php echo $tv['tv_name']; ?></figcaption>
                             </a>
@@ -106,7 +106,7 @@
                     ?>
                     <div class="item">
                         <figure class="figure">
-                            <a href="<?php echo base_url('live-tv/').$tv['slug'].'.html'; ?>">
+                            <a href="<?php echo base_url('live-tv/').$tv['slug'].''; ?>">
                                 <img class="owl-lazy" src="<?php echo base_url('uploads/default_image/tv_poster.jpg'); ?>" data-src="<?php echo $this->live_tv_model->get_tv_poster($tv['poster']); ?>" alt="<?php echo $tv['tv_name']; ?>" />
                                 <figcaption class="figure-caption "><?php echo $tv['tv_name']; ?></figcaption>
                             </a>
@@ -167,7 +167,7 @@
         <!-- Upcomming Movies -->
         <div class="col-md-12 col-sm-12">
           <div class="latest-movie movie-opt">
-            <div class="movie-heading overflow-hidden"> 
+            <div class="movie-heading overflow-hidden">
               <span>
                 <?php echo $live_tv_category['live_tv_category']; ?>
               </span>
@@ -183,7 +183,7 @@
             <?php foreach ($tvs as $tv): ?>
             <div class="item">
                 <figure class="figure">
-                    <a href="<?php echo base_url('live-tv/').$tv['slug'].'.html'; ?>">
+                    <a href="<?php echo base_url('live-tv/').$tv['slug'].''; ?>">
                         <img class="owl-lazy" src="<?php echo base_url('uploads/default_image/tv_poster.jpg'); ?>" data-src="<?php echo $this->live_tv_model->get_tv_poster($tv['poster']); ?>" alt="<?php echo $tv['tv_name']; ?>" />
                         <figcaption class="figure-caption "><?php echo $tv['tv_name']; ?></figcaption>
                     </a>

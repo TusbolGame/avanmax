@@ -35,13 +35,13 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="sidebar">
                         <div class="ad_300x250 m-b-10">
-                             <?php echo $this->common_model->get_ads('sidebar'); ?>    
+                             <?php echo $this->common_model->get_ads('sidebar'); ?>
                         </div>
                     </div>
                 </div>
                 <!-- End sidebar ads -->
             <?php endif; ?>
-        </div>        
+        </div>
         <!-- End row1 player -->
     </div>
 </div>
@@ -68,7 +68,7 @@
                     ?>
                     <div class="item">
                         <figure class="figure">
-                            <a href="<?php echo base_url('live-tv/').$tv['slug'].'.html'; ?>">
+                            <a href="<?php echo base_url('live-tv/').$tv['slug'].''; ?>">
                                 <img class="owl-lazy" data-src="<?php echo $this->live_tv_model->get_tv_thumbnail($tv['thumbnail']); ?>" alt="" />
                                 <figcaption class="figure-caption "><?php echo $tv['tv_name']; ?></figcaption>
                             </a>
@@ -114,5 +114,3 @@
         </div>
     </div>
 </div>
-
-

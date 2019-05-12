@@ -3,22 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * AvanMax
-
-
-
  *
-
  * @author      Ryan Connor/AvanMax
-
- 
-
-
  *
  **/
 
- 
+
 class Page extends CI_Controller{
-    
+
     public function index($slug=''){
     	$page = $this->common_model->page_is_exist($slug);
         if ($slug !='' && $slug !=NULL && $page) {
@@ -30,10 +22,10 @@ class Page extends CI_Controller{
             $data['title']                  = !empty(trim($data['page_details']->seo_title)) ? $data['page_details']->seo_title : $data['page_details']->page_title;
             $data['meta_description']       = $data['page_details']->meta_description;
             $data['focus_keyword']          = $data['page_details']->focus_keyword;
-            $data['canonical']              = base_url('page/'.$data['page_details']->slug.'.html');
+            $data['canonical']              = base_url('page/'.$data['page_details']->slug.'');
             // end seo
             $data['page_name']='page';
-            $this->load->view('front_end/index',$data);        
+            $this->load->view('front_end/index',$data);
         }else{
             redirect('error', 'refresh');
         }
@@ -45,4 +37,3 @@ class Page extends CI_Controller{
         $this->load->view('front_end/index',$data);
     }
 }
-

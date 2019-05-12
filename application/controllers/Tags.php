@@ -10,12 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
  **/
- 
+
 
 class Tags extends CI_Controller {
 
@@ -51,10 +51,10 @@ class Tags extends CI_Controller {
         $config['num_tag_open'] = '<li>';
         $config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
 
-        $config['suffix']=        '.html'; 
+        $config['suffix']=        '';
 
         $this->pagination->initialize($config);
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;      
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $data["all_published_videos"] = $this->common_model->get_video_by_tags($config["per_page"], $page, $tags);
         $data["links"] = $this->pagination->create_links();
         $data['total_rows']=$config["total_rows"];

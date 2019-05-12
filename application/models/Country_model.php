@@ -91,7 +91,7 @@ class Country_model extends CI_Model {
     public function get_country_url_by_id($country_id){
         $result =$this->db->get_where('country', array('country_id' => $country_id))->num_rows();
         if($result >0){
-            return site_url().'country/'.$this->db->get_where('country', array('country_id' => $country_id))->row()->slug.'.html';
+            return site_url().'country/'.$this->db->get_where('country', array('country_id' => $country_id))->row()->slug.'';
         }else{
             return "#";
         }

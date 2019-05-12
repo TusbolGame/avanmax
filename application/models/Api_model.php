@@ -9,22 +9,22 @@
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
  **/
- 
+
 
 class Api_model extends CI_Model {
     public  $default_limit  =   10;
-    
+
     function __construct()
     {
         parent::__construct();
 
     }
-        /* clear cache*/    
+        /* clear cache*/
     function clear_cache()
     {
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -42,7 +42,7 @@ class Api_model extends CI_Model {
 
 
 
-    /***** 
+    /*****
     movie section start here
     *****/
 
@@ -167,7 +167,7 @@ class Api_model extends CI_Model {
     public function get_single_movie_details_by_id($id=''){
         $response                   = array();
         $this->db->where('videos_id', $id);
-        $movie                      =   $this->db->get('videos')->row();        
+        $movie                      =   $this->db->get('videos')->row();
         $response['videos_id']                  = $movie->videos_id;
         $response['title']                      = $movie->title;
         $response['description']                = strip_tags($movie->description);
@@ -177,14 +177,14 @@ class Api_model extends CI_Model {
         $response['video_quality']              = $movie->video_quality;
         $response['is_tvseries']                = $movie->video_quality;
         $response['thumbnail_url']              = $this->common_model->get_video_thumb_url($movie->videos_id);
-        $response['poster_url']                 = $this->common_model->get_video_poster_url($movie->videos_id);        
-        $response['videos']                     = $this->get_all_video_by_movie_id($movie->videos_id);      
-        $response['genre']                      = $this->genre_details_generator($movie->genre);      
-        $response['country']                    = $this->country_details_generator($movie->country);      
-        $response['director']                   = $this->star_details_generator($movie->director);      
-        $response['writer']                     = $this->star_details_generator($movie->writer);      
-        $response['cast']                       = $this->star_details_generator($movie->stars);      
-        $response['related_movie']              = $this->get_related_movie($movie->videos_id,$movie->genre);      
+        $response['poster_url']                 = $this->common_model->get_video_poster_url($movie->videos_id);
+        $response['videos']                     = $this->get_all_video_by_movie_id($movie->videos_id);
+        $response['genre']                      = $this->genre_details_generator($movie->genre);
+        $response['country']                    = $this->country_details_generator($movie->country);
+        $response['director']                   = $this->star_details_generator($movie->director);
+        $response['writer']                     = $this->star_details_generator($movie->writer);
+        $response['cast']                       = $this->star_details_generator($movie->stars);
+        $response['related_movie']              = $this->get_related_movie($movie->videos_id,$movie->genre);
         return $response;
     }
 
@@ -261,12 +261,12 @@ class Api_model extends CI_Model {
 
 
 
-    /***** 
+    /*****
     movie section end here
     *****/
 
 
-    /***** 
+    /*****
     tvseries section start here
     *****/
 
@@ -391,7 +391,7 @@ class Api_model extends CI_Model {
     public function get_single_tvseries_details_by_id($id=''){
         $response                   = array();
         $this->db->where('videos_id', $id);
-        $movie                                  = $this->db->get('videos')->row();        
+        $movie                                  = $this->db->get('videos')->row();
         $response['videos_id']                  = $movie->videos_id;
         $response['title']                      = $movie->title;
         $response['description']                = strip_tags($movie->description);
@@ -400,15 +400,15 @@ class Api_model extends CI_Model {
         $response['runtime']                    = $movie->runtime;
         $response['video_quality']              = $movie->video_quality;
         $response['thumbnail_url']              = $this->common_model->get_video_thumb_url($movie->videos_id);
-        $response['poster_url']                 = $this->common_model->get_video_poster_url($movie->videos_id);        
+        $response['poster_url']                 = $this->common_model->get_video_poster_url($movie->videos_id);
         //$response['videos']                     = $this->get_all_video_by_movie_id($movie->videos_id);
-        $response['genre']                      = $this->genre_details_generator($movie->genre);      
-        $response['country']                    = $this->country_details_generator($movie->country);      
-        $response['director']                   = $this->star_details_generator($movie->director);      
-        $response['writer']                     = $this->star_details_generator($movie->writer);      
-        $response['cast']                       = $this->star_details_generator($movie->stars);      
-        $response['season']                     = $this->get_season_episode($movie->videos_id);      
-        $response['related_tvseries']           = $this->get_related_tvseries($movie->videos_id,$movie->genre);      
+        $response['genre']                      = $this->genre_details_generator($movie->genre);
+        $response['country']                    = $this->country_details_generator($movie->country);
+        $response['director']                   = $this->star_details_generator($movie->director);
+        $response['writer']                     = $this->star_details_generator($movie->writer);
+        $response['cast']                       = $this->star_details_generator($movie->stars);
+        $response['season']                     = $this->get_season_episode($movie->videos_id);
+        $response['related_tvseries']           = $this->get_related_tvseries($movie->videos_id,$movie->genre);
         return $response;
     }
 
@@ -491,7 +491,7 @@ class Api_model extends CI_Model {
         return $response;
     }
 
-    /***** 
+    /*****
     tvseries section end here
     *****/
 
@@ -537,7 +537,7 @@ class Api_model extends CI_Model {
             $response[$i]['name']                   = $country['name'];
             $response[$i]['description']            = strip_tags($country['description']);
             $response[$i]['slug']                   = $country['slug'];
-            $response[$i]['url']                    = base_url('country/'.$country['slug'].'.html');
+            $response[$i]['url']                    = base_url('country/'.$country['slug'].'');
             $i++;
         endforeach;
         return $response;
@@ -554,7 +554,7 @@ class Api_model extends CI_Model {
             $response[$i]['name']                   = $genre['name'];
             $response[$i]['description']            = strip_tags($genre['description']);
             $response[$i]['slug']                   = $genre['slug'];
-            $response[$i]['url']                    = base_url('genre/'.$genre['slug'].'.html');
+            $response[$i]['url']                    = base_url('genre/'.$genre['slug'].'');
             $i++;
         endforeach;
         return $response;
@@ -675,7 +675,7 @@ class Api_model extends CI_Model {
     public function get_single_tv_details_by_id($id=''){
         $response                       = array();
         $this->db->where('live_tv_id', $id);
-        $tv                             =   $this->db->get('live_tv')->row();        
+        $tv                             =   $this->db->get('live_tv')->row();
         $response['live_tv_id']     = $tv->live_tv_id;
         $response['tv_name']        = $tv->tv_name;
         $response['description']    = strip_tags($tv->description);
@@ -685,11 +685,11 @@ class Api_model extends CI_Model {
         $response['stream_url']     = $tv->stream_url;
         if($response['stream_from'] =='youtube'):
             $response['stream_url']     = str_replace('watch?v=','embed/',$tv->stream_url);
-        endif;        
+        endif;
         $response['thumbnail_url']  = $this->live_tv_model->get_tv_thumbnail($tv->thumbnail);
-        $response['poster_url']     = $this->live_tv_model->get_tv_poster($tv->poster);      
-        $response['additional_media_source']     = $this->get_aditional_media_source($tv->live_tv_id);      
-        $response['all_tv_channel']     = $this->get_all_tv_channel();    
+        $response['poster_url']     = $this->live_tv_model->get_tv_poster($tv->poster);
+        $response['additional_media_source']     = $this->get_aditional_media_source($tv->live_tv_id);
+        $response['all_tv_channel']     = $this->get_all_tv_channel();
         return $response;
     }
 
@@ -747,8 +747,8 @@ class Api_model extends CI_Model {
             $this->db->where($credential);
             //$this->db->update('user', array('last_login' => date('Y-m-d H:i:s')));
             $result = TRUE;
-        endif;    
-        return $result;      
+        endif;
+        return $result;
     }
 
     // validate login  function
@@ -758,8 +758,8 @@ class Api_model extends CI_Model {
         $query = $this->db->get_where('user' , $credential);
         if ($query->num_rows() > 0):
             $result = TRUE;
-        endif;    
-        return $result;      
+        endif;
+        return $result;
     }
 
 
@@ -771,30 +771,30 @@ class Api_model extends CI_Model {
         if ($query->num_rows() > 0):
             $this->db->where($credential);
             $result = TRUE;
-        endif;    
-        return $result;      
+        endif;
+        return $result;
     }
 
     // get user info  function
     function get_user_info($email   =   '' , $password   =  ''){
         $credential    =   array(  'email' => $email , 'password' => $password );
-        $result = $this->db->get_where('user' , $credential)->row();   
-        return $result;     
+        $result = $this->db->get_where('user' , $credential)->row();
+        return $result;
     }
 
 
     // get user info  function
     function get_user_info_by_user_id($user_id   =   ''){
         $credential    =   array(  'user_id' => $user_id );
-        $result = $this->db->get_where('user' , $credential)->row();   
-        return $result;     
+        $result = $this->db->get_where('user' , $credential)->row();
+        return $result;
     }
 
     // get user info  function
     function get_user_info_by_email($email   =   ''){
         $credential    =   array(  'email' => $email );
-        $result = $this->db->get_where('user' , $credential)->row();   
-        return $result;     
+        $result = $this->db->get_where('user' , $credential)->row();
+        return $result;
     }
 
 
@@ -809,14 +809,14 @@ class Api_model extends CI_Model {
         $data['join_date']      = date('Y-m-d H:i:s');
         $data['last_login']     = date('Y-m-d H:i:s');
         $this->db->insert('user', $data);
-        return TRUE;     
+        return TRUE;
     }
 
 
     function update_profile($user_id   =   '' , $data   =  array()){
         $this->db->where('user_id',$user_id);
-        $this->db->update('user' ,$data);  
-        return TRUE;     
+        $this->db->update('user' ,$data);
+        return TRUE;
     }
 
 
@@ -828,8 +828,8 @@ class Api_model extends CI_Model {
         $query = $this->db->get_where('user' , $credential);
         if ($query->num_rows() > 0):
             $result = FALSE;
-        endif;    
-        return $result;      
+        endif;
+        return $result;
     }
 
 
@@ -845,7 +845,7 @@ class Api_model extends CI_Model {
         $i          =   0;
         foreach ($genres as $genre_id):
             $response[$i]['genre_id']   = $genre_id;
-            $response[$i]['name']       = $this->genre_model->get_genre_name_by_id($genre_id);            
+            $response[$i]['name']       = $this->genre_model->get_genre_name_by_id($genre_id);
             $response[$i]['url']        = $this->genre_model->get_genre_url_by_id($genre_id);
             $i++;
         endforeach;
@@ -857,7 +857,7 @@ class Api_model extends CI_Model {
         $i          =   0;
         foreach ($countrys as $country_id):
             $response[$i]['country_id'] = $country_id;
-            $response[$i]['name']       = $this->country_model->get_country_name_by_id($country_id);            
+            $response[$i]['name']       = $this->country_model->get_country_name_by_id($country_id);
             $response[$i]['url']        = $this->country_model->get_country_url_by_id($country_id);
             $i++;
         endforeach;
@@ -876,8 +876,8 @@ class Api_model extends CI_Model {
                     $response[$i]['name']       = 'Unknown';
                 else:
                     $response[$i]['name']       = $name;
-                endif;         
-                $response[$i]['url']        = base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id).'.html';
+                endif;
+                $response[$i]['url']        = base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id).'';
                 $i++;
             endif;
         endforeach;
@@ -934,21 +934,21 @@ class Api_model extends CI_Model {
             if($validity):
                 $response[$i]     = $this->get_movie_details_by_id($wish_list['videos_id']);
                 $i++;
-            endif;            
+            endif;
         endforeach;
         return $response;
     }
     function add_favorite($user_id   =   '' , $videos_id   =  ''){
         $credential    =   array(  'user_id' => $user_id , 'videos_id' => $videos_id , 'wish_list_type' => 'fav','wish_list_type' => 'fav','create_at'=> date('Y-m-d H:i:s'));
         $this->db->insert('wish_list',$credential);
-        return TRUE;     
+        return TRUE;
     }
 
     function remove_favorite($user_id   =   '' , $videos_id   =  ''){
         $credential    =   array(  'user_id' => $user_id , 'videos_id' => $videos_id);
         $this->db->where($credential);
         $this->db->delete('wish_list');
-        return TRUE;     
+        return TRUE;
     }
 
     public function verify_favorite_list($user_id   =   '' , $videos_id   =  '')
@@ -971,14 +971,14 @@ class Api_model extends CI_Model {
         $query = $this->db->get_where('videos' , $credential);
         if ($query->num_rows() > 0):
             $result = TRUE;
-        endif;    
-        return $result;      
+        endif;
+        return $result;
     }
 
     public function get_movie_details_by_id($id=''){
         $response                   = array();
         $this->db->where('videos_id', $id);
-        $movie                      =   $this->db->get('videos')->row();        
+        $movie                      =   $this->db->get('videos')->row();
         $response['videos_id']                  = $movie->videos_id;
         $response['title']                      = $movie->title;
         $response['description']                = strip_tags($movie->description);
@@ -988,13 +988,13 @@ class Api_model extends CI_Model {
         $response['video_quality']              = $movie->video_quality;
         $response['is_tvseries']                = $movie->is_tvseries;
         $response['thumbnail_url']              = $this->common_model->get_video_thumb_url($movie->videos_id);
-        $response['poster_url']                 = $this->common_model->get_video_poster_url($movie->videos_id);        
-        $response['videos']                     = $this->get_all_video_by_movie_id($movie->videos_id);      
-        $response['genre']                      = $this->genre_details_generator($movie->genre);      
-        $response['country']                    = $this->country_details_generator($movie->country);      
-        $response['director']                   = $this->star_details_generator($movie->director);      
-        $response['writer']                     = $this->star_details_generator($movie->writer);      
-        $response['cast']                       = $this->star_details_generator($movie->stars);      
+        $response['poster_url']                 = $this->common_model->get_video_poster_url($movie->videos_id);
+        $response['videos']                     = $this->get_all_video_by_movie_id($movie->videos_id);
+        $response['genre']                      = $this->genre_details_generator($movie->genre);
+        $response['country']                    = $this->country_details_generator($movie->country);
+        $response['director']                   = $this->star_details_generator($movie->director);
+        $response['writer']                     = $this->star_details_generator($movie->writer);
+        $response['cast']                       = $this->star_details_generator($movie->stars);
         return $response;
     }
 
@@ -1002,7 +1002,7 @@ class Api_model extends CI_Model {
         $response                   = TRUE;
         $data['password']           = md5($password);
         $this->db->where('email', $email);
-        $this->db->update('user', $data);     
+        $this->db->update('user', $data);
         return $response;
     }
 
@@ -1013,7 +1013,7 @@ class Api_model extends CI_Model {
         $this->db->order_by('comment_at', "DESC");
         $comments                               =   $this->db->get('comments')->result_array();
         $i          = 0;
-        foreach ($comments as $comment):        
+        foreach ($comments as $comment):
             $response[$i]['comments_id']                = $comment['comments_id'];
             $response[$i]['videos_id']                  = $comment['video_id'];
             $response[$i]['user_id']                    = $comment['user_id'];
@@ -1021,7 +1021,7 @@ class Api_model extends CI_Model {
             $response[$i]['user_img_url']               = $this->common_model->get_img('user', $comment['user_id']);
             $response[$i]['comments']                   = $comment['comment'];
             $i++;
-        endforeach;      
+        endforeach;
         return $response;
     }
 
@@ -1032,7 +1032,7 @@ class Api_model extends CI_Model {
         $this->db->order_by('comment_at', "ASC");
         $comments                   =   $this->db->get('comments')->result_array();
         $i = 0;
-        foreach ($comments as $comment):        
+        foreach ($comments as $comment):
             $response[$i]['replay_id']                  = $comment['comments_id'];
             $response[$i]['videos_id']                  = $comment['video_id'];
             $response[$i]['user_id']                    = $comment['user_id'];
@@ -1040,7 +1040,7 @@ class Api_model extends CI_Model {
             $response[$i]['user_img_url']               = $this->common_model->get_img('user', $comment['user_id']);
             $response[$i]['comments']                   = $comment['comment'];
             $i++;
-        endforeach;      
+        endforeach;
         return $response;
     }
 
@@ -1055,7 +1055,7 @@ class Api_model extends CI_Model {
             return $this->db->insert_id();
         else:
             return FALSE;
-        endif;    
+        endif;
     }
 
     function add_replay($user_id   =   '' , $comments_id   =  '',$comment   =  ''){
@@ -1070,13 +1070,13 @@ class Api_model extends CI_Model {
             return $this->db->insert_id();
         else:
             return FALSE;
-        endif;    
+        endif;
     }
 
     public function get_videos_id_by_comment_id($id=''){
         $response                   = 0;
         $this->db->where('comments_id', $id);
-        $response                  =   $this->db->get('comments')->row()->video_id;     
+        $response                  =   $this->db->get('comments')->row()->video_id;
         return $response;
     }
 
@@ -1103,7 +1103,7 @@ class Api_model extends CI_Model {
             $response[$i]['name']                   = $genre['name'];
             $response[$i]['description']            = strip_tags($genre['description']);
             $response[$i]['slug']                   = $genre['slug'];
-            $response[$i]['url']                    = base_url('genre/'.$genre['slug'].'.html');
+            $response[$i]['url']                    = base_url('genre/'.$genre['slug'].'');
             $response[$i]['videos']                 = $this->get_movie_by_genre_id($genre['genre_id']);
             $i++;
         endforeach;
@@ -1111,5 +1111,3 @@ class Api_model extends CI_Model {
     }
 
 }
-
-

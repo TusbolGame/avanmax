@@ -10,12 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
  **/
- 
+
 
 class Blog extends CI_Controller {
 
@@ -52,7 +52,7 @@ class Blog extends CI_Controller {
 			$config['num_tag_open'] = '<li>';
 			$config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
 
-			$config['suffix']= 	'.html'; 
+			$config['suffix']= 	'';
 
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
@@ -63,7 +63,7 @@ class Blog extends CI_Controller {
 			$data['title']				= $this->db->get_where('config' , array('title' =>'blog_title'))->row()->value;
 			$data['meta_description']	= $this->db->get_where('config' , array('title' =>'blog_meta_description'))->row()->value;
 			$data['focus_keyword']		= $this->db->get_where('config' , array('title' =>'blog_keyword'))->row()->value;
-			$data['canonical']			= base_url('blog.html');
+			$data['canonical']			= base_url('blog');
 			// end seo
 			$data['page_name']='blog';
 			$this->load->view('front_end/index',$data);
@@ -73,7 +73,7 @@ class Blog extends CI_Controller {
 	}
 
 	public function details($slug=''){
-    	$blog_enable                =   $this->db->get_where('config' , array('title'=>'blog_enable'))->row()->value;		
+    	$blog_enable                =   $this->db->get_where('config' , array('title'=>'blog_enable'))->row()->value;
 		$post = $this->common_model->post_is_exist($slug);
 		if ($slug != '' && $slug !=NULL && $post && $blog_enable=='1'):
             $data['post_details'] = $this->common_model->get_posts_by_slug($slug);
@@ -85,11 +85,11 @@ class Blog extends CI_Controller {
 			$data['title']					= !empty(trim($data['post_details']->seo_title)) ? $data['post_details']->seo_title : $data['post_details']->post_title;
 			$data['meta_description']		= $data['post_details']->meta_description;
 			$data['focus_keyword']			= $data['post_details']->focus_keyword;
-			$data['canonical']				= base_url('blog/'.$data['post_details']->slug.'.html');
+			$data['canonical']				= base_url('blog/'.$data['post_details']->slug.'');
 			// end seo
 			// opengraph for social
             $data['og_title']               = !empty(trim($data['post_details']->seo_title)) ? $data['post_details']->seo_title : $data['post_details']->post_title;
-            $data['og_url']                 = base_url('blog/'.$data['post_details']->slug.'.html');
+            $data['og_url']                 = base_url('blog/'.$data['post_details']->slug.'');
             $data['og_description']         = $data['post_details']->meta_description;
             $data['og_image_url']           = $data['post_details']->image_link;
             // end opengraph
@@ -101,7 +101,7 @@ class Blog extends CI_Controller {
 
     public function category($slug=''){
 		if ($slug == '') {
-            redirect('error');           
+            redirect('error');
 		}
 		$config = array();
 		$config["base_url"] = base_url() . "blog/category/".$slug;
@@ -133,7 +133,7 @@ class Blog extends CI_Controller {
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
 
-		$config['suffix']=      '.html'; 
+		$config['suffix']=      '';
 
 		$this->pagination->initialize($config);
 		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
@@ -148,7 +148,7 @@ class Blog extends CI_Controller {
 
     public function author($slug=''){
 		if ($slug == '') {
-            redirect('error');           
+            redirect('error');
 		}
 
 		$config = array();
@@ -181,7 +181,7 @@ class Blog extends CI_Controller {
 		$config['num_tag_open'] 	= '<li>';
 		$config['num_tag_close'] 	= '<div class="pagination-hvr"></div></li>';
 
-		$config['suffix']			= '.html'; 
+		$config['suffix']			= ''; 
 
 		$this->pagination->initialize($config);
 		$page 							= ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;

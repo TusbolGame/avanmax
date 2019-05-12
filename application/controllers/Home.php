@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
@@ -31,7 +31,7 @@ class Home extends CI_Controller {
 		$data['new_videos']				= $this->common_model->new_published_videos();
 		$data['latest_videos']			= $this->common_model->latest_published_videos();
 		$data['new_tv_series']			= $this->common_model->new_published_tv_series();
-		$data['latest_tv_series']		= $this->common_model->latest_published_tv_series();		
+		$data['latest_tv_series']		= $this->common_model->latest_published_tv_series();
 		$data['title'] 					= $this->db->get_where('config' , array('title' =>'home_page_seo_title'))->row()->value;
 		// seo
 		$data['title']					= $this->db->get_where('config' , array('title' =>'home_page_seo_title'))->row()->value;
@@ -52,17 +52,17 @@ class Home extends CI_Controller {
 		$data['new_videos']				= $this->common_model->new_published_videos();
 		$data['latest_videos']			= $this->common_model->latest_published_videos();
 		$data['new_tv_series']			= $this->common_model->new_published_tv_series();
-		$data['latest_tv_series']		= $this->common_model->latest_published_tv_series();		
+		$data['latest_tv_series']		= $this->common_model->latest_published_tv_series();
 		// seo
 		$data['title']					= $this->db->get_where('config' , array('title' =>'home_page_seo_title'))->row()->value;
 		$data['meta_description']		= $this->db->get_where('config' , array('title' =>'meta_description'))->row()->value;
 		$data['focus_keyword']			= $this->db->get_where('config' , array('title' =>'focus_keyword'))->row()->value;
-		$data['canonical']				= base_url('all-movies.html');
+		$data['canonical']				= base_url('all-movies');
 		// end seo
 		$data['page_name']				= 'home';
 		$this->load->view('front_end/index',$data);
 	}
-  
+
 	public function search(){
 		$filter 			= array();
 		$search_string		= '';
@@ -105,7 +105,7 @@ class Home extends CI_Controller {
 		$config['num_tag_close'] 	= '<div class="pagination-hvr"></div></li>';
 		$config['page_query_string'] = TRUE;
 		$this->pagination->initialize($config);
-		$page 						= $this->input->get('per_page');   
+		$page 						= $this->input->get('per_page');
         $data["all_published_videos"] = $this->common_model->get_videos($filter,$config["per_page"], $page);
 		$data["links"] 				= $this->pagination->create_links();
 		$data['total_rows']			= $config["total_rows"];
@@ -122,23 +122,23 @@ class Home extends CI_Controller {
         $this->db->like('title',$tearm);
         $videos =  $this->db->get('videos')->result_array();
             foreach($videos as $video)
-            {                
+            {
                 $new_row['title']= $video['title'];
                 $new_row['type']= "Movie";
                 if($video['is_tvseries']=="1"){
                 	$new_row['type']= "TV-Series";
                 }
 	            $new_row['image'] 	= $this->common_model->get_video_thumb_url($video['videos_id']);
-                $new_row['url']		= base_url().'watch/'.$video['slug'].'.html';              
+                $new_row['url']		= base_url().'watch/'.$video['slug'].'';
              	$row_set[] 			= $new_row;
-            }        
-        echo json_encode($row_set); 
+            }
+        echo json_encode($row_set);
     }
-  
+
     public function movies(){
     	$movie_per_page              =   $this->db->get_where('config' , array('title'=>'movie_per_page'))->row()->value;
 		$this->load->library("pagination");
-		$total_movie 				= $this->common_model->movies_record_count();  
+		$total_movie 				= $this->common_model->movies_record_count();
 		$config 					= array();
 		$config["base_url"] 		= base_url() . "home/movies";
 		$config["total_rows"] 		= $total_movie;
@@ -162,8 +162,8 @@ class Home extends CI_Controller {
 		$config['cur_tag_close'] 	= '</a><div class="pagination-hvr"></div></li>';
 		$config['num_tag_open'] 	= '<li>';
 		$config['num_tag_close'] 	= '<div class="pagination-hvr"></div></li>';
-		$config['suffix']			= '.html'; 
-		$config['use_page_numbers'] = TRUE;	
+		$config['suffix']			= '';
+		$config['use_page_numbers'] = TRUE;
 
 		$this->pagination->initialize($config);
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -174,7 +174,7 @@ class Home extends CI_Controller {
 		$data['title']				= $this->db->get_where('config' , array('title' =>'movie_page_seo_title'))->row()->value;
 		$data['meta_description']	= $this->db->get_where('config' , array('title' =>'movie_page_meta_description'))->row()->value;
 		$data['focus_keyword']		= $this->db->get_where('config' , array('title' =>'movie_page_focus_keyword'))->row()->value;
-		$data['canonical']			= base_url('movies.html');
+		$data['canonical']			= base_url('movies');
 		// end seo
 
 		$data['page_name']='movies';
@@ -183,7 +183,7 @@ class Home extends CI_Controller {
 
 	public function trailers(){
 		$this->load->library("pagination");
-    
+
 		$config = array();
 		$config["base_url"] = base_url() . "home/trailers";
 		$config["total_rows"] = $this->common_model->trailers_record_count();
@@ -213,8 +213,8 @@ class Home extends CI_Controller {
 
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
-		$config['suffix']=  '.html'; 
-  
+		$config['suffix']=  '';
+
 
 		$this->pagination->initialize($config);
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -224,11 +224,11 @@ class Home extends CI_Controller {
 		$data['title'] = 'Free Movies Online';
 		$data['page_name']='movies';
 		$this->load->view('front_end/index',$data);
-	}  
+	}
 
 	public function request_movies(){
 
-		$this->load->library("pagination");    
+		$this->load->library("pagination");
 		$config = array();
 		$config["base_url"] = base_url() . "home/request_movies";
 		$config["total_rows"] = $this->common_model->requested_movie_record_count();
@@ -258,8 +258,8 @@ class Home extends CI_Controller {
 
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
-		$config['suffix']=  '.html'; 
-  
+		$config['suffix']=  '';
+
 
 		$this->pagination->initialize($config);
 		$page 							= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -284,28 +284,28 @@ class Home extends CI_Controller {
 	}
 
 
-  
+
 	public function faq(){
 		$data['title'] = 'FAQ';
 		$data['page_name']='faq';
 		$this->load->view('front_end/index',$data);
 	}
-  
-  
+
+
     public function policy(){
 		$data['title'] = 'Privacy Policy';
 		$data['page_name']='policy';
 		$this->load->view('front_end/index',$data);
 	}
-  
-  
+
+
     public function terms(){
 		$data['title'] = 'Terms & Condition';
 		$data['page_name']='terms';
 		$this->load->view('front_end/index',$data);
 	}
-  
-  
+
+
     public function contact(){
 		$data['title'] = 'Contact Us';
 		$data['page_name']='contact';
@@ -313,13 +313,13 @@ class Home extends CI_Controller {
 	}
 
 	function send_message(){
-        $response = array();        
+        $response = array();
         //Ajax database name,username and password request
         $name                   	= $_POST["name"];
-        $email                   	= $_POST["email"]; 
+        $email                   	= $_POST["email"];
         $message                   	= $_POST["message"];
         //$this->email_model->contact_email($name , $email, $message);
-        $response['status'] = 'success';        
+        $response['status'] = 'success';
         //Replying ajax request with validation response
         echo json_encode($response);
     }
@@ -334,7 +334,7 @@ class Home extends CI_Controller {
 		if ($this->form_validation->run() == FALSE)
         {
         	$this->session->set_flashdata('error', validation_errors());
-            redirect(base_url() . 'contact-us.html', 'refresh');
+            redirect(base_url() . 'contact-us', 'refresh');
         }
         else
         {
@@ -345,16 +345,16 @@ class Home extends CI_Controller {
         		$this->session->set_flashdata('success', 'Message send successfully.');
     		}else{
     			$this->session->set_flashdata('error', 'Oops! Something went wrong.');	
-    	    	rediret(base_url() . 'contact-us.html', 'refresh');
+    	    	rediret(base_url() . 'contact-us', 'refresh');
     		}
     	}
-    	redirect(base_url() . 'contact-us.html', 'refresh');
+    	redirect(base_url() . 'contact-us', 'refresh');
     }
 
     function send_movie_requiest(){
         $name                   	= $this->input->post('name');
         $email                   	= $this->input->post('email');
-        $movie_name                 = $this->input->post('movie_name');  
+        $movie_name                 = $this->input->post('movie_name');
         $message                   	= $this->input->post('message');
         $this->form_validation->set_rules('name', 'Name', 'required|min_length[3]');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|min_length[6]');
@@ -380,15 +380,15 @@ class Home extends CI_Controller {
         $data['posts'] 				= $this->db->get_where('posts', array('publication'=>'1'))->result_array();
         $data['countries'] 			= $this->db->get_where('country', array('publication'=>'1'))->result_array();
         $data['genres'] 			= $this->db->get_where('genre', array('publication'=>'1'))->result_array();
-        $this->load->view("front_end/sitemap",$data);                
-        
+        $this->load->view("front_end/sitemap",$data);
+
     }
 
     function view_modal($page_name = '' , $param2 = '' , $param3 = ''){
             $account_type       =   $this->session->userdata('login_type');
             $data['param2']     =   $param2;
             $data['param3']     =   $param3;
-            $this->load->view('front_end/'.$page_name.'.php' ,$data);        
-        
+            $this->load->view('front_end/'.$page_name.'.php' ,$data);
+
     }
 }

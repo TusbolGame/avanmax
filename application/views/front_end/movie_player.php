@@ -160,7 +160,7 @@
 				<?php
 					if( ($source['video_type'] != 'private') || (($this->session->userdata('login_type') == 'admin') && ($source['video_type'] == 'private')) || (($this->session->userdata('login_type') == 'crew') && ($source['video_type'] == 'private')) ){
 						echo '<a href="';
-						echo base_url().'watch/'.$watch_videos->slug.'.html?key='.$source['stream_key'];
+						echo base_url().'watch/'.$watch_videos->slug.'?key='.$source['stream_key'];
 						echo '"'; //end href
 
 						echo ' '; //space

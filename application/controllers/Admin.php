@@ -3097,7 +3097,7 @@ class Admin extends CI_Controller {
         $response['post_status']        = "success";
         $response['type']               = $_POST["type"];
         $response['url']                = $_POST["url"];
-        $response['watch_url']          = base_url('watch/').$this->common_model->get_slug_by_videos_id($_POST["videos_id"]).'.html?key='.$file_data['stream_key'];
+        $response['watch_url']          = base_url('watch/').$this->common_model->get_slug_by_videos_id($_POST["videos_id"]).'?key='.$file_data['stream_key'];
         echo json_encode($response);
     }
 
@@ -3399,14 +3399,14 @@ class Admin extends CI_Controller {
                     //$response['video_info'] = '<tr id="row_'.$videos_id.'"><td><strong>Upload</strong></td><td>'.base_url().'uploads/videos/'.$NewFileName.'</a></td><td><a title="delete" class="btn btn-icon" onclick="delete_row('."'video_file',".$videos_id.')" class="delete"><i class="fa fa-remove"></i></td></tr>';
                     $response['video_info'] = '<tr id="row_'.$insert_id.'">
                                                 <td>#</td>
-                                                <td><a href="'.base_url('watch/').$this->common_model->get_slug_by_videos_id($videos_id).'.html?key='.$data['stream_key'].'">Server</a></td>
+                                                <td><a href="'.base_url('watch/').$this->common_model->get_slug_by_videos_id($videos_id).'?key='.$data['stream_key'].'">Server</a></td>
                                                 <td>'.base_url().'uploads/videos/'.$NewFileName.'</td>
                                                 <td></td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-white btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
                                                         <ul class="dropdown-menu" role="menu">
-                                                            <li><a class="dropdown-item" target="_blank" href="'.base_url('watch/').$this->common_model->get_slug_by_videos_id($videos_id).'.html?key='.$data['stream_key'].'">Watch Now</a></li>
+                                                            <li><a class="dropdown-item" target="_blank" href="'.base_url('watch/').$this->common_model->get_slug_by_videos_id($videos_id).'?key='.$data['stream_key'].'">Watch Now</a></li>
                                                             <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#mymodal" data-id="'.base_url().'/admin/view_modal/subtitle_add/'.$videos_id.'/'.$insert_id.'" id="menu">Add Subtitle</a> </li>
                                                             <li><a class="dropdown-item" title="Delete" href="#" onclick="delete_row('."'video_file',".$insert_id.')" class="delete">Delete</a> </li>
 

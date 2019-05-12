@@ -53,13 +53,13 @@
                                 <div class="post-video-info">
                                     <p class="post-video-aut-name">
                                         <span class="by-in">By</span>
-                                        <a href="<?php echo base_url().'blog/author/'.$this->common_model->get_slug_by_user_id($posts->user_id).'.html';?>"><?php echo $this->common_model->get_name_by_id($posts->user_id);?></a>
+                                        <a href="<?php echo base_url().'blog/author/'.$this->common_model->get_slug_by_user_id($posts->user_id).'';?>"><?php echo $this->common_model->get_name_by_id($posts->user_id);?></a>
                                         <span>&#47;</span>
                                         <span class="by-in"> In</span>
                                         <?php $category=explode(',', $posts->category_id);
                         foreach ($category as $category):
                         ?>
-                                        <a href="<?php echo base_url().'blog/category/'.$this->common_model->get_slug_by_category_id($category).'.html'; ?>">
+                                        <a href="<?php echo base_url().'blog/category/'.$this->common_model->get_slug_by_category_id($category).''; ?>">
                                             <?php echo $this->common_model->get_category_name_by_id($category);?>
                                         </a>
                                         <?php endforeach; ?>
@@ -72,13 +72,13 @@
                                 </div>
                                 <div class="post-text">
                                     <div class="sm-heading">
-                                        <a href="<?php echo  base_url().'blog/'.$posts->slug.'.html'; ?>">
+                                        <a href="<?php echo  base_url().'blog/'.$posts->slug.''; ?>">
                                             <h2>
                                                 <?php echo $posts->post_title;?>
                                             </h2>
                                         </a>
                                     </div>
-                                    <?php 
+                                    <?php
                                         $html = strip_tags($posts->content);
                                         $html = html_entity_decode($html, ENT_QUOTES, 'UTF-8');
                                         $html = mb_substr($html, 0, 100, 'UTF-8');
@@ -87,7 +87,7 @@
                                     <p>
                                         <?php echo $html;?>
                                     </p>
-                                    <a href="<?php echo  base_url().'blog/'.$posts->slug.'.html'; ?>" class="btn btn-success btn-sm pull-right">Read More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
+                                    <a href="<?php echo  base_url().'blog/'.$posts->slug.''; ?>" class="btn btn-success btn-sm pull-right">Read More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>

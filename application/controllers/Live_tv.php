@@ -26,7 +26,7 @@ class Live_tv extends CI_Controller {
 		$data['title']				= $this->db->get_where('config' , array('title' =>'live_tv_title'))->row()->value;
 		$data['meta_description']	= $this->db->get_where('config' , array('title' =>'live_tv_meta_description'))->row()->value;
 		$data['focus_keyword']		= $this->db->get_where('config' , array('title' =>'live_tv_keyword'))->row()->value;
-		$data['canonical']			= base_url('live-tv.html');
+		$data['canonical']			= base_url('live-tv');
 		// end seo
 		$data['page_name']				= 'live_tv';
 		$this->load->view('front_end/index',$data);
@@ -43,11 +43,11 @@ class Live_tv extends CI_Controller {
 			$data['title']					= !empty(trim($data['watch_tv']->seo_title)) ? $data['watch_tv']->seo_title : $data['watch_tv']->tv_name;
 			$data['meta_description']		= !empty(trim($data['watch_tv']->meta_description)) ? $data['watch_tv']->meta_description : $data['watch_tv']->description;
 			$data['focus_keyword']			= $data['watch_tv']->focus_keyword;
-			$data['canonical']				= base_url('live-tv/'.$data['watch_tv']->slug.'.html');
+			$data['canonical']				= base_url('live-tv/'.$data['watch_tv']->slug.'');
 			// end seo
 			// opengraph for social
             $data['og_title']               = !empty(trim($data['watch_tv']->seo_title)) ? $data['watch_tv']->seo_title : $data['watch_tv']->tv_name;
-            $data['og_url']                 = base_url('live-tv/'.$data['watch_tv']->slug.'.html');
+            $data['og_url']                 = base_url('live-tv/'.$data['watch_tv']->slug.'');
             $data['og_description']         = !empty(trim($data['watch_tv']->meta_description)) ? $data['watch_tv']->meta_description : $data['watch_tv']->description;
             $data['og_image_url']           = $this->live_tv_model->get_tv_poster($data['watch_tv']->poster);
             // end opengraph

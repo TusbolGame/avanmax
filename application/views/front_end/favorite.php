@@ -70,26 +70,26 @@
                             <div class="col-md-12 col-sm-12">
                                 <div class="latest-movie movie-opt">
                                     <table class="table table-striped">
-                                        <?php 
+                                        <?php
                                             foreach($fav_videos as $favorite_videos):
                                             $all_fav_videos = $this->db->get_where('videos', array('videos_id'=>$favorite_videos['videos_id']))->result_array();
                                             foreach ($all_fav_videos as $videos) :
                                         ?>
                                         <tr id="row_<?php echo $favorite_videos['wish_list_id'];?>">
-                                            <td width="180" valign="top"><a href="<?php if($videos['is_tvseries'] =='1'){ echo base_url('tv-series/watch/'.$videos['slug'].'.html');}else{  echo base_url('watch/'.$videos['slug'].'.html');}?>"><img class="img-responsive" src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" width="120" alt="Blade Runner 2049"></a></td>
+                                            <td width="180" valign="top"><a href="<?php if($videos['is_tvseries'] =='1'){ echo base_url('tv-series/watch/'.$videos['slug'].'');}else{  echo base_url('watch/'.$videos['slug'].'');}?>"><img class="img-responsive" src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" width="120" alt="Blade Runner 2049"></a></td>
                                             <td valign="top">
                                                 <div>
-                                                    <a href="<?php echo base_url('watch/'.$videos['slug'].'.html');?>"><h3><?php echo $videos['title'];?></h3></a>
+                                                    <a href="<?php echo base_url('watch/'.$videos['slug'].'');?>"><h3><?php echo $videos['title'];?></h3></a>
                                                 </div>
                                                 <?php echo $videos['description'];?>
                                             </td>
                                             <td width="70" valign="top">
-                                                <a class="btn btn-xs btn-success" href="<?php echo base_url('watch/'.$videos['slug'].'.html');?>"><i class="fa fa-eye"></i></a>
-                                                <button class="btn btn-xs btn-danger" onclick="wish_list_remove('<?php echo $favorite_videos['wish_list_id'];?>')"><i class="fa fa-close"></i></button>                                                
+                                                <a class="btn btn-xs btn-success" href="<?php echo base_url('watch/'.$videos['slug'].'');?>"><i class="fa fa-eye"></i></a>
+                                                <button class="btn btn-xs btn-danger" onclick="wish_list_remove('<?php echo $favorite_videos['wish_list_id'];?>')"><i class="fa fa-close"></i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; endforeach; ?>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
 
@@ -142,7 +142,7 @@
                                 swal('Fail!!', "Unable to remove!", "error");
                                 $(table_row).fadeOut(2000);
                             }
-                            
+
                         })
                         .fail(function() {
                             swal('Oops...', response.message, response.status);

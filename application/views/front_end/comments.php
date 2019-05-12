@@ -1,4 +1,4 @@
-<?php   
+<?php
     $comments_method 			= $this->db->get_where('config' , array('title' =>'comments_method'))->row()->value;
     $facebook_comment_appid 	= $this->db->get_where('config' , array('title' =>'facebook_comment_appid'))->row()->value;
     $total_comments 			= $this->db->get_where('comments', array('video_id' =>$watch_videos->videos_id , 'comment_type'=>'1','publication'=>'1'))->num_rows();
@@ -7,9 +7,9 @@
 ?>
 <!-- facebook comments -->
 <div class="row">
-    <div class="col-md-12">                        
+    <div class="col-md-12">
     	<h2 class="border">Facebook Comments</h2>
-    	<div class="fb-comments" data-href="<?php echo base_url();?>/watch/<?php echo $watch_videos->slug;?>.html" data-width="800" data-numposts="30"></div>
+    	<div class="fb-comments" data-href="<?php echo base_url();?>/watch/<?php echo $watch_videos->slug;?>" data-width="800" data-numposts="30"></div>
 		<div id="fb-root"></div>
 	    <script>
 	        (function(d, s, id) {
@@ -20,7 +20,7 @@
 	            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=<?php echo $this->db->get_where('config' , array('title' =>'facebook_comment_appid'))->row()->value; ?>";
 	            fjs.parentNode.insertBefore(js, fjs);
 	        }(document, 'script', 'facebook-jssdk'));
-	    </script>                        
+	    </script>
     </div>
 </div>
 <!-- END facebook comments -->
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <?php endforeach; ?>
-                    <?php   
+                    <?php
                         if(($comments_method =='both' || $comments_method =='ovoo')) :
                     ?>
                     <div class="comment coment-replay">

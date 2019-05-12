@@ -10,20 +10,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  * @author      Ryan Connor/AvanMax
 
- 
+
 
 
  *
  **/
- 
+
 
 class Year extends CI_Controller {
 
 	public function index(){
-                
+
 }
 public function find($param1=''){
-        if($param1 !=''  || $param1!=NULL){                     
+        if($param1 !=''  || $param1!=NULL){
                 $year=str_replace("%20"," ",$param1);
                 $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
                 $config = array();
@@ -56,10 +56,10 @@ public function find($param1=''){
                 $config['num_tag_open'] = '<li>';
                 $config['num_tag_close'] = '<div class="pagination-hvr"></div></li>';
 
-                $config['suffix']=        '.html';
-                $config['use_page_numbers'] = FALSE; 
+                $config['suffix']=        '';
+                $config['use_page_numbers'] = FALSE;
 
-                $this->pagination->initialize($config);                      
+                $this->pagination->initialize($config);
                 $data["all_published_videos"] = $this->common_model->get_video_by_year($config["per_page"], $page, $year);
                 $data["links"] = $this->pagination->create_links();
                 $data['total_rows']=$config["total_rows"];
@@ -71,7 +71,7 @@ public function find($param1=''){
         else{
                 $data['title'] = "Search movie by year";
                 $data['page_name']='years';
-                $this->load->view('front_end/index',$data);    
+                $this->load->view('front_end/index',$data);
         }
 }
 

@@ -63,7 +63,7 @@
                                                                 <p><span style="font-weight:bold;font-size:16px">Director: </span> '.$director.'</p>
                                                                 <p><span style="font-weight:bold;font-size:16px">Duration:</span> '.$video->runtime.'</p>
                                                                 <p><span style="font-weight:bold;font-size:16px">IMDb Rate: </span> '.$video->imdb_rating.'</p>
-                                                                <p><span style="font-weight:bold;font-size:16px"><a style="margin-top: 10px; background-color: rgb(31, 148, 21); font-family: Arial; color: rgb(255, 255, 255); display: inline-block; border-radius: 6px; text-align: center; padding: 12px 20px; text-decoration: none;" class="button-1 hyperlink" href="'.$watch_url.'.html" data-default="1">WATCH ONLINE</a></p>
+                                                                <p><span style="font-weight:bold;font-size:16px"><a style="margin-top: 10px; background-color: rgb(31, 148, 21); font-family: Arial; color: rgb(255, 255, 255); display: inline-block; border-radius: 6px; text-align: center; padding: 12px 20px; text-decoration: none;" class="button-1 hyperlink" href="'.$watch_url.'" data-default="1">WATCH ONLINE</a></p>
 
                                                             </div>
                                                             <div>
@@ -79,7 +79,7 @@
 
                                                 </td>
                                             </tr>
-    
+
                                         </tbody>
                                     </table>
                                 </td>
