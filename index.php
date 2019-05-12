@@ -308,3 +308,6 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
+//Project Security
+require_once BASEPATH.'../secure/config.php';

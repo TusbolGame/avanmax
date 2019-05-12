@@ -1,15 +1,15 @@
-<?php    
+<?php
     $default_meta_description       =   $this->db->get_where('config' , array('title'=>'meta_description'))->row()->value;
     $default_focus_keyword          =   $this->db->get_where('config' , array('title'=>'focus_keyword'))->row()->value;
     $author                         =   $this->db->get_where('config' , array('title'=>'author'))->row()->value;
     $front_end_theme                =   $this->db->get_where('config' , array('title'=>'front_end_theme'))->row()->value;
     $dark_theme                     =   $this->db->get_where('config' , array('title'=>'dark_theme'))->row()->value;
     $google_analytics_id            =   $this->db->get_where('config' , array('title'=>'google_analytics_id'))->row()->value;
-    $header_templete                =   $this->db->get_where('config' , array('title'=>'header_templete'))->row()->value;   
+    $header_templete                =   $this->db->get_where('config' , array('title'=>'header_templete'))->row()->value;
     $footer_templete                =   $this->db->get_where('config' , array('title'=>'footer_templete'))->row()->value;
-    $share_this_enable              =   $this->db->get_where('config' , array('title' =>'social_share_enable'))->row()->value;    
+    $share_this_enable              =   $this->db->get_where('config' , array('title' =>'social_share_enable'))->row()->value;
     $push_notification_enable       =   $this->db->get_where('config' , array('title' =>'push_notification_enable'))->row()->value;
-    $site_name                      =   $this->db->get_where('config' , array('title'=>'site_name'))->row()->value;   
+    $site_name                      =   $this->db->get_where('config' , array('title'=>'site_name'))->row()->value;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="<?php echo $og_image_url; ?>" />
 <?php endif; ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title><?php if(isset($title) && !empty($title)): echo $title; else: echo $site_name; endif; ?></title>   
+<title><?php if(isset($title) && !empty($title)): echo $title; else: echo $site_name; endif; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>uploads/system_logo/favicon.ico">
 <!-- Style Sheets -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/front_end/css/bootstrap.min.css">
@@ -58,7 +58,7 @@
 <link href="<?php echo base_url(); ?>assets/player/plugins/videojs-share/videojs-share.css" rel="stylesheet">
 <!-- social share CSS -->
 <link href="<?php echo base_url(); ?>assets/player/plugins/videojs-seek-buttons/videojs-seek-buttons.css" rel="stylesheet">
-<?php endif; ?> 
+<?php endif; ?>
 <?php if($page_name=='home' || $page_name=='live_tv' || $page_name=='watch_tv'): ?>
 <!-- owlcarousel -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/front_end/css/owl.carousel.min.css">
@@ -84,7 +84,7 @@
             color:#0088cc;
         }
         a:hover{
-           color:#0088c0; 
+           color:#0088c0;
         }
     </style>
 <?php elseif($front_end_theme =='green'): ?>
@@ -96,7 +96,7 @@
             color:#5DC560;
         }
         a:hover{
-           color:#5DC569; 
+           color:#5DC569;
         }
     </style>
 <?php elseif($front_end_theme =='red'): ?>
@@ -108,7 +108,7 @@
             color:#ff0000;
         }
         a:hover{
-           color:#ff0009; 
+           color:#ff0009;
         }
     </style>
 <?php elseif($front_end_theme =='yellow'): ?>
@@ -120,7 +120,7 @@
             color:#FDD922;
         }
         a:hover{
-           color:#FDD929; 
+           color:#FDD929;
         }
     </style>
 <?php elseif($front_end_theme =='purple'): ?>
@@ -132,7 +132,7 @@
             color:#6d0eb1;
         }
         a:hover{
-           color:#6d0eb9; 
+           color:#6d0eb9;
         }
     </style>
 <?php else: ?>
@@ -144,16 +144,16 @@
             color:#0088cc;
         }
         a:hover{
-           color:#0088c0; 
+           color:#0088c0;
         }
     </style>
 <?php endif; ?>
 </head>
     <body>
         <div id="wrapper">
-            <div id="main-content">            
-            <?php 
-                $this->load->view('front_end/header/'.$header_templete);            
+            <div id="main-content">
+            <?php
+                $this->load->view('front_end/header/'.$header_templete);
                 if ($page_name == 'home')
                     $this->load->view('front_end/slider');
                 if ($page_name == 'home'): ?>
@@ -164,12 +164,12 @@
                         <!-- Addthis Social tool -->
                     <?php endif; ?>
                     </div>
-            <?php endif; ?> 
+            <?php endif; ?>
 
             <?php
                 $this->load->view('front_end/'.$page_name);
                 $this->load->view('front_end/footer/'.$footer_templete);
-                $this->load->view('front_end/movie_request');             
+                $this->load->view('front_end/movie_request');
             ?>
         </div>
     </div>
@@ -189,10 +189,10 @@
     <!--sweet alert2 JS -->
     <link href="<?php echo base_url(); ?>assets/plugins/swal2/sweetalert2.min.css" rel="stylesheet">
     <!-- END sweet alert2 JS -->
-    <!-- Scripts -->    
-    <script src="<?php echo base_url(); ?>assets/front_end/js/ovoo.js"></script>    
+    <!-- Scripts -->
+    <script src="<?php echo base_url(); ?>assets/front_end/js/ovoo.js"></script>
     <script src="<?php echo base_url(); ?>assets/front_end/js/bootstrap.min.js"></script>
-    
+
     <?php if($google_analytics_id !='' && $google_analytics_id !=NULL && !empty($google_analytics_id)): ?>
         <!-- Google analytics -->
         <script>
@@ -233,10 +233,10 @@
     </script>
     <?php
         if($push_notification_enable == '1'):
-        $onesignal_appid                    =   $this->db->get_where('config' , array('title' =>'onesignal_appid'))->row()->value;    
-        $onesignal_actionmessage            =   $this->db->get_where('config' , array('title' =>'onesignal_actionmessage'))->row()->value;    
-        $onesignal_acceptbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_acceptbuttontext'))->row()->value;    
-        $onesignal_cancelbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_cancelbuttontext'))->row()->value;    
+        $onesignal_appid                    =   $this->db->get_where('config' , array('title' =>'onesignal_appid'))->row()->value;
+        $onesignal_actionmessage            =   $this->db->get_where('config' , array('title' =>'onesignal_actionmessage'))->row()->value;
+        $onesignal_acceptbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_acceptbuttontext'))->row()->value;
+        $onesignal_cancelbuttontext         =   $this->db->get_where('config' , array('title' =>'onesignal_cancelbuttontext'))->row()->value;
      ?>
     <!-- oneSignal -->
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
