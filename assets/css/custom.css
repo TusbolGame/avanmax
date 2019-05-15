@@ -18,7 +18,7 @@
 	text-transform: uppercase;
     font-size: 14px;
     font-weight: 600;
-    background-color: #009688;
+    background-color: #2a81c7;
 }
 button.close {
     padding: 10px;
@@ -35,11 +35,11 @@ button.close {
     /*margin-left: 10px;*/
 }
 .treeview-item.active, .treeview-item:hover, .treeview-item:focus {
-    background: #009688;
+    background: #2a81c7;
 }
 
 .treeview-item.active{
-    /*border-left: 1px solid #009688;*/
+    /*border-left: 1px solid #2a81c7;*/
 }
 
 .header-line {
@@ -51,7 +51,7 @@ button.close {
 }
 
 .bootstrap-tagsinput .badge {
-    background-color: #009688;
+    background-color: #2a81c7;
     border: 1px solid #035d54;
 }
 .swal-overlay {

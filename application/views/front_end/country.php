@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="page-title">
-					<h1 class="text-uppercase"><?php echo $country_name; ?> Movies</h1>
+					<h1 class="text-uppercase"><?php echo $country_name; ?> Películas</h1>
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12 text-right">
@@ -47,7 +47,7 @@
                             <?php foreach ($all_published_videos as $videos): ?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                     	<a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <!-- End All Movies -->
-			<?php else: echo "<h3 class='text-center text-uppercase'>No movie found by Country:  ".$country_name."</h3>"; endif; ?>
+        <?php else: echo "<h3 class='text-center text-uppercase'>No encontramos películas para:  ".$country_name."</h3>"; endif; ?>
         </div>
 		<?php if($total_rows > 24): echo $links;endif;?>
 	</div>

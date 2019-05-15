@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600,700');
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -9,7 +8,7 @@ input,
 a,
 button,
 .btn {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-weight: normal;
 }
@@ -26,7 +25,7 @@ h4,
 h5,
 h6,
 .sm-heading a {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 .sm-heading a {
     color: #363636;
@@ -55,6 +54,11 @@ a:focus {
 .wow {
     visibility: hidden;
 }
+
+.logo_home{
+    max-width: 245px;
+}
+
 .btn-create-album,
 .btn-view-more {
     outline: none;
@@ -599,7 +603,7 @@ a:focus {
     font-size: 14px;
 }
 .vid-author a {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #fff;
     font-size: 16px;
     text-decoration: none;
@@ -615,7 +619,7 @@ a:focus {
     padding-bottom: 30px;
 }
 .movie-heading {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     /*border-bottom: 1px solid #d0d0d0;*/
     margin: 0px;
     font-size: 0px;
@@ -686,7 +690,7 @@ a:focus {
 }
 .movie-title h1 a,
 .post-text h1 a {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-decoration: none;
     display: inline-block;
     color: #363636;
@@ -699,7 +703,7 @@ a:focus {
 }
 /*.movie-title h1,
 .post-text h1 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-decoration: none;
     display: inline-block;
     color: #363636;
@@ -802,7 +806,7 @@ p.blog-movie-desc a {
 .sidebar h1 a,
 .latest-post h1 a {
     color: #b8babc;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-decoration: none;
 }
 .sidebar p,
@@ -1957,12 +1961,29 @@ p.blog-movie-desc {
 .pull-left {
     float:left;
 }
+
+div#info {
+    background: whitesmoke;
+    padding: 5px 15px 15px 15px;
+    border-radius: 5px;
+}
+
+.movie_desc{
+    margin-top: 15px;
+    margin-bottom:20px;
+}
+
+
+div#info span {
+    font-size: 100%!important;
+}
+
 .pull-right {
     float:right;
 }
 /* rating */
 .rating_selection {
-    text-align: center;
+    text-align: left;
 }
 .rating_selection label:first-of-type {
     display: none;
@@ -1991,7 +2012,7 @@ p.blog-movie-desc {
 .rating_selection:hover label:hover ~ label:before {
     color: #aaa;
 }
-/*** 
+/***
 ====================================================================
     Comments Area
 ====================================================================
@@ -2224,7 +2245,7 @@ p.blog-movie-desc {
 .info_content h3 {
     color: #000;
 }
-/*** 
+/***
 ====================================================================
     Search Box
 ====================================================================
@@ -2443,7 +2464,7 @@ p.blog-movie-desc {
 }
 
 /*************************
-headerS 2-7 BELOW 
+headerS 2-7 BELOW
 **************************/
 
 /* header 2 (larger logo) - simply adjust top bottom padding to make logo larger */
@@ -2488,7 +2509,7 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 
 
 /* header 6 - Background Logo*/
-.header6 .navbar-brand{ 
+.header6 .navbar-brand{
   /*background: url(https://res.cloudinary.com/candidbusiness/image/upload/v1455406304/dispute-bills-chicago.png) center / contain no-repeat;*/
   width: 200px;
 }
@@ -2508,7 +2529,7 @@ line height is 20px by default so add 30px top and bottom to equal the new .navb
 .header-8 .navbar-brand>img {
   height: 100%;
   width: auto;
-  padding: 7px 14px; 
+  padding: 7px 14px;
 }
 }
 

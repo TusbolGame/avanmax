@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-9 col-sm-8 col-xs-12">
                 <div class="page-title">
-                    <h1 class="text-uppercase">Our Blog</h1>
+                    <h1 class="text-uppercase">Avanmax Blog</h1>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 text-right">
@@ -87,7 +87,7 @@
                                     <p>
                                         <?php echo $html;?>
                                     </p>
-                                    <a href="<?php echo  base_url().'blog/'.$posts->slug.''; ?>" class="btn btn-success btn-sm pull-right">Read More<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
+                                    <a href="<?php echo  base_url().'blog/'.$posts->slug.''; ?>" class="btn btn-success btn-sm pull-right">Seguir leyendo<i class="fa fa-angle-double-right m-l-10" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -95,10 +95,10 @@
                         <!-- End Single post -->
                     </div>
                 </div>
-                <?php }else{ echo '<h2>No post found..</h2>';} ?>
+            <?php }else{ echo '<h2>No se encontraron artículos..</h2>';} ?>
                 <?php if($total_rows > 12){ echo $links; } ?>
             </div>
-            <?php $this->load->view('front_end/blog_sidebar'); ?>            
+            <?php $this->load->view('front_end/blog_sidebar'); ?>
         </div>
     </div>
 </div>

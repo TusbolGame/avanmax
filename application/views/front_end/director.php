@@ -12,7 +12,7 @@
                     <li>
                         <a href="<?php echo base_url();?>"><i class="fi ion-ios-home"></i>Home</a>
                     </li>
-                    <li class="active">TV Series</li>
+                    <li class="active">Series</li>
                 </ul>
             </div>
         </div>
@@ -46,11 +46,11 @@
             <!-- End All Movies -->
             <?php }
             else{
-                echo "<h2 class='text-center text-capitalize'>No Movie Found by ".$director_name;
+                echo "<h2 class='text-center text-capitalize'>No encontramos películas para ".$director_name;
             } ?>
         </div>
         <?php if($total_rows > 24){ echo $links; } ?>
-        
+
     </div>
 </div>
 <!-- Secondary Section -->

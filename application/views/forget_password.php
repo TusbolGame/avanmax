@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-        <title>Login | ovoo</title>
+        <title>Login | Avanmax</title>
 
         <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>assets/css/core.css" rel="stylesheet" type="text/css" />
@@ -114,7 +114,7 @@
 .panel-primary>.panel-heading{color:#fff;background-color:#16163F;border-color:#16163F}
 
 </style>
-        
+
     </head>
     <body>
         <script type="text/javascript">
@@ -129,11 +129,11 @@
         <div class="clearfix"></div>
         <div class="wrapper-page">
         	<div class=" card-box">
-            <div class="panel-heading"> 
+            <div class="panel-heading">
                 <div class="text-center">
                         <a href="<?php echo base_url(); ?>" class="logo">
-                            <img src="<?php echo base_url(); ?>assets/images/logo-mini.png"  style="margin-top:25px;" class="icon-magnet icon-c-logo" alt="logo"> 
-                            <span><img src="<?php echo base_url(); ?>uploads/system_logo/logo.png<?php echo '?'.time(); ?>"  class="md md-album" alt="ovoo">
+                            <img src="<?php echo base_url(); ?>assets/images/logo-mini.png"  style="margin-top:25px;" class="icon-magnet icon-c-logo" alt="logo">
+                            <span><img src="<?php echo base_url(); ?>uploads/system_logo/logo.png<?php echo '?'.time(); ?>"  class="md md-album" alt="Avanmax">
                             </span>
                         </a>
                 </div><br>
@@ -158,13 +158,13 @@
             </div>
           <?php endif; ?>
 
-		                                   
+
             <div class="panel-body">
                 <div id="error"></div>
             <form  id="signup_form"  method="post" action="<?php echo base_url().'user/forget_password/do_reset' ?>" class="form-horizontal m-t-20" role="form">
-                
+
                 <div class="form-group ">
-                    <div class="col-xs-12">                        
+                    <div class="col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                             <input type="email" id="email" name="email" value="<?php if(isset($email)){ echo $email;} ?>" class="form-control" placeholder="email" required>
@@ -172,15 +172,15 @@
                     </div>
                 </div>
 
-                
-                
+
+
                 <div class="form-group text-center m-t-40">
                     <div class="col-xs-12">
                         <button id="btn-login" class="btn btn-success btn-block text-uppercase waves-effect waves-light" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; <?php echo tr_wd('recover_now') ?></button>
                     </div>
                 </div>
-            </form> 
-            
+            </form>
+
             </div>
             <div class="row">
         <div class="col-sm-12 text-center">
@@ -190,12 +190,12 @@
         </div>
       </div>
 
-            </div>                            
+            </div>
           </div>
-        
-        
 
-        
+
+
+
     	<script>
             var resizefunc = [];
         </script>
@@ -214,7 +214,7 @@
 
 
         <script src="<?php echo base_url(); ?>assets/js/jquery.core.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/jquery.app.js"></script>	
+        <script src="<?php echo base_url(); ?>assets/js/jquery.app.js"></script>
 
 
         <script src="<?php echo base_url(); ?>assets/plugins/notifyjs/dist/notify.min.js"></script>
@@ -229,10 +229,10 @@
                           required: true,
                           },
                 username: {
-                          required: true            
+                          required: true
                           },
                 email: {
-                          required: true            
+                          required: true
                           },
                 },
                 messages:
@@ -244,12 +244,12 @@
                       required: "please enter  password"
                      },
                     username: "please enter your username",
-                      },     
+                      },
                     });
                   })
         </script>
 
 
-	
+
 	</body>
 </html>

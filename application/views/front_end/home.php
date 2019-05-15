@@ -89,13 +89,13 @@
     <div class="container">
         <div class="movies-list-wrap mlw-latestmovie">
             <div class="ml-title">
-                <span class="pull-left title">Movie Suggestion</span>
-                <a href="<?php echo base_url(); ?>movies" class="pull-right cat-more">View more »</a>
+                <span class="pull-left title">Sugerencias</span>
+                <a href="<?php echo base_url(); ?>movies" class="pull-right cat-more">Ver más »</a>
                 <ul role="tablist" class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" role="tab" href="#hot" aria-expanded="true">Popular</a></li>
-                    <li class=""><a data-toggle="tab" role="tab" href="#top-today" aria-expanded="false">Top view today</a></li>
-                    <li><a data-toggle="tab" role="tab" href="#top-weekly" aria-expanded="false">Top view weekly</a></li>
-                    <li class=""><a data-toggle="tab" role="tab" href="#top-rating" aria-expanded="false">Top Rating</a></li>
+                    <li class=""><a data-toggle="tab" role="tab" href="#top-today" aria-expanded="false">Lo más visto</a></li>
+                    <li><a data-toggle="tab" role="tab" href="#top-weekly" aria-expanded="false">Top Semanal</a></li>
+                    <li class=""><a data-toggle="tab" role="tab" href="#top-rating" aria-expanded="false">Buena calificación</a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -108,7 +108,7 @@
                             <?php foreach ($hot_videos as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -139,7 +139,7 @@
                             <?php foreach ($top_today as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -169,7 +169,7 @@
                             <?php foreach ($top_rated_videos as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -200,7 +200,7 @@
                             <?php foreach ($top_rated_videos as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -232,12 +232,12 @@
     <div class="container">
         <div class="movies-list-wrap mlw-latestmovie">
             <div class="ml-title m-b-10">
-                <span class="pull-left title">Latest Movies</span>
-                <a href="<?php echo base_url('movies') ?>" class="pull-right cat-more">View more »</a>
+                <span class="pull-left title">Últimos Lanzamientos</span>
+                <a href="<?php echo base_url('movies') ?>" class="pull-right cat-more">Ver más »</a>
                 <ul role="tablist" class="nav nav-tabs">
 
                     <li class="active">
-                        <a data-toggle="tab" role="tab" href="#latest-all" aria-expanded="true">All</a>
+                        <a data-toggle="tab" role="tab" href="#latest-all" aria-expanded="true">Todo</a>
                     </li>
                     <?php
                         $featured_genres = $this->common_model->get_features_genres(6);
@@ -260,7 +260,7 @@
                             ?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -295,7 +295,7 @@
                             ?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -332,13 +332,13 @@
     <div class="container">
         <div class="movies-list-wrap mlw-latestmovie">
             <div class="ml-title">
-                <span class="pull-left title">Tv-Series Suggestion</span>
-                <a href="<?php echo base_url(); ?>tv-series" class="pull-right cat-more">View more »</a>
+                <span class="pull-left title">Series</span>
+                <a href="<?php echo base_url(); ?>tv-series" class="pull-right cat-more">Ver más »</a>
                 <ul role="tablist" class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" role="tab" href="#hot-tvseries" aria-expanded="true">Popular</a></li>
-                    <li class=""><a data-toggle="tab" role="tab" href="#top-today-tvseries" aria-expanded="false">Top view today</a></li>
-                    <li><a data-toggle="tab" role="tab" href="#top-weekly-tvseries" aria-expanded="false">Top view weekly</a></li>
-                    <li class=""><a data-toggle="tab" role="tab" href="#top-rating-tvseries" aria-expanded="false">Top Rating</a></li>
+                    <li class=""><a data-toggle="tab" role="tab" href="#top-today-tvseries" aria-expanded="false">Lo más visto</a></li>
+                    <li><a data-toggle="tab" role="tab" href="#top-weekly-tvseries" aria-expanded="false">Top semanal</a></li>
+                    <li class=""><a data-toggle="tab" role="tab" href="#top-rating-tvseries" aria-expanded="false">Buena calificación</a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -351,7 +351,7 @@
                             <?php foreach ($hot_videos as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -382,7 +382,7 @@
                             <?php foreach ($top_today as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -412,7 +412,7 @@
                             <?php foreach ($top_rated_videos as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -443,7 +443,7 @@
                             <?php foreach ($top_rated_videos as $videos) :?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -476,12 +476,12 @@
     <div class="container">
         <div class="movies-list-wrap mlw-latestmovie">
             <div class="ml-title m-b-10">
-                <span class="pull-left title">Latest Tv-Series</span>
-                <a href="<?php echo base_url('tv-series') ?>" class="pull-right cat-more">View more »</a>
+                <span class="pull-left title">Últimas series</span>
+                <a href="<?php echo base_url('tv-series') ?>" class="pull-right cat-more">Ver más »</a>
                 <ul role="tablist" class="nav nav-tabs">
 
                     <li class="active">
-                        <a data-toggle="tab" role="tab" href="#latest-all-tvseries" aria-expanded="true">All</a>
+                        <a data-toggle="tab" role="tab" href="#latest-all-tvseries" aria-expanded="true">Todo</a>
                     </li>
                     <?php
                         $featured_genres = $this->common_model->get_features_genres(6);
@@ -504,7 +504,7 @@
                             ?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">
@@ -539,7 +539,7 @@
                             ?>
                             <div class="col-md-2 col-sm-3 col-xs-4">
                                 <div class="latest-movie-img-container">
-                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                                         <a href="<?php echo base_url('watch/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                         <div class="overlay-div"></div>
                                         <div class="video_quality">

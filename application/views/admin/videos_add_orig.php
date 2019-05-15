@@ -3,7 +3,7 @@
         padding: 10px;
     }
     .bootstrap-tagsinput .badge {;
-        background-color: #009688;
+        background-color: #2a81c7;
         border: 1px solid #035d54;
     }
     button.close {

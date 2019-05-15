@@ -32,7 +32,7 @@ class Page extends CI_Controller{
     }
 
     public function about_us(){
-        $data['title'] = 'About us';
+        $data['title'] = 'Acerca De';
         $data['page_name']='about';
         $this->load->view('front_end/index',$data);
     }

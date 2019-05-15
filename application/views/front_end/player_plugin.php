@@ -14,7 +14,7 @@
     <!-- Logo/watermark -->
     <script src="<?php echo base_url(); ?>assets/player/plugins/watermark/videojs-logo.min.js"></script>
     <script>
-      ovoo_player.videoLogo({
+      avanmax_player.videoLogo({
         watermark: ' ',
         logo: '<?php echo base_url().$player_watermark_logo; ?>',       // default 'logo.png'
         homepage: '<?php echo $player_watermark_url; ?>',
@@ -25,7 +25,7 @@
     <!-- Social Share -->
     <script src="<?php echo base_url(); ?>assets/player/plugins/videojs-share/videojs-share.js"></script>
     <script>
-        ovoo_player.share({
+        avanmax_player.share({
             appId: 11231434324
         });
     </script>
@@ -34,7 +34,7 @@
     <!--  seek button -->
     <script src="<?php echo base_url(); ?>assets/player/plugins/videojs-seek-buttons/videojs-seek-buttons.min.js"></script>
     <script>
-    ovoo_player.seekButtons({
+    avanmax_player.seekButtons({
         forward: <?php echo $player_seek_forward; ?>,
         back: <?php echo $player_seek_back; ?>
       });
@@ -44,7 +44,7 @@
     <!-- hotkeys -->
     <script src="<?php echo base_url(); ?>assets/player/plugins/hotkeys/videojs.hotkeys.min.js"></script>
     <script>    
-      ovoo_player.ready(function() {
+      avanmax_player.ready(function() {
         this.hotkeys({
           seekStep: 5
         });
@@ -55,9 +55,9 @@
     <!-- persistvolume -->
     <script src="<?php echo base_url(); ?>assets/player/plugins/videojs.persistvolume/videojs.persistvolume.js"></script>
     <script>    
-      ovoo_player.ready(function() {
+      avanmax_player.ready(function() {
         this.persistvolume({
-          namespace: "ovoo_player-previus-volume"
+          namespace: "avanmax_player-previus-volume"
         });
       });
     </script>

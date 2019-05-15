@@ -63,7 +63,7 @@
                         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                     </video>
                     <script>
-                    var ovoo_player = videojs("play", {
+                    var avanmax_player = videojs("play", {
                     "controls": true,
                     "autoplay": true,
                     "preload": "auto" ,
@@ -81,7 +81,7 @@
                     <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                 </video>
                 <script>
-                var ovoo_player = videojs("play", {
+                var avanmax_player = videojs("play", {
                 "controls": true,
                 "autoplay": true,
                 "preload": "auto" ,
@@ -100,7 +100,7 @@
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
             </video>
             <script>
-            var ovoo_player = videojs("play", {
+            var avanmax_player = videojs("play", {
             "controls": true,
             "autoplay": true,
             "preload": "auto" ,
@@ -114,7 +114,7 @@
             <!-- Logo/watermark -->
             <script src="<?php echo base_url(); ?>assets/player/plugins/watermark/videojs-logo.min.js"></script>
             <script>
-            ovoo_player.videoLogo({
+            avanmax_player.videoLogo({
             watermark: ' ',
             logo: '<?php echo base_url().$player_watermark_logo; ?>',       // default 'logo.png'
             homepage: '<?php echo $player_watermark_url; ?>',
@@ -125,7 +125,7 @@
             <!-- Social Share -->
             <script src="<?php echo base_url(); ?>assets/player/plugins/videojs-share/videojs-share.js"></script>
             <script>
-            ovoo_player.share({
+            avanmax_player.share({
             appId: 11231434324
             });
             </script>
@@ -134,7 +134,7 @@
             <!-- hotkeys -->
             <script src="<?php echo base_url(); ?>assets/player/plugins/hotkeys/videojs.hotkeys.min.js"></script>
             <script>
-            ovoo_player.ready(function() {
+            avanmax_player.ready(function() {
             this.hotkeys({
             seekStep: 5
             });
@@ -145,9 +145,9 @@
             <!-- persistvolume -->
             <script src="<?php echo base_url(); ?>assets/player/plugins/videojs.persistvolume/videojs.persistvolume.js"></script>
             <script>
-            ovoo_player.ready(function() {
+            avanmax_player.ready(function() {
             this.persistvolume({
-            namespace: "ovoo_player-previus-volume"
+            namespace: "avanmax_player-previus-volume"
             });
             });
             </script>
@@ -300,7 +300,7 @@
             <?php foreach ($latest_videos as $videos) :?>
             <div class="col-md-2 col-sm-3 col-xs-4">
                 <div class="latest-movie-img-container">
-                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                    <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                         <a href="<?php echo base_url('movie/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                         <div class="overlay-div"></div>
                         <div class="video_quality">
@@ -338,7 +338,7 @@ if($tv_series_publish =='1'):
         <?php foreach ($latest_tv_series as $videos) :?>
         <div class="col-md-2 col-sm-3 col-xs-4">
             <div class="latest-movie-img-container">
-                <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
+                <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($videos['videos_id']); ?>" alt="<?php echo $videos['title'];?>">
                     <a href="<?php echo base_url('movie/'.$videos['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                     <div class="overlay-div"></div>
                     <div class="video_quality">

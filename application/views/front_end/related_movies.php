@@ -18,7 +18,7 @@
                     ?>
                     <div class="col-md-2 col-sm-3 col-xs-2">
                         <div class="latest-movie-img-container">
-                            <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/blank_thumbnail.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($v['videos_id']); ?>" alt="<?php echo $v['title'];?>"> <a href="<?php echo base_url('watch/'.$v['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
+                            <div class="movie-img"> <img class="img-responsive lazy" src="<?php echo base_url('uploads/default_image/default_img.jpg');?>" data-src="<?php echo $this->common_model->get_video_thumb_url($v['videos_id']); ?>" alt="<?php echo $v['title'];?>"> <a href="<?php echo base_url('watch/'.$v['slug']).'';?>" class="ico-play ico-play-sm"> <img class="img-responsive play-svg svg" src="<?php echo base_url(); ?>assets/front_end/images/play-button.svg" alt="play" onerror="this.src='<?php echo base_url(); ?>assets/front_end/images/play-button.png'"> </a>
                                 <div class="overlay-div"></div>
                                 <div class="video_quality"><span class="label label-primary"><?php echo $v['video_quality'] ?></span></div>
                                 <div class="movie-title"><h3><a href="<?php echo base_url('watch/'.$v['slug']).'';?>"><?php echo $v['title'];?></a></h3></div>

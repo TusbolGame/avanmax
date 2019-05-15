@@ -95,14 +95,14 @@
 		<div id="bh-header">
 			<div id="bhh-menu">
 				<ul class="top-menu">
-					<li class="active"><a href="<?php echo base_url(); ?>" title="HOME">HOME</a></li>
-					<li><a href="<?php echo base_url('movies'); ?>" title="MOVIES">MOVIES</a></li>
+					<li class="active"><a href="<?php echo base_url(); ?>" title="HOME">Portada</a></li>
+					<li><a href="<?php echo base_url('movies'); ?>" title="MOVIES">Películas</a></li>
 					<?php
 		              $tv_series_publish          = $this->db->get_where('config',array('title'=>'tv_series_publish'))->row()->value;
 		              $tv_series_pin_primary_menu = $this->db->get_where('config',array('title'=>'tv_series_pin_primary_menu'))->row()->value;
 		              if($tv_series_publish =='1' && $tv_series_pin_primary_menu =='1'):
 		            ?>
-					<li><a href="<?php echo base_url('tv-series'); ?>" title="TV-SERIES">TV-SERIES</a></li>
+					<li><a href="<?php echo base_url('tv-series'); ?>" title="TV-SERIES">Series</a></li>
 					<?php endif; ?>
 					<?php
 		              $live_tv_publish          = $this->db->get_where('config',array('title'=>'live_tv_publish'))->row()->value;
@@ -119,9 +119,9 @@
 		<div class="container search_container">
 			<div class="row text-center">
 				<div class="clo-md-12">
-					<div style="margin-bottom: 40px;">
+					<div style="margin-bottom: 35px;">
 						<a href="<?php echo base_url(); ?>">
-							<img src="<?php echo base_url(); ?>uploads/system_logo/logo.png" alt="logo">
+							<img class="logo_home" src="<?php echo base_url(); ?>uploads/system_logo/logo.png" alt="logo">
 						</a>
 
 					</div>
@@ -136,7 +136,7 @@
 		                        <!-- Addthis Social tool -->
 		                    <?php endif; ?>
 			                <div class="input-group stylish-input-group search-box">
-			                    <input type="text" name="q" class="form-control input-search"  autocomplete="off" id="search-input" placeholder="Search" >
+			                    <input type="text" name="q" class="form-control input-search"  autocomplete="off" id="search-input" placeholder="Rocket Raccoon...!">
 			                    <span class="input-group-addon">
 			                        <button type="submit" class="submit_btn">
 			                            Buscar

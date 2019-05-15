@@ -33,7 +33,7 @@
             <div class="comments-section">
                 <div class="section-title">
                     <h4 class="text-left title-bottom text-uppercase tp-mb30 tp-pb5">
-                        <?php echo $total_comments; ?> Comments found</h4>
+                        <?php echo $total_comments; ?> Comentarios</h4>
                 </div>
                 <div class="comment-box">
                     <?php   $this->db->order_by('comments_id','DESC');
@@ -69,15 +69,15 @@
                     ?>
                     <div class="comment coment-replay">
                         <form class="custom-form" method="post" action="<?php echo base_url('comments/replay'); ?>">
-                            <textarea name="comment" id="comment" class="form-control" rows="2" placeholder="Repay" required></textarea>
+                            <textarea name="comment" id="comment" class="form-control" rows="2" placeholder="Responder" required></textarea>
                             <input type="hidden" name="video_id" value="<?php echo $watch_videos->videos_id; ?>">
                             <input type="hidden" name="replay_for" value="<?php echo $comment['comments_id']; ?>">
                             <input type="hidden" name="url" value="<?php echo base_url(uri_string());; ?>">
                             <div>
                                 <?php if($this->session->userdata('login_status') == 1){ ?>
-                                <button type="submit" value="submit" class="btn btn-success btn-sm pull-right m-t-20"> <span class="btn-label"><i class="fi ion-ios-undo-outline"></i></span>Replay </button>
+                                <button type="submit" value="submit" class="btn btn-success btn-sm pull-right m-t-20"> <span class="btn-label"><i class="fi ion-ios-undo-outline"></i></span>Responder</button>
                                 <?php }else{ ?>
-                                <a class="btn btn-success btn-sm pull-right m-t-20" href="<?php echo base_url('login'); ?>"> <span class="btn-label"><i class="fi ion-log-in"></i></span>Login to Replay </a>
+                                <a class="btn btn-success btn-sm pull-right m-t-20" href="<?php echo base_url('login'); ?>"> <span class="btn-label"><i class="fi ion-log-in"></i></span>Acceder para Responder</a>
                                 <?php } ?>
                             </div>
                         </form>
@@ -93,7 +93,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div id="comment-container">
-            <div class="movie-heading overflow-hidden"> <span class="wow fadeInUp" data-wow-duration="0.8s">Leave a comment</span>
+            <div class="movie-heading overflow-hidden"> <span class="wow fadeInUp" data-wow-duration="0.8s">Comentarios</span>
                 <div class="disable-bottom-line wow zoomIn" data-wow-duration="0.8s"></div>
             </div>
             <form class="comment-form" method="post" action="<?php echo base_url('comments/comment'); ?>">
@@ -102,16 +102,16 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <textarea name="comment" id="cmnt-user-msg" rows="4" class="form-control" placeholder="Write comment here" required></textarea>
+                            <textarea name="comment" id="cmnt-user-msg" rows="4" class="form-control" placeholder="Escribir comentario" required></textarea>
                             <div class="input-top-line"></div>
                             <div class="input-bottom-line"></div>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <?php if($this->session->userdata('login_status') == 1){ ?>
-                        <button type="submit" value="submit" class="btn btn-success"> <span class="btn-label"><i class="fi ion-ios-compose-outline"></i></span>Post Comments </button>
+                        <button type="submit" value="submit" class="btn btn-success"> <span class="btn-label"><i class="fi ion-ios-compose-outline"></i></span>Publicar Comentario</button>
                         <?php }else{ ?>
-                        <a class="btn btn-success" href="<?php echo base_url('login'); ?>"> <span class="btn-label"><i class="fi ion-log-in"></i></span>Login to Comments </a>
+                        <a class="btn btn-success" href="<?php echo base_url('login'); ?>"> <span class="btn-label"><i class="fi ion-log-in"></i></span>Acceder para Comentar</a>
                         <?php } ?>
                     </div>
                 </div>

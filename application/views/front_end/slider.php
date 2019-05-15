@@ -139,7 +139,7 @@ $(document).ready(function() {
         /*background: rgba(0, 0, 0, 0.4);*/
         padding-bottom: 20px;
         padding-left: 20px;
-        font-family: "Open Sans", sans-serif;
+        font-family: 'Poppins', sans-serif;
         /* border-radius: 15px 50px 30px 5px; */
     }
 

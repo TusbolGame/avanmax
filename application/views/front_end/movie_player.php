@@ -3,7 +3,7 @@
 		if(($total_video_files >0)):
 			$player_color_skin          =   $this->db->get_where('config' , array('title'=>'player_color_skin'))->row()->value;
 			if(isset($_GET['key'])):
-		        $this->db->order_by('source_type', "DESC");
+		        $this->db->order_by('source_type', "ASC");
 	            $video_file 	= $this->db->get_where('video_file', array('stream_key'=>$_GET['key']),1)->row();
 	            $video_file_id  = $video_file->video_file_id;
 		        $source_type    = $video_file->source_type;
@@ -37,7 +37,7 @@
             <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
         </video>
         <script>
-	        var ovoo_player = videojs("play", {
+	        var avanmax_player = videojs("play", {
 	        									"controls": true,
 	        									"autoplay": false,
 	        									"preload": "auto" ,

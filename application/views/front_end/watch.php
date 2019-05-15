@@ -66,10 +66,10 @@
                         <?php if($show_star_image =='1'): ?>
                             <li><a data-toggle="tab" href="#actor_tab">Actor</a></li>
                             <li><a data-toggle="tab" href="#director_tab">Director</a></li>
-                            <li><a data-toggle="tab" href="#writer_tab">Writer</a></li>
+
                         <?php endif; ?>
                         <?php if($total_download_links >0 && $watch_videos->enable_download =='1'): ?>
-                        <li><a data-toggle="tab" href="#download">Download</a></li>
+                        <li><a data-toggle="tab" href="#download">Descargar</a></li>
                         <?php endif; ?>
                     </ul>
                     <div class="clearfix"></div>
@@ -92,14 +92,16 @@
                                             <div class="addthis_inline_share_toolbox_yl99 m-t-30 m-b-10" data-url="<?php echo base_url().'watch/'.$watch_videos->slug.'';?>" data-title="Watch & Download <?php echo $watch_videos->title;?>"></div>
                                             <!-- Addthis Social tool -->
                                         <?php endif; ?>
-                                            <p>
-                                                <?php echo $watch_videos->description;?>
-                                            </p>
+                                            <div class="movie_desc">
+                                                <p>
+                                                    <?php echo $watch_videos->description;?>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 text-left">
-                                            <p> <strong>Genre: </strong>
+                                            <p> <strong>Género: </strong>
                                                 <?php if($watch_videos->genre !='' && $watch_videos->genre !=NULL):
                                                     $i = 0;
                                                     $genres =explode(',', $watch_videos->genre);
@@ -128,16 +130,8 @@
                                             <?php endforeach; endif;?>
                                             </p>
 
-                                            <p> <strong>Writer: </strong>
-                                                <?php if($watch_videos->writer !='' && $watch_videos->writer !=NULL):
-                                                    $i = 0;
-                                                    $stars =explode(',', $watch_videos->writer);
-                                                    foreach ($stars as $star_id):
-                                                    if($i>0){ echo ',';} $i++;                                           ?>
-                                                <a href="<?php echo base_url().'star/'.$this->common_model->get_star_slug_by_id($star_id);?>"><?php echo $this->common_model->get_star_name_by_id($star_id);?></a>
-                                            <?php endforeach; endif;?>
-                                            </p>
-                                            <p> <strong>Country: </strong>
+
+                                            <p> <strong>País: </strong>
                                                 <?php if($watch_videos->country !='' && $watch_videos->country !=NULL):
                                                     $i = 0;
                                                     $countries =explode(',', $watch_videos->country);
@@ -147,16 +141,16 @@
                                                 <a href="<?php echo $this->country_model->get_country_url_by_id($country_id);?>"><?php echo $this->country_model->get_country_name_by_id($country_id);?></a>
                                             <?php endforeach; endif;?>
                                             </p>
-                                            <p><strong>Release: </strong>
+                                            <p><strong>Lanzamiento: </strong>
                                                 <?php echo $watch_videos->release;?>
                                             </p>
                                         </div>
                                         <div class="col-md-6 text-left">
-                                            <p><strong>Duration:</strong>
+                                            <p><strong>Duración:</strong>
                                                 <?php echo $watch_videos->runtime;?>
                                             </p>
-                                            <p><strong>Quality:</strong>  <span class="label label-primary"><?php echo $watch_videos->video_quality; ?></span></p>
-                                            <p><strong>Rating:</strong>
+                                            <p><strong>Calidad:</strong>  <span class="label label-primary"><?php echo $watch_videos->video_quality; ?></span></p>
+                                            <p><strong>Calificación:</strong>
                                                 <?php echo $watch_videos->rating;?>
                                             </p>
                                             <?php if($watch_videos->imdb_rating !='' && $watch_videos->imdb_rating !=NULL): ?>
@@ -164,19 +158,19 @@
                                                 <?php echo $watch_videos->imdb_rating;?>
                                             </p>
                                         <?php endif; ?>
-                                            <div class='rating_selection pull-left'> <strong id="rated">Rating(<?php echo $watch_videos->total_rating;?>)</strong><br>
+                                            <div class='rating_selection pull-left'> <strong id="rated">Calificación(<?php echo $watch_videos->total_rating;?>)</strong><br>
                                                 <input checked id='rating_0' class="rate_now" name='rating' type='radio' value='0'>
-                                                <label for='rating_0'> <span>Unrated</span> </label>
+                                                <label for='rating_0'> <span>Sin Calificar</span> </label>
                                                 <input id='rating_1' class="rate_now" name='rating' type='radio' value='1'>
-                                                <label for='rating_1'> <span>Rate 1 Star</span> </label>
+                                                <label for='rating_1'> <span>1 Estrella</span> </label>
                                                 <input id='rating_2' class="rate_now" name='rating' type='radio' value='2'>
-                                                <label for='rating_2'> <span>Rate 2 Stars</span> </label>
+                                                <label for='rating_2'> <span>2 Estrellas</span> </label>
                                                 <input id='rating_3' class="rate_now" name='rating' type='radio' value='3' checked>
-                                                <label for='rating_3'> <span>Rate 3 Stars</span> </label>
+                                                <label for='rating_3'> <span>3 Estrellas</span> </label>
                                                 <input id='rating_4' class="rate_now" name='rating' type='radio' value='4'>
-                                                <label for='rating_4'> <span>Rate 4 Stars</span> </label>
+                                                <label for='rating_4'> <span>4 Estrellas</span> </label>
                                                 <input id='rating_5' class="rate_now" name='rating' type='radio' value='5'>
-                                                <label for='rating_5'> <span>Rate 5 Stars</span> </label>
+                                                <label for='rating_5'> <span>5 Estrellas</span> </label>
                                                 <br>
                                             </div><br>
 
@@ -289,11 +283,11 @@
             success: function(response) {
                 var status = response.status;
                 if (status == "success") {
-                    swal('Good job!', 'Added to your ' + list_name + ' List.', 'success');
+                    swal('', 'Añadido a ' + list_name + '.', 'success');
                 } else if (status == "login_fail") {
-                    swal('OPPS!', 'Please login to add your ' + list_name + ' list.', 'error');
+                    swal('Hmm', 'Accede para añadir ' + list_name + '.', 'error');
                 } else {
-                    swal('OPPS!', 'Already exist on your ' + list_name + ' list.', 'error');
+                    swal('Hmm', 'Ya existe ' + list_name + ' en tu lista.', 'error');
                 }
             }
         });
@@ -320,7 +314,7 @@
                     if (post_status == "success") {
                         $('#rated').html('Rating(' + total_rating + ')');
                     } else {
-                        alert('Fail to submit rating');
+                        alert('Error al calificar');
                     }
                 }
             });

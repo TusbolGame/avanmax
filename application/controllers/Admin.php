@@ -932,7 +932,7 @@ class Admin extends CI_Controller {
         $data['param2']         = $param2;
         $data['slug']           = $this->common_model->get_slug_by_videos_id($param1);
         $data['page_name']      = 'file_and_download';
-        $data['page_title']     = 'Video upload & Download => <strong>'.$this->common_model->get_title_by_videos_id($param1).'</strong>';
+        $data['page_title']     = 'Videos / <strong>'.$this->common_model->get_title_by_videos_id($param1).'</strong>';
         $this->load->view('admin/index', $data);
     }
     // subtitles
